@@ -1,0 +1,28 @@
+@CHARSET "UTF-8";
+
+.search:before{
+	background: 
+}
+.search{
+	margin-left: 300px;
+	margin-left: 10px;
+}
+
+.inputType{
+	opacity: 0.05;
+    filter: alpha(opacity=50);
+    
+	border: none;
+    font: normal 16px Roboto,sans-serif;
+    font-variant-ligatures: none;
+    height: 46px;
+    outline: none;
+    padding: 11px 16px 11px 16px;
+    width: 100%;
+    background-color: black;
+    box-sizing: border-box;
+}
+
+.md-toolbar-tools{
+	background: #fb0;
+}

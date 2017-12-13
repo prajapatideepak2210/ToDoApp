@@ -1,0 +1,71 @@
+<md-content flex layout="row" layout-align="space-around"
+	layout-padding="layout-padding" ng-cloak="ng-cloak"> <md-card
+	flex-gt-sm="66" flex-gt-md="40" style="max-height:700px"> <md-card-content>
+	
+	<form name="userForm">
+		<h3 style="text-align: center;">Registration Form</h3>
+		<md-input-container class="md-block"> <label>First Name</label>
+		 	<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="fName"
+		class="form-control" ng-model="user.fName" required>
+			<div ng-messages="userForm.fName.$error">
+				<div ng-message-exp="['required','pattern']">First Name is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container class="md-block"> <label>Last Name</label> 
+			<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="lName"
+			class="form-control" ng-model="user.lName" required>
+			<div ng-messages="userForm.lName.$error">
+				<div ng-message-exp="['required','pattern']">Last name is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container class="md-block"> <label>Email</label>
+			<input type="email" name="userName" class="form-control"
+			ng-model="user.userName" required>
+			<div ng-messages="userForm.userName.$error" role="alert">
+				<div ng-message-exp="['required','pattern']">UserName is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container class="md-block"> <label>Password</label>
+			<input type="password" name="password" class="form-control"
+			ng-model="user.password" ng-minlength="6" ng-maxlength="16" required>
+			<div ng-messages="userForm.password.$error">
+				<div ng-message="required">password is required.</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container class="md-block"> <label>Mobile
+			Number</label> <input type="number" name="contactNumber" class="form-control"
+			ng-model="user.contactNumber" ng-minlength="10" ng-maxlength="10"
+			required>
+		<div ng-messages="userForm.mobilenumber.$error">
+			<div ng-message="required">Contact number is required.</div>
+		</div>
+		</md-input-container>
+
+		<md-input-container class="md-block"> <label>Address</label>
+		<input ng-pattern="/^[a-zA-Z\s]*$/" type="text" name="address"
+			class="form-control" ng-model="user.address" required>
+		<div ng-messages="userForm.address.$error">
+			<div ng-message-exp="['required','pattern']">Address is required.</div>
+		</div>
+		</md-input-container>
+
+		<md-button ng-click="registerUser()"
+		class="md-raised md-primary"
+		style="width: 465px; margin-left: 0px; background: #DB7093; color: white;">Registration</md-button>
+		<br/>
+		
+		<h5 style="text-align: center; margin-top: 0px;">
+			<a ui-sref="login"  style="color: blue; font-family: monospace;">login</a>
+		</h5>
+		<center>
+			<font color="red"><p ng-bind="error" ng-disable></p></font>
+		</center>
+
+	</form>
+</md-card-actions>
+</md-card>
+</md-content>

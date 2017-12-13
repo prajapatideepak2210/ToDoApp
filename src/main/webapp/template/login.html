@@ -1,0 +1,50 @@
+<md-content flex layout="row" layout-align="space-around"
+	layout-padding="layout-padding" ng-cloak="ng-cloak"> <md-card
+	flex-gt-sm="38" flex-gt-md="40" style=" max-height:700px"> <md-card-content>
+
+<form name="userForm">
+	<h1 class="formHeading" ><b>LOG IN</b></h1>
+
+	<center>
+		<p style="color: red;" ng-bind="errorMessage"></p>
+	</center>
+
+	<md-input-container class="md-block"> <label>Enter the email</label>
+	<input type="email" name="userName" class="form-control"
+		ng-model="user.userName" required>
+	<div ng-messages="userForm.userName.$error" role="alert">
+		<div ng-message="required">This is required.</div>
+	</div>
+	</md-input-container>
+	
+	<md-input-container class="md-block"> <label>Enter the password</label>
+	<input type="password" name="password" class="form-control"
+		ng-model="user.password" required>
+		
+	<div ng-messages="userForm.password.$error">
+		<div ng-message="required">This is required.</div>
+	</div>
+	<p>
+		<span id="errmsg"></span>
+	</p>
+	</md-input-container>
+	
+	<md-button md-no-ink class="md-primary" ng-click="loginUser()" ng-disabled="loginform.$invalid" 
+	style="background: #DB7093; width: 465px; align: center; margin-left: 3px;">Login</md-button>
+	
+	<div style="height: 15px; margin-bottom: 5px;">
+		<h6 style="; margin-top:5px; margin-bottom: 5px;">
+		<a href="#!/forgotpassword" style="color:blue; margin-left: 10px;">forgot password?</a>
+		<a href="#!/registration" style="color:blue; align: right; margin-left: 250px;">registration?</a>
+		</h6>
+	</div>
+
+	<button class="loginButton facebookButton"><a href="facebookLogin" style="text-decoration: none;">Facebook Login</a>
+	</button><br/>
+	<button class="loginButton googleButton"><a href="googleLogin" style="text-decoration: none;">GoogleLogin</a>
+	</button>
+</form>
+	
+</md-card-actions>
+</md-card> 
+</md-content>

@@ -1,0 +1,116 @@
+@CHARSET "UTF-8";
+
+.loginButton {
+  box-sizing: border-box;
+  position: relative;
+  margin: 0.2em;
+  padding: 0 20px 0 46px;
+  border: none;
+  text-align: center;
+  line-height: 34px;
+  white-space: nowrap;
+  border-radius: 0.2em;
+  font-size: 16px;
+  color: #FFF;
+  width: 100px;
+}
+
+.loginButton:before {
+  content: "";
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 3px;
+  width: 34px;
+  height: 100%;
+}
+
+.loginButton:active {
+  box-shadow: inset 0 0 0 32px rgba(0,0,0,0.1);
+}
+
+/* Facebook button css */
+.facebookButton {
+  background-color: #4C69BA;
+  background-image: linear-gradient(#4C69BA, #3B55A0);
+  text-shadow: 0 -1px 0 #354C8C;
+  width:465px;
+  margin-left: 3px;
+}
+
+.facebookButton:before {
+  border-right: #364e92 1px solid;
+  margin-left: 3px;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_facebook.png') 6px 6px no-repeat;
+}
+
+.facebookButton:hover,
+.facebookButton:focus {
+  background-color: #5B7BD5;
+  margin-left: 3px;
+  background-image: linear-gradient(#5B7BD5, #4864B1);
+}
+
+
+/* Google button css */
+.googleButton {
+  background: #DD4B39;
+  width: 465px;
+  margin-left: 3px;
+}
+.googleButton:before {
+  border-right: #BB3F30 1px solid;
+  margin-left: 3px;
+  background: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/14082/icon_google.png') 6px 6px no-repeat;
+}
+.googleButton:hover,
+.googleButton:focus {
+	margin-left: 3px;
+  background: #E74B37;
+}
+.body
+ {
+	background-color: #F2F3F4;
+	overflow-y: scroll;
+	layout: column;
+}
+
+.formHeading {
+    padding-bottom: 0;
+    padding-top: 16px;
+    font-size: large;
+    text-align: center;
+}
+
+p {
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.text-strong{
+	font-weight: 400;
+}
+
+html, body
+{
+    height:100%;
+}
+
+.centre
+{
+    position:absolute;
+    left:50%;
+    top:50%;
+}
+
+#wrapper {
+    height:100%;
+    position:relative;
+    left:0px;
+    top:0px;
+    min-height:600px;
+    min-width:600px;
+}

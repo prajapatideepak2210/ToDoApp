@@ -1,0 +1,42 @@
+@CHARSET "UTF-8";
+
+
+
+
+.md-nav-bar{
+	height: 100%;
+	width: 285px;
+}
+
+.nav_ul_div{
+	width: 100%;
+}
+
+.nav_li{
+	display: block;
+    min-height: 40px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+    font-family: Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
+    color: rgba(0,0,0,0.87);
+}
+
+.a{
+	text-decoration: none;
+	color: black;
+}
+
+.img{
+	margin: 10px 8px;
+}
+
+.h6{
+	margin: 4px;
+	text-align: left;
+}
+
+.nav_h6_div{
+	margin-left: 0px; 
+	margin-top: 10px; 
+	height: 30px;
+}
