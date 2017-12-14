@@ -98,15 +98,12 @@
 		<property name="concurrency" value="3-10" />
 	</bean>
 	
-	<bean id="messageProducer" class="com.bridgelabz.services.MessageProducer"/>	
+	<bean id="messageProducer" class="com.bridgelabz.services.MessageProducer"/>
 	<bean id="consumer" class="com.bridgelabz.services.MessageConsumer"/>
 	
 	<jms:listener-container container-type="default" connection-factory="connectionFactory"  
  acknowledge="auto">  
 <jms:listener destination="messageQueue" ref="consumer" method="onMessage"></jms:listener>
 </jms:listener-container>
-
-
-
 
 </beans>  

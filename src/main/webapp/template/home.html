@@ -1,13 +1,24 @@
 <div layout="column" layout-fill>
+<nav-bar></nav-bar>	
+<md-container class="md-container" flex layout="row" >		
+<side-bar></side-bar>
+<md-content layout="column" flex> 
 
-
-	<nav-bar></nav-bar>	
-	<md-container flex layout="row">
+<div layout="row" layout-align="center center">
+	<md-card>
 		
-	<side-bar></side-bar>
-		<md-content>
-			<div>
-			</div>
-		</md-content>
-	</md-container>
+			<md-card-content>
+				<div>
+					<input type="text" name="title" ng-model="note.title"><br/>
+					<input type="text" name="description" ng-model="note.description"><br/>
+					<button layout-align="center end" style="align: right;" ng-click="noteCreate(note)">Done</button>	
+				</div>
+		
+			</md-card-content>
+		
+
+	</md-card>
+	</div>
+</md-content>
+</md-container>
 </div>

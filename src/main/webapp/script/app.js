@@ -18,7 +18,7 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 			.state('home', {
 				url : '/home',
 				templateUrl : 'template/home.html',
-				//controller : 'homeController'
+				controller : 'homeController'
 			})
 			
 			.state('forgotpassword', {

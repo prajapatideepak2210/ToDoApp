@@ -6,6 +6,7 @@
 	<link rel="stylesheet" href="css/login.css"/>
 	<link rel="stylesheet" href="css/home.css">
 	<link rel="stylesheet" href="css/navbar.css">
+	<link rel="stylesheet" href="css/sidebar.css">
 </head>
 <body ng-app="ToDo">
 	<div ui-view ></div>
@@ -30,6 +31,7 @@
 	<script type="text/javascript" src="service/registrationService.js"></script>
 	<script type="text/javascript" src="service/forgotpasswordService.js"></script>
 	<script type="text/javascript" src="service/resetpasswordService.js"></script>
+	<script type="text/javascript" src="service/homeService.js"></script>
 	
 	
 	<!-- All Controllers are here -->
@@ -38,6 +40,8 @@
 	<script type="text/javascript" src="controller/registrationController.js"></script>
 	<script type="text/javascript" src="controller/forgotpasswordController.js"></script>
 	<script type="text/javascript" src="controller/resetpasswordController.js"></script>
+	<script type="text/javascript" src="controller/homeController.js"></script>
+	
 	
 	<!-- All directives are here -->
 	

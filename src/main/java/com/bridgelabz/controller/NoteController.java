@@ -28,9 +28,10 @@ public class NoteController {
 	public ResponseEntity<Response> addNote(@RequestBody Note note, HttpServletRequest request) {
 		Response response = new Response();
 		String token = request.getHeader("TokenAccess");
+		System.out.println("Token---->" + token);
 		if (note != null) {
-			int noteId=noteService.addNote(note, token);
-			if (noteId!=0) {
+			int noteId = noteService.addNote(note, token);
+			if (noteId != 0) {
 				response.setMessage("Note Successfully added.");
 				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 			} else {
@@ -45,8 +46,8 @@ public class NoteController {
 	@RequestMapping(value = "/deleteNote/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> deleteNote(@PathVariable int id) {
 		Response response = new Response();
-		int noteId=noteService.deleteNote(id);
-		if (noteId!=0) {
+		int noteId = noteService.deleteNote(id);
+		if (noteId != 0) {
 			response.setMessage("Note successfully deleted.");
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 		}
@@ -59,8 +60,8 @@ public class NoteController {
 	public ResponseEntity<Response> updateNote(@RequestBody Note note, @PathVariable int id) {
 		Response response = new Response();
 		note.setId(id);
-		Note checkNote=noteService.updateNote(note);
-		if (checkNote!=null) {
+		Note checkNote = noteService.updateNote(note);
+		if (checkNote != null) {
 			response.setMessage("Note Successfully Updated.");
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 		}
