@@ -14,15 +14,14 @@ app.factory('homeService', function($http) {
 		})
 	}
 	
-	notes.getAllNotes=function(note){
+	notes.getAllNotes=function(){
 		return $http({
 			method : "get",
-			url : "getAllNotes",
-			data : note,
+			url : "getNoteByUserId",
 			headers : {
 				'TokenAccess' : localStorage.getItem('token')
 			}
 		})
 	}
 	return notes;
-})
+});

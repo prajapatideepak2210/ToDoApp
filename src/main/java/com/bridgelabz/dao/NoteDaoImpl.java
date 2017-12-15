@@ -116,18 +116,18 @@ public class NoteDaoImpl implements NoteDao {
 
 	/**
 	 * @param id
-	 * @return Note
+	 * @return List
 	 * 
-	 * @Description It will return User if note available in database otherwise
+	 * @Description It will return List of user if given user_id is available in database otherwise
 	 *              return null.
 	 */
-	@SuppressWarnings("rawtypes")
-	public Note getNoteById(int id) {
+	@SuppressWarnings("unchecked")
+	public List<Note> getNoteById(int user_id) {
 		Session session = sessionFactory.openSession();
-		Query query = session.createQuery("from Note where id = :id");
-		query.setParameter("id", id);
-		Note note = (Note) query.uniqueResult();
+		Query<Note> query = session.createQuery("from Note where user_id = :user_id");
+		query.setParameter("user_id", user_id);
+		List<Note> list = (List<Note>) query.list();
 		session.close();
-		return note;
+		return list;
 	}
 }

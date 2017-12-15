@@ -82,8 +82,8 @@ public class NoteServiceImpl implements NoteService {
 	 * 
 	 * @see com.bridgelabz.services.NoteService#getNoteById(int)
 	 */
-	public Note getNoteById(int id) {
-		return noteDao.getNoteById(id);
+	public List<Note> getNoteById(int user_id) {
+		return noteDao.getNoteById(user_id);
 	}
 
 }

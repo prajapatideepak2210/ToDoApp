@@ -3,6 +3,7 @@ package com.bridgelabz.controller;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,20 +73,21 @@ public class NoteController {
 	@RequestMapping(value = "/getAllNotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Note>> getAllNotes() {
 		List<Note> list = noteService.getNotes();
-		System.out.println(list);
 		if (list != null)
 			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
 		else
 			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/getNote/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Note> getNoteById(@PathVariable int id) {
-		Note note = noteService.getNoteById(id);
-		if (note != null)
-			return new ResponseEntity<Note>(note, HttpStatus.ACCEPTED);
+	@RequestMapping(value = "/getNoteByUserId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Note>> getNoteById(HttpSession session) {
+		int user_id=(int) session.getAttribute("user_id");
+		System.out.println("User_id : "+user_id);
+		List<Note> list = noteService.getNoteById(user_id);
+		if (list != null)
+			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
 		else
-			return new ResponseEntity<Note>(note, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
 	}
 
 }

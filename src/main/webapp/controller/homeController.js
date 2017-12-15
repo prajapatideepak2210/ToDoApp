@@ -1,29 +1,26 @@
 var ToDo = angular.module('ToDo');
 
-ToDo.controller('homeController',function($scope,homeService,$state){
-	$scope.noteCreate= function(){
+ToDo.controller('homeController', function($scope, homeService) {
+	$scope.noteCreate = function() {
 		console.log("Create Note.....");
 		var create = homeService.noteCreation($scope.note);
-		console.log("hi................."+$scope.note);
-		create.then(function(response){
+		create.then(function(response) {
 			console.log(response.data.message);
-			$scope.errorMessage=response.data.message;
-			$state.go('home');
-		},function(response){
-			$scope.errorMessage=response.data.message;
-			$state.go('home');
+			$scope.errorMessage = response.data.message;
+			getNotes();
+		}, function(response) {
+			$scope.errorMessage = response.data.message;
 		});
 	}
-	
-	$scope.getNote=function(){
-		var get=homeService.getAllNote($scope.note);
-		get.then(function(note){
-			
-			$scope.notes=note.data;
-			$state.go('home');
-		},function(response){
-			$scope.errormessage=response.data.message;
-			$state.go('home');
+
+	var getNotes = function() {
+		var getNotes = homeService.getAllNotes();
+		getNotes.then(function(response) {
+			$scope.notes = response.data;
+			console.log(response.data);
+		}, function(response) {
+			$scope.errormessage = response.data.message;
 		});
 	}
+	getNotes();
 });

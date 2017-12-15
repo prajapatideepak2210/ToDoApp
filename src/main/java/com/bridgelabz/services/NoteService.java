@@ -42,10 +42,10 @@ public interface NoteService {
 	List<Note> getNotes();
 	
 	/**
-	 * @param id
+	 * @param user_id
 	 * @return {@link Note}
-	 * @Description This method is used to get the note, 
-	 * it returns Note if note available and returns null if note is not avaialable.
+	 * @Description This method is used to get the notes, 
+	 * it returns list of notes if user_id is available otherwise returns null.
 	 */
-	Note getNoteById(int id);
+	List<Note> getNoteById(int user_id);
 }

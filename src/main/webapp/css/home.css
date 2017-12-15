@@ -1,11 +1,12 @@
 @CHARSET "UTF-8";
-
 .md-container{
-	background: #DCDCDC;
+	height: auto;
+	width: 100%;
 }
 
+
+
 .md-content{
-	background: #DCDCDC;
 	width: 100%;
 	height: 100%;
 }
@@ -30,4 +31,24 @@
     min-height: 46px;
     padding: 12px 15px 15px 15px;
     
+}
+
+.allContent{
+	
+}
+
+.addNote{
+	
+}
+
+.allNotes{
+	
+}
+
+.form_button{
+	text-align: right;
+}
+
+.inputType{
+   
 }

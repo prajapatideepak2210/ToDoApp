@@ -73,6 +73,8 @@ public class UserController {
 			if (userName != null) {
 				Response response = new Response();
 				session.setAttribute("user", userName);
+				User userForId=serviceImpl.getUserByEmail(userName);
+				session.setAttribute("user_id", userForId.getId());
 				User userForToken=serviceImpl.getUserByEmail(user.getUserName());
 				String token = TokenGenerator.generateToken(userForToken.getId(), userForToken);
 				response.setMessage(token);

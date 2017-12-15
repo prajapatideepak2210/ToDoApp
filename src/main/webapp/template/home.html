@@ -1,24 +1,33 @@
-<div layout="column" layout-fill>
-<nav-bar></nav-bar>	
-<md-container class="md-container" flex layout="row" >		
-<side-bar></side-bar>
-<md-content layout="column" flex> 
+<div>
+<nav-bar></nav-bar>
 
-<div layout="row" layout-align="center center">
-	<md-card>
-		
-			<md-card-content>
-				<div>
-					<input type="text" name="title" ng-model="note.title"><br/>
-					<input type="text" name="description" ng-model="note.description"><br/>
-					<button layout-align="center end" style="align: right;" ng-click="noteCreate(note)">Done</button>	
-				</div>
-		
-			</md-card-content>
-		
+	<div flex layout="row"> 
+	<side-bar></side-bar>
 
-	</md-card>
+	<md-content layout="column" flex>
+	<div class="allContent" flex="75"  layout-align="center center">
+		<div class="addNote" layout="row" layout-align="center center">
+			<md-card flex="60" style="margin-top:20px;" layout-align="start center">
+
+			<form>
+				<input type="text" name="title" ng-model="note.title" placeholder="title"/><br>
+				<input type="text" name="description" ng-model="note.description" placeholder="description"/><br>
+				<div><md-button ng-click="noteCreate(note)">Done</md-button></div>
+			</form>
+			</md-card>
+		</div>
+		<div flex="100" layout-align="start center" class="allNotes" layout="column">
+
+			<div style="width: 75%;" ng-repeat="note in notes">
+				<md-card> 
+					<input ng-model="note.title" type="email">
+					<input ng-model="note.description" type="email">
+					<div style="text-align: right;">{{note.createdDate}}</div>
+
+				</md-card>
+			</div>
+
+		</div>
 	</div>
-</md-content>
-</md-container>
+	</md-content> </div>
 </div>
