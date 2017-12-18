@@ -1,6 +1,7 @@
 package com.bridgelabz.services;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +38,6 @@ public class NoteServiceImpl implements NoteService {
 			note.setLastUpdate(date);
 			user.setId(id);
 			note.setUser_id(id);
-			System.out.println("return........" + id);
 			return noteDao.addNote(note);
 		}
 		return 0;
@@ -73,17 +73,50 @@ public class NoteServiceImpl implements NoteService {
 	 * 
 	 * @see com.bridgelabz.services.NoteService#getNotes()
 	 */
-	public List<Note> getNotes() {
-		return noteDao.getNotes();
+	
+	@SuppressWarnings("null")
+	@Override
+	public List<Note> getTrashedNotes(int user_id) {
+		List<Note> list = noteDao.getNoteById(user_id);
+		List<Note> listForReturn=null;
+		Iterator<Note> iterator=list.iterator();
+		while (iterator.hasNext()) {
+			Note note = (Note) iterator.next();
+			if(note.getTrash())
+			{
+				listForReturn.add(note);
+			}
+		}
+		return listForReturn;
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
 	 * @see com.bridgelabz.services.NoteService#getNoteById(int)
 	 */
 	public List<Note> getNoteById(int user_id) {
+		
 		return noteDao.getNoteById(user_id);
+		
+		/*List<Note> list = noteDao.getNoteById(user_id);
+		List<Note> listForReturn=null;
+		Iterator<Note> iterator=list.iterator();
+		System.out.println(list.size());
+		Note note ;
+		while (iterator.hasNext()) {
+			note = (Note) iterator.next();
+			System.out.println(note.getTrash());
+			if(note.getTrash()==false)
+			{
+				System.out.println(note.getTitle());
+				listForReturn.add(note);
+			}
+		}
+		return listForReturn;*/
+		
 	}
+
+	
 
 }

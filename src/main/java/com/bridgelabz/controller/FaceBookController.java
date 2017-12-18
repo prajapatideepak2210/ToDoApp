@@ -69,6 +69,7 @@ public class FaceBookController {
 				String token = TokenGenerator.generateToken(user.getId(), user);
     			response.setHeader("Authorization", token);
     			session.setAttribute("token", token);
+    			session.setAttribute("user_id", userId);
     			errorMessage.setMessage("User Successfully registered.");
     			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
  			}

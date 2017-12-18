@@ -1,0 +1,42 @@
+<div>
+<nav-bar></nav-bar>
+
+	<div flex layout="row"> 
+	<side-bar></side-bar>
+
+	<md-content layout="column" flex>
+	<div class="allContent" flex="75"  layout-align="center center">
+		
+		<div flex="100" layout-align="start center" class="allNotes" layout="column">
+
+			<div style="width: 75%;" ng-repeat="note in notes | filter:{trash:true}">
+				<md-card> 
+					<input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text">
+					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<div layout="row" layout-align="start center">
+					
+					<md-menu>
+						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+        					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="deleteNote(note)">Delete forever</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Restore</md-button>
+        					</md-menu-item>
+      					</md-menu-content>
+    				</md-menu>
+					
+					<div>
+						<md-button ng-click="noteCreate(note)">Done</md-button>
+					</div>
+				</div>
+				</md-card>
+			</div>
+		</div>
+	</div>
+	</md-content> </div>
+</div>

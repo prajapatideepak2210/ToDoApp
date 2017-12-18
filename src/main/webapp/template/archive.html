@@ -1,0 +1,47 @@
+<div>
+<nav-bar></nav-bar>
+
+	<div flex layout="row"> 
+	<side-bar></side-bar>
+
+	<md-content layout="column" flex>
+	<div class="allContent" flex="75"  layout-align="center center">
+		
+		<div flex="100" layout-align="start center" class="allNotes" layout="column">
+
+			<div style="width: 75%;" ng-repeat="note in notes | filter:{archive:true}">
+				<md-card> 
+					<input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text">
+					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<div layout="row" layout-align="start center">
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/unarchive_black.svg"></md-icon> </md-button>
+					</div>
+					<div>
+						<md-button ng-click="updateNote(note)">Done</md-button>
+					</div>
+				</div>
+				</md-card>
+			</div>
+		</div>
+	</div>
+	</md-content> </div>
+</div>

@@ -7,26 +7,158 @@
 	<md-content layout="column" flex>
 	<div class="allContent" flex="75"  layout-align="center center">
 		<div class="addNote" layout="row" layout-align="center center">
-			<md-card flex="60" style="margin-top:20px;" layout-align="start center">
-
-			<form>
-				<input type="text" name="title" ng-model="note.title" placeholder="title"/><br>
-				<input type="text" name="description" ng-model="note.description" placeholder="description"/><br>
-				<div><md-button ng-click="noteCreate(note)">Done</md-button></div>
-			</form>
+			<md-card flex="60" style="margin-top:20px;" layout="column">
+				<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
+				<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
+				
+				<div layout="row" layout-align="start center">
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/more_black.svg"></md-icon> </md-button>
+					</div>
+					<div>
+						<md-button ng-click="noteCreate(note)">Done</md-button>
+					</div>
+				</div>
+				
 			</md-card>
 		</div>
+		
+		
 		<div flex="100" layout-align="start center" class="allNotes" layout="column">
-
-			<div style="width: 75%;" ng-repeat="note in notes">
+			<div style="width: 75%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 				<md-card> 
-					<input ng-model="note.title" type="email">
-					<input ng-model="note.description" type="email">
-					<div style="text-align: right;">{{note.createdDate}}</div>
-
+					<div flex layout-align="end center"><div flex="8">
+					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/pin_black.svg"></md-icon></md-button></div></div>
+					<input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text">
+					
+					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<div layout="row" layout-align="start center">
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
+					</div>
+					<md-menu>
+						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+        					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Delete Note</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button>Make Copy</md-button>
+        					</md-menu-item>
+        
+        					<md-menu-item >
+         					<md-button>Add Labels</md-button>
+        				</md-menu-item>
+        
+      				</md-menu-content>
+    				</md-menu>
+					
+					<div>
+						<md-button ng-click="updateNote(note)">Done</md-button>
+					</div>
+				</div>
 				</md-card>
 			</div>
-
+		</div>
+		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+		<div><h5 >Pined Notes</h5></div>
+		<div style="width: 75%;" ng-repeat="note in notes | filter:{pin:true}">
+				<md-card>
+					<div flex layout-align="end center"><div flex="8">
+					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
+					<input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text">
+					
+					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<div layout="row" layout-align="start center">
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="8">
+						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
+					</div>
+					<md-menu>
+						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+        					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Delete Note</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button>Make Copy</md-button>
+        					</md-menu-item>
+        
+        					<md-menu-item >
+         					<md-button>Add Labels</md-button>
+        				</md-menu-item><div>
+        
+      				</md-menu-content>
+    				</md-menu>
+					
+					<div>
+						<md-button ng-click="updateNote(note)">Done</md-button>
+					</div>
+				</div>
+				</md-card>
+			</div>
 		</div>
 	</div>
 	</md-content> </div>

@@ -26,8 +26,29 @@ public class Note {
 	private Date createdDate;
 	private Date lastUpdate;
 	private int user_id;
+	private boolean trash;
+	private boolean archive;
+	private boolean pin;
 	
 	
+	public boolean getPin() {
+		return pin;
+	}
+	public void setPin(boolean pin) {
+		this.pin = pin;
+	}
+	public boolean getArchive() {
+		return archive;
+	}
+	public void setArchive(boolean archive) {
+		this.archive = archive;
+	}
+	public boolean getTrash() {
+		return trash;
+	}
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
 	public int getUser_id() {
 		return user_id;
 	}

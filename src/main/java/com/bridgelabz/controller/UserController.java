@@ -117,11 +117,11 @@ public class UserController {
 				//return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}
 			//responseMessage.setMessage("User is not available.");
-			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
 			//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
 		//responseMessage.setMessage("Wrong id.");
-		response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+		response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
 		//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 

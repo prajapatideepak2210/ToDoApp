@@ -126,8 +126,8 @@ public class NoteDaoImpl implements NoteDao {
 		Session session = sessionFactory.openSession();
 		Query<Note> query = session.createQuery("from Note where user_id = :user_id");
 		query.setParameter("user_id", user_id);
-		List<Note> list = (List<Note>) query.list();
+		List<Note> note =  (List<Note>) query.list();
 		session.close();
-		return list;
+		return note;
 	}
 }

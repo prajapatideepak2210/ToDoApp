@@ -29,7 +29,7 @@ public class NoteController {
 	public ResponseEntity<Response> addNote(@RequestBody Note note, HttpServletRequest request) {
 		Response response = new Response();
 		String token = request.getHeader("TokenAccess");
-		System.out.println("Token---->" + token);
+		
 		if (note != null) {
 			int noteId = noteService.addNote(note, token);
 			if (noteId != 0) {
@@ -57,10 +57,11 @@ public class NoteController {
 
 	}
 
-	@RequestMapping(value = "/updateNote/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> updateNote(@RequestBody Note note, @PathVariable int id) {
+	@RequestMapping(value = "/updateNote", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> updateNote(@RequestBody Note note) {
+		
+		 System.out.println("Update Api..........");
 		Response response = new Response();
-		note.setId(id);
 		Note checkNote = noteService.updateNote(note);
 		if (checkNote != null) {
 			response.setMessage("Note Successfully Updated.");
@@ -70,19 +71,20 @@ public class NoteController {
 		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/getAllNotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getAllNotes() {
-		List<Note> list = noteService.getNotes();
+	@RequestMapping(value = "/getTrashedNote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<Note>> getAllNotes(HttpSession session) {
+		int user_id=(int) session.getAttribute("user_id");
+		List<Note> list = noteService.getTrashedNotes(user_id);
 		if (list != null)
 			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
 		else
 			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
 	}
 
+	
 	@RequestMapping(value = "/getNoteByUserId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Note>> getNoteById(HttpSession session) {
 		int user_id=(int) session.getAttribute("user_id");
-		System.out.println("User_id : "+user_id);
 		List<Note> list = noteService.getNoteById(user_id);
 		if (list != null)
 			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);

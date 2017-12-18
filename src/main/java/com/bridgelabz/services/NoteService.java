@@ -39,7 +39,7 @@ public interface NoteService {
 	 * @Description This method is used to getAll the note, 
 	 * it returns List of Notes if note are available and returns null if note is not available.
 	 */
-	List<Note> getNotes();
+	List<Note> getTrashedNotes(int user_id);
 	
 	/**
 	 * @param user_id

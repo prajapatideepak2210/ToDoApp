@@ -32,6 +32,7 @@
 	<script type="text/javascript" src="service/forgotpasswordService.js"></script>
 	<script type="text/javascript" src="service/resetpasswordService.js"></script>
 	<script type="text/javascript" src="service/homeService.js"></script>
+	<script type="text/javascript" src="service/trashService.js"></script>
 	
 	
 	<!-- All Controllers are here -->
@@ -41,6 +42,7 @@
 	<script type="text/javascript" src="controller/forgotpasswordController.js"></script>
 	<script type="text/javascript" src="controller/resetpasswordController.js"></script>
 	<script type="text/javascript" src="controller/homeController.js"></script>
+	<script type="text/javascript" src="controller/trashController.js"></script>
 	
 	
 	<!-- All directives are here -->
