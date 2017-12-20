@@ -1,25 +1,25 @@
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/NoteServiceImpl.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/connection/GoogleConnection.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/MessageProducer.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/token/TokenGenerator.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/validator/Validator.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/dao/NoteDao.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/controller/UserController.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/dao/NoteDaoImpl.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/dao/UserDao.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/model/PasswordUser.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/model/User.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/Service.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/model/MailUser.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/controller/MessageController.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/controller/FaceBookController.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/mailUtility/MyMailSender.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/dao/UserDaoImpl.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/NoteService.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/controller/GoogleController.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/controller/NoteController.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/connection/FaceBookConnection.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/model/Note.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/MessageConsumer.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/services/ServiceImpl.java
-/home/bridgeit/Deepak Programs/SpringPrograms/ToDoApp/src/main/java/com/bridgelabz/model/Response.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/model/PasswordUser.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/controller/UserController.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/dao/UserDao.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/dao/NoteDao.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/Service.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/mailUtility/MyMailSender.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/controller/MessageController.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/model/MailUser.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/connection/GoogleConnection.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/validator/Validator.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/MessageConsumer.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/controller/FaceBookController.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/model/Note.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/ServiceImpl.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/NoteServiceImpl.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/controller/NoteController.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/model/Response.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/connection/FaceBookConnection.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/dao/NoteDaoImpl.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/MessageProducer.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/services/NoteService.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/token/TokenGenerator.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/dao/UserDaoImpl.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/model/User.java
+/home/bridgeit/Programs/ToDoApp/src/main/java/com/bridgelabz/controller/GoogleController.java

@@ -2,10 +2,12 @@ package com.bridgelabz.model;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -29,8 +31,17 @@ public class Note {
 	private boolean trash;
 	private boolean archive;
 	private boolean pin;
+	@Lob
+	@Column(columnDefinition="LONGBLOB")
+	private String noteBackGround;
 	
 	
+	public String getNoteBackGround() {
+		return noteBackGround;
+	}
+	public void setNoteBackGround(String noteBackGround) {
+		this.noteBackGround = noteBackGround;
+	}
 	public boolean getPin() {
 		return pin;
 	}

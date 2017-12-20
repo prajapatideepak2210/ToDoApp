@@ -12,8 +12,8 @@ app.factory('homeService', function($http) {
 			}
 		})
 	}
-	
-	notes.getAllNotes=function(){
+
+	notes.getAllNotes = function() {
 		var notes = {};
 		return $http({
 			method : "GET",
@@ -23,8 +23,8 @@ app.factory('homeService', function($http) {
 			}
 		})
 	}
-	
-	notes.updateNote=function(note){
+
+	notes.updateNote = function(note) {
 		return $http({
 			method : "PUT",
 			url : "updateNote",
@@ -34,15 +34,29 @@ app.factory('homeService', function($http) {
 			}
 		})
 	}
-	
-	notes.deleteNote=function(note){
+
+	notes.deleteNote = function(note) {
 		return $http({
 			method : "delete",
-			url : "deleteNote"+'/'+note.id,
+			url : "deleteNote" + '/' + note.id,
 			data : note
 		})
 	}
+
+	notes.uploadImage = function(note) {
+		return $http({
+			method : "put",
+			url : "updateNote",
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+
+	
+
 	
 	return notes;
-	
+
 });

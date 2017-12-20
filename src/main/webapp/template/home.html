@@ -25,8 +25,11 @@
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+						<img md-card-image ng-src="image/insert_black.svg" 
+						class="profile-img" ng-click="openHiddenButton(note)"/>
+						
+        				<input id="image" type="file" ng-model="note.noteBackGround" ngf-select="imageUpload(note)" ngf-multiple="false" 
+        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
 					</div>
 					<div flex="8">
 						<md-button class="md-icon-button md-primary" aria-label="">
@@ -44,35 +47,43 @@
 			</md-card>
 		</div>
 		
-		
-		<div flex="100" layout-align="start center" class="allNotes" layout="column">
-			<div style="width: 75%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
+		<div layout="row">
+		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 				<md-card> 
-					<div flex layout-align="end center"><div flex="8">
+				
+					<div ng-if="note.noteBackGround">
+					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
+					</div>
+					
+					<div flex layout-align="end center"><div flex="5">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pin_black.svg"></md-icon></md-button></div></div>
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
 					
-					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<!-- <div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div> -->
 					<div layout="row" layout-align="start center">
-					<div flex="8">
+					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
 					</div>
-					<div flex="8">
+					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
-					<div flex="8">
+					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
-					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					<div flex="4">
+						<img md-card-image ng-src="image/insert_black.svg" 
+						class="profile-img" ng-click="openHiddenButton(note)"/>
+						
+        				<input id="image" type="file" ng-model="note.noteBackGround" ngf-select="imageUpload(note)" ngf-multiple="false" 
+        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
 					</div>
-					<div flex="8">
+					<div flex="4">
 						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
 					</div>
@@ -95,42 +106,61 @@
       				</md-menu-content>
     				</md-menu>
 					
-					<div>
+					<div flex="4">
 						<md-button ng-click="updateNote(note)">Done</md-button>
 					</div>
 				</div>
 				</md-card>
 			</div>
 		</div>
-		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
-		<div><h5 >Pined Notes</h5></div>
-		<div style="width: 75%;" ng-repeat="note in notes | filter:{pin:true}">
-				<md-card>
-					<div flex layout-align="end center"><div flex="8">
+		
+		<div flex="100" layout-align="start center" class="allNotes" layout="column">
+		<h6 >Pined Notes</h6>
+		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
+				<md-card style="">
+				
+					<div ng-if="note.noteBackGround">
+					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
+					</div>
+					
+					<div flex ><div flex="8">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
 					
-					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
 					<div layout="row" layout-align="start center">
-					<div flex="8">
+					<div flex="4">
+					
+						<!-- <input ng-model="note.reminder" mdc-datetime-picker="" date="false" time="true" type="text" id="time" 
+						short-time="true" placeholder="Time" min-date="minDate" format="hh:mm a" 
+						ng-model="time" class=" md-input" readonly="readonly">
+						
+						<img md-card-image ng-src="image/reminder.svg" 
+						class="profile-img" ng-click=""/> -->
+						<!-- 		<input ng-show="false" id="image" type='file' ng-model-instant ng-model="file" onchange="angular.element(this).scope().imageUpload(this)" />
+					 -->
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+						
 					</div>
-					<div flex="8">
+					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
-					<div flex="8">
+					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
-					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/insert_black.svg"></md-icon> </md-button>
+					<div flex="4">
+						<img md-card-image ng-src="image/insert_black.svg" 
+						class="profile-img" ng-click="openHiddenButton(note)"/>
+						
+        				<input id="image" type="file" ng-model="note.noteBackGround" ngf-select="imageUpload(note)" ngf-multiple="false" 
+        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
 					</div>
-					<div flex="8">
+					
+					<div flex="4">
 						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
 					</div>
@@ -153,12 +183,13 @@
       				</md-menu-content>
     				</md-menu>
 					
-					<div>
+					<div flex="4">
 						<md-button ng-click="updateNote(note)">Done</md-button>
 					</div>
 				</div>
 				</md-card>
 			</div>
+		</div>
 		</div>
 	</div>
 	</md-content> </div>

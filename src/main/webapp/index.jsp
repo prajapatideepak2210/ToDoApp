@@ -11,10 +11,14 @@
 <body ng-app="ToDo">
 	<div ui-view ></div>
 </body>
+ <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
+
 <script src = "bower_components/angular/angular.js"></script>
 <script src = "bower_components/angular-animate/angular-animate.min.js"></script>
 <script src = "bower_components/angular-aria/angular-aria.min.js"></script>
+<script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
     
+    <script src="bower_components/angular-base64/angular-base64.js"></script>
     <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->
     
     <script src="bower_components/angular-material/angular-material.min.js"></script> 

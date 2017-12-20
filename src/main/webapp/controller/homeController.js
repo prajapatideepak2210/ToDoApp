@@ -1,6 +1,6 @@
 var ToDo = angular.module('ToDo');
 
-ToDo.controller('homeController', function($scope, homeService) {
+ToDo.controller('homeController', function($scope, homeService, Upload, $base64) {
 	$scope.noteCreate = function() {
 		var create = homeService.noteCreation($scope.note);
 		create.then(function(response) {
@@ -15,12 +15,21 @@ ToDo.controller('homeController', function($scope, homeService) {
 	var getNotes = function() {
 		var getNotes = homeService.getAllNotes();
 		getNotes.then(function(response) {
-			$scope.notes = response.data;
-			console.log(response.data);
+		console.log(response.data);
+		$scope.notes = response.data;
+		/*for (var i=0;i<$scope.notes.length;i++)
+		{
+			if($scope.notes[i].noteBackGround){
+				//$scope.decoded = $fileUploadbase64.decode($scope.notes[i].noteBackGround);
+				console.log($scope.decoded);
+				//$scope.notes[i].noteBackGround=$scope.decoded;
+			}
+		}*/
 		}, function(response) {
 			$scope.errormessage = response.data.message;
 		});
 	}
+	
 	getNotes();
 	
 	$scope.trashNote = function(note) {
@@ -34,7 +43,7 @@ ToDo.controller('homeController', function($scope, homeService) {
 			$scope.errorMessage=response.data.message;
 			console.log(response.data);
 			getNotes();
-		}, function(response){
+		}, function(response){fileUpload
 			$scope.errorMessage=response.data.message;
 			console.log(response.data);
 		});
@@ -96,4 +105,43 @@ ToDo.controller('homeController', function($scope, homeService) {
 		})
 	}
 	
+	/*  Image Uploading */
+	$scope.type={};
+	$scope.openHiddenButton = function(note){
+		$('#image').trigger('click');
+		$scope.type=note;
+	}
+	
+	
+	$scope.stepsModel = [];
+    $scope.imageUpload = function(note){
+	    var reader = new FileReader();
+	    console.log("note : "+note);
+	    reader.onload = $scope.imageIsLoaded;
+	    reader.readAsDataURL(note.noteBackGround);
+	    console.log(note.noteBackGround);
+	}
+
+	$scope.imageIsLoaded = function(image){
+	    $scope.$apply(function() {
+	        $scope.stepsModel.push(image.target.result);
+	        console.log("image. target : "+image.target.result);
+	        var imageSrc=image.target.result;
+        	$scope.type.noteBackGround=imageSrc;
+        	console.log($scope.type)
+        	var updateResponse = homeService.updateNote($scope.type);
+        	updateResponse.then(function(response){
+        		console.log(response);
+        		getNotes();	
+        	},
+        	function(response){
+        		console.log(response);
+        	});
+	    });
+	}
+	
 });
+
+
+
+

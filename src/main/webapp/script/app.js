@@ -1,4 +1,4 @@
-var app = angular.module("ToDo", [ 'ui.router', 'ngMaterial']);
+var app = angular.module("ToDo", [ 'ui.router', 'ngMaterial','ngFileUpload','base64']);
 
 app.config([ '$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
