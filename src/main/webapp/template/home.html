@@ -6,6 +6,7 @@
 
 	<md-content layout="column" flex>
 	<div class="allContent" flex="75"  layout-align="center center">
+	
 		<div class="addNote" layout="row" layout-align="center center">
 			<md-card flex="60" style="margin-top:20px;" layout="column">
 				<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
@@ -13,18 +14,32 @@
 				
 				<div layout="row" layout-align="start center">
 					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+						<md-menu>
+						<md-button aria-label="" style="min-width:10px;" aria-label="Reminder" ng-click="$mdMenu.open()">
+	       					<md-tooltip md-direction="bottom">Remind Me</md-tooltip>
+	       					<img  md-card-image ng-src="image/reminder.svg"/>
+	       				</md-button>
+						<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
+										readonly="readonly" ng-change="reminder(note)">
+        					</md-menu-item>
+      					</md-menu-content>
+      					</md-menu>
 					</div>
 					<div flex="8">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="8">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="8">
+					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
 						<img md-card-image ng-src="image/insert_black.svg" 
 						class="profile-img" ng-click="openHiddenButton(note)"/>
 						
@@ -33,10 +48,12 @@
 					</div>
 					<div flex="8">
 						<md-button class="md-icon-button md-primary" aria-label="">
+							<md-tooltip md-direction="bottom">Archive</md-tooltip>
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="8">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
 						<md-icon md-svg-icon="image/more_black.svg"></md-icon> </md-button>
 					</div>
 					<div>
@@ -62,21 +79,39 @@
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
 					
-					<!-- <div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div> -->
+					<div ng-if="note.reminder">
+						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
+						<md-menu>
+						<md-button aria-label="" style="min-width:10px;" aria-label="Reminder" ng-click="$mdMenu.open()">
+	       					<md-tooltip md-direction="bottom">Reminder Me</md-tooltip>
+	       					<img  md-card-image ng-src="image/reminder.svg"/>
+	       				</md-button>
+						<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
+										readonly="readonly" ng-change="reminder(note)">
+        					</md-menu-item>
+        					
+      					</md-menu-content>
+      					</md-menu>
 					</div>
 					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
+					
+						<md-tooltip md-direction="bottom">Add Image</md-tooltip>
 						<img md-card-image ng-src="image/insert_black.svg" 
 						class="profile-img" ng-click="openHiddenButton(note)"/>
 						
@@ -85,11 +120,13 @@
 					</div>
 					<div flex="4">
 						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Archive</md-tooltip>
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
-					</div>
+					</div flex="4">
 					<md-menu>
-						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
-        					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
+						<md-button aria-label="">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
+        					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
       					</md-button>
       					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
         					<md-menu-item >
@@ -114,8 +151,8 @@
 			</div>
 		</div>
 		
-		<div flex="100" layout-align="start center" class="allNotes" layout="column">
-		<h6 >Pined Notes</h6>
+		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+		<div><h6>Pined Notes</h6></div>
 		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
 				<md-card style="">
 				
@@ -128,31 +165,39 @@
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
-					
+					<div ng-if="note.reminder">
+						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">
-					
-						<!-- <input ng-model="note.reminder" mdc-datetime-picker="" date="false" time="true" type="text" id="time" 
-						short-time="true" placeholder="Time" min-date="minDate" format="hh:mm a" 
-						ng-model="time" class=" md-input" readonly="readonly">
-						
-						<img md-card-image ng-src="image/reminder.svg" 
-						class="profile-img" ng-click=""/> -->
-						<!-- 		<input ng-show="false" id="image" type='file' ng-model-instant ng-model="file" onchange="angular.element(this).scope().imageUpload(this)" />
-					 -->
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/reminder.svg"></md-icon> </md-button>
-						
+				
+						<md-menu>
+						<md-button aria-label="" style="min-width:10px;" aria-label="Reminder" ng-click="$mdMenu.open()">
+	       					<md-tooltip md-direction="bottom">Remind Me</md-tooltip>
+	       					<img  md-card-image ng-src="image/reminder.svg"/>
+	       				</md-button>
+						<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
+										readonly="readonly" ng-change="reminder(note)">
+        					</md-menu-item>
+        					
+      					</md-menu-content>
+      					</md-menu>
 					</div>
 					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
 						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
 						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
+						<md-tooltip md-direction="bottom">AddImage</md-tooltip>
 						<img md-card-image ng-src="image/insert_black.svg" 
 						class="profile-img" ng-click="openHiddenButton(note)"/>
 						
@@ -162,10 +207,12 @@
 					
 					<div flex="4">
 						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Archive</md-tooltip>
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
 					</div>
 					<md-menu>
 						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
         					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
       					</md-button>
       					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">

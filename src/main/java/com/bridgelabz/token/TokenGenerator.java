@@ -17,7 +17,7 @@ public class TokenGenerator {
 		Date dateAndTime = new Date(nowMillis);
 		String issuerTime = dateAndTime.toString();
 		Calendar calender=Calendar.getInstance();
-		calender.add(Calendar.MINUTE, 60);
+		calender.add(Calendar.MINUTE, 600);
 		Date expireTime = calender.getTime();
 		String token = Jwts.builder().setId(Integer.toString(userId)).setIssuedAt(dateAndTime).setIssuer(issuerTime).setExpiration(expireTime)
 				.signWith(SignatureAlgorithm.HS256, secretekey).compact().toString();

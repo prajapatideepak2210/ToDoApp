@@ -7,6 +7,8 @@
 	<link rel="stylesheet" href="css/home.css">
 	<link rel="stylesheet" href="css/navbar.css">
 	<link rel="stylesheet" href="css/sidebar.css">
+	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
+	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css">
 </head>
 <body ng-app="ToDo">
 	<div ui-view ></div>
@@ -14,9 +16,16 @@
  <script language="JavaScript"  src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 
 <script src = "bower_components/angular/angular.js"></script>
+<script src = "bower_components/bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js"></script>
+<script src = "bower_components/bower_components/angular-material-datetimepicker/dist/angular-material-datetimepicker.min.js.map"></script>
+<script src="bower_components/bower_components/angular-material-datetimepicker/js/angular-material-datetimepicker.js"></script>
 <script src = "bower_components/angular-animate/angular-animate.min.js"></script>
 <script src = "bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
+<script src="bower_components/bower_components/moment/min/moment.min.js"></script>
+
+
+</script>
     
     <script src="bower_components/angular-base64/angular-base64.js"></script>
     <!-- <script src = "bower_components/angular-messages/angular-messages.min.js"></script> -->

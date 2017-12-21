@@ -31,11 +31,19 @@ public class Note {
 	private boolean trash;
 	private boolean archive;
 	private boolean pin;
+	private Date reminder;
 	@Lob
 	@Column(columnDefinition="LONGBLOB")
 	private String noteBackGround;
 	
 	
+	
+	public Date getReminder() {
+		return reminder;
+	}
+	public void setReminder(Date reminder) {
+		this.reminder = reminder;
+	}
 	public String getNoteBackGround() {
 		return noteBackGround;
 	}

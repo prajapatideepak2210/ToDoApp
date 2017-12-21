@@ -13,11 +13,14 @@
 				<md-card> 
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
-					<div style="text-align: right;">Created Date : {{note.createdDate|date:'medium'}}</div>
+					<div ng-if="note.reminder">
+						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					</div>
 					<div layout="row" layout-align="start center">
 					
 					<md-menu>
 						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
         					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
       					</md-button>
       					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">

@@ -1,4 +1,4 @@
-var app = angular.module("ToDo", [ 'ui.router', 'ngMaterial','ngFileUpload','base64']);
+var app = angular.module("ToDo", ['ui.router', 'ngMaterial','ngFileUpload','base64','ngMaterialDatePicker']);
 
 app.config([ '$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
@@ -43,6 +43,8 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		templateUrl : 'template/archive.html',
 		controller : 'homeController'
 	})
+	
+	
 	
 	$urlRouterProvider.otherwise('/login');
 } ]);
