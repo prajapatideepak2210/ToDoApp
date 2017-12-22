@@ -79,14 +79,15 @@
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
 					
-					<div ng-if="note.reminder">
-						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					<div ng-if="note.reminder" layout="row">
+						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">
 						<md-menu>
 						<md-button aria-label="" style="min-width:10px;" aria-label="Reminder" ng-click="$mdMenu.open()">
-	       					<md-tooltip md-direction="bottom">Reminder Me</md-tooltip>
+	       					<md-tooltip md-direction="bottom">Remind Me</md-tooltip>
 	       					<img  md-card-image ng-src="image/reminder.svg"/>
 	       				</md-button>
 						<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
@@ -165,8 +166,10 @@
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
-					<div ng-if="note.reminder">
-						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					<div ng-if="note.reminder" layout="row">
+						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
+						ng-click="removeReminder(note)"/>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">
@@ -180,7 +183,7 @@
         					<md-menu-item >
           						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
 									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
-										readonly="readonly" ng-change="reminder(note)">
+										readonly="readonly" ng-change="addReminder(note)">
         					</md-menu-item>
         					
       					</md-menu-content>

@@ -16,8 +16,10 @@
 					</div>
 					<input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text">
-					<div ng-if="note.reminder">
-						<h6>Reminder : {{note.reminder|date:'medium'}}</h6>
+					<div ng-if="note.reminder" layout="row">
+						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
+						ng-click="removeReminder(note)"/>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="8">

@@ -19,24 +19,23 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		getNotes.then(function(response) {
 			$scope.data = response.data;
 			var notes = response.data;
+			
 			$interval(function() {
 				for (var i = 0; i < $scope.data.length; i++) {
-
-					if (notes[i].reminder) {
-						var reminderNotesDate = notes[i].reminder;
-						reminderNotesDate = $filter('date')(new Date(),
+					if (notes[i].reminder!=null) {
+						reminderDate = $filter('date')(new Date(notes[i].reminder),
 								'MMM dd yyyy HH:mm');
-						var dates = $filter('date')(new Date(),
+						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
-						console.log("" + dates);
-						console.log("ReminderNotesDate---->"
-								+ reminderNotesDate);
-						if (dates == reminderNotesDate) {
+						
+						if (currentDate == reminderDate) {
 							alert(notes[i].description);
+							notes[i].reminder = null;
+							homeService.updateNote(notes[i]);
 						}
 					}
 				}
-			}, 20000000000);
+			}, 50000);
 			$scope.notes = response.data;
 		}, function(response) {
 			$scope.errormessage = response.data.message;
@@ -130,18 +129,16 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	$scope.imageUpload = function(note) {
 		var reader = new FileReader();
 		console.log("note : " + note);
-		reader.onload = $scope.imageIsLoaded;
+		reader.onload = $scope.imageLoader;
 		reader.readAsDataURL(note.noteBackGround);
 		console.log(note.noteBackGround);
 	}
 
-	$scope.imageIsLoaded = function(image) {
+	$scope.imageLoader = function(image) {
 		$scope.$apply(function() {
 			$scope.stepsModel.push(image.target.result);
-			console.log("image. target : " + image.target.result);
 			var imageSrc = image.target.result;
 			$scope.type.noteBackGround = imageSrc;
-			console.log($scope.type)
 			var updateResponse = homeService.updateNote($scope.type);
 			updateResponse.then(function(response) {
 				console.log(response);
@@ -154,11 +151,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 
 	/* reminder */
 
-	$scope.reminder = function(note) {
-		/*
-		 * var date = note.reminder; var reminderDate = $filter('date')(new
-		 * Date(), 'yyyy-MM-dd hh:mm'); note.reminder = reminderDate;
-		 */
+	$scope.addReminder = function(note) {
+		
 		console.log("hello reminder : " + note.reminder);
 		var reminder = homeService.updateNote(note);
 		reminder.then(function(response) {
@@ -170,5 +164,19 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 
 	}
+	
+	$scope.removeReminder = function(note){
+		note.reminder = null;
+		var removeReminder = homeService.updateNote(note);
+		removeReminder.then(function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		}, function(response) {
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		});
+	}
+	
+	/* change color	*/
 
 });
