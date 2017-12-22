@@ -25,7 +25,6 @@ app.factory('homeService', function($http) {
 	}
 
 	notes.updateNote = function(note) {
-		console.log(note.reminder);
 		return $http({
 			method : "PUT",
 			url : "updateNote",

@@ -34,9 +34,9 @@
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
-						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+						<md-tooltip md-direction="top">change color</md-tooltip>
+                		<color-picker color="color" options="options" 
+                		on-color-changed="colorChanged(newColor,note)"></color-picker>
 					</div>
 					<div flex="8">
 					<md-tooltip md-direction="bottom">Add Image</md-tooltip>
@@ -67,7 +67,7 @@
 		<div layout="row">
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
 			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
-				<md-card> 
+				<md-card ng-style="{'background-color':note.noteColor}"> 
 				
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
@@ -76,9 +76,10 @@
 					<div flex layout-align="end center"><div flex="5">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pin_black.svg"></md-icon></md-button></div></div>
-					<input class="inputFields" ng-model="note.title" type="text">
-					<input class="inputFields" ng-model="note.description" type="text">
-					
+					<!-- <input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text"> -->
+						<span>{{note.title}}</span>
+						<span>{{note.description}}</span>
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
@@ -106,9 +107,9 @@
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
-						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
+						<md-tooltip md-direction="top">change color</md-tooltip>
+                		<color-picker color="color" options="options" 
+                		on-color-changed="colorChanged(newColor,note)"></color-picker>
 					</div>
 					<div flex="4">
 					
@@ -155,7 +156,7 @@
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
 		<div><h6>Pined Notes</h6></div>
 		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
-				<md-card style="">
+				<md-card ng-style="{'background-color':note.noteColor}">
 				
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
@@ -164,8 +165,10 @@
 					<div flex ><div flex="8">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
-					<input class="inputFields" ng-model="note.title" type="text">
-					<input class="inputFields" ng-model="note.description" type="text">
+						<span>{{note.title}}</span>
+						<span>{{note.description}}</span>
+					<!-- <input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text"> -->
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
@@ -175,9 +178,9 @@
 					<div flex="4">
 				
 						<md-menu>
-						<md-button aria-label="" style="min-width:10px;" aria-label="Reminder" ng-click="$mdMenu.open()">
+						<md-button aria-label="" class="menuButton" aria-label="Reminder" ng-click="$mdMenu.open()">
 	       					<md-tooltip md-direction="bottom">Remind Me</md-tooltip>
-	       					<img  md-card-image ng-src="image/reminder.svg"/>
+	       					<img  md-card-image ng-src="image/reminder.svg" ng-click="$mdMenu.open()"/>
 	       				</md-button>
 						<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
         					<md-menu-item >
@@ -195,15 +198,15 @@
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
 					<div flex="4">
-						<md-button class="md-icon-button md-primary" aria-label="">
-						<md-tooltip md-direction="bottom">Change Color</md-tooltip>
-						<md-icon md-svg-icon="image/change_color_black.svg"></md-icon> </md-button>
-					</div>
+                		<md-tooltip md-direction="top">change color</md-tooltip>
+                		<color-picker color="color" options="options" 
+                		on-color-changed="colorChanged(newColor,note)"></color-picker>
+                	</div>
 					<div flex="4">
+					
 						<md-tooltip md-direction="bottom">AddImage</md-tooltip>
 						<img md-card-image ng-src="image/insert_black.svg" 
 						class="profile-img" ng-click="openHiddenButton(note)"/>
-						
         				<input id="image" type="file" ng-model="note.noteBackGround" ngf-select="imageUpload(note)" ngf-multiple="false" 
         				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
 					</div>

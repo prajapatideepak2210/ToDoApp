@@ -1,4 +1,4 @@
-var app = angular.module("ToDo", ['ui.router', 'ngMaterial','ngFileUpload','base64','ngMaterialDatePicker']);
+var app = angular.module("ToDo", ['ui.router', 'ngMaterial','ngFileUpload','base64','ngMaterialDatePicker','tb-color-picker']);
 
 app.config([ '$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {

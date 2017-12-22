@@ -75,3 +75,9 @@
 .noteImage{
 	
 }
+
+.menuButton{
+	min-width:5px; 
+	max-width:25px; 
+	margin:5px;
+}
