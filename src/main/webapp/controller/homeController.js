@@ -1,4 +1,4 @@
-var ToDo = anglkm;kmular.module('ToDo');
+var ToDo = angular.module('ToDo');
  
 ToDo.controller('homeController', function($scope, homeService, Upload,
 		$base64, mdcDateTimeDialog, $filter, $interval) {
