@@ -35,9 +35,15 @@ public class Note {
 	@Lob
 	@Column(columnDefinition="LONGBLOB")
 	private String noteBackGround;
+	private String noteColor;
 	
 	
-	
+	public String getNoteColor() {
+		return noteColor;
+	}
+	public void setNoteColor(String noteColor) {
+		this.noteColor = noteColor;
+	}
 	public Date getReminder() {
 		return reminder;
 	}

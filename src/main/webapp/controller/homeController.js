@@ -2,7 +2,9 @@ var ToDo = angular.module('ToDo');
 
 ToDo.controller('homeController', function($scope, homeService, Upload,
 		$base64, mdcDateTimeDialog, $filter, $interval) {
-
+	
+	/* Creating the Note */
+	
 	$scope.noteCreate = function() {
 		var create = homeService.noteCreation($scope.note);
 		create.then(function(response) {
@@ -13,7 +15,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errorMessage = response.data.message;
 		});
 	}
-
+	
+	/* geting All Notes */
+	
 	var getNotes = function() {
 		var getNotes = homeService.getAllNotes();
 		getNotes.then(function(response) {
@@ -43,7 +47,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 
 	getNotes();
-
+	
+	/* Trashing and untrashing the Note */
+	
 	$scope.trashNote = function(note) {
 		if (note.trash)
 			note.trash = false;
@@ -61,7 +67,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			console.log(response.data);
 		});
 	}
-
+	
+	/* deleting the Note */
+	
 	$scope.deleteNote = function(note) {
 		var deleteNote = homeService.deleteNote(note);
 		deleteNote.then(function(response) {
@@ -73,7 +81,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			console.log(response.data);
 		})
 	}
-
+	
+	/* Archive and unarchive the Note */
+	
 	$scope.archiveNote = function(note) {
 		if (note.archive)
 			note.archive = false;
@@ -89,7 +99,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			console.log(response.data);
 		})
 	}
-
+	
+	/* Pin and unpin the Note */
+	
 	$scope.pinNote = function(note) {
 		if (note.pin)
 			note.pin = false;
@@ -105,7 +117,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			console.log(response.data);
 		})
 	}
-
+	
+	/* Updating the Note */
+	
 	$scope.updateNote = function(note) {
 		var updateNote = homeService.updateNote(note);
 		updateNote.then(function(response) {
@@ -119,6 +133,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 
 	/* Image Uploading */
+	
 	$scope.type = {};
 	$scope.openHiddenButton = function(note) {
 		$('#image').trigger('click');
@@ -165,6 +180,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 
 	}
 	
+	/* Removing the Note */
+	
 	$scope.removeReminder = function(note){
 		note.reminder = null;
 		var removeReminder = homeService.updateNote(note);
@@ -178,5 +195,20 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 	
 	/* change color	*/
+	
+	$scope.options = ['transparent','#FF8A80', '#FFD180', '#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB', '#CCFF90'];
+	$scope.color = "#FF8A80";
+	     
+	$scope.colorChanged = function(newColor, note) {
+		note.noteColor = newColor;
+		var colorChanged = homeService.updateNote(note);
+		colorChanged.then(function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		}, function(response) {
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		})
+   }
 
 });
