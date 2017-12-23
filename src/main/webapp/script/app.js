@@ -44,7 +44,11 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		controller : 'homeController'
 	})
 	
-	
+	.state('tabDialog.tmpl',{
+		url : '/tabDialog.tmpl',
+		templateUrl : 'template/tabDialog.tmpl.html',
+		controller : 'homeController'
+	})
 	
 	$urlRouterProvider.otherwise('/login');
 } ]);

@@ -6,11 +6,14 @@
 
 	<md-content layout="column" flex>
 	<div class="allContent" flex="75"  layout-align="center center">
-	
+		
+		<!--=============================== Add Notes ====================================-->
+		
 		<div class="addNote" layout="row" layout-align="center center">
-			<md-card flex="60" style="margin-top:20px;" layout="column">
-				<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
-				<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
+			<md-card flex="60" style="margin-top:20px;" layout="column" ng-click="showTabDialog($event)">
+				<!-- <input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
+				<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/> -->
+				<span flex-offset="5">Title</span>
 				
 				<div layout="row" layout-align="start center">
 					<div flex="8">
@@ -64,10 +67,81 @@
 			</md-card>
 		</div>
 		
+		<!--=============================== dailog box ====================================-->
+		
+		<div style="visibility:hidden;">
+			<div class="md-dialog-container" id="myStaticDialog">
+				<md-dialog aria-label="">
+    				<md-dialog-content style="max-width:600px;max-height:200px;">
+          			<md-content class="md-padding">
+           				<div><input class="inputFields" ng-model="note.title" name="title" type="text"></div>
+						<div><input class="inputFields" type="text" ng-model="note.description" name="description"/></div>
+          			</md-content>
+    				</md-dialog-content>
+    				
+    				<md-dialog-actions layout="row">
+     			 	
+					<div flex="4">
+						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
+						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
+					</div>
+					<div flex="4">
+						<md-tooltip md-direction="top">change color</md-tooltip>
+                		<color-picker color="color" options="options" 
+                		on-color-changed="colorChanged(newColor,note)"></color-picker>
+					</div>
+					<div flex="4">
+					
+						<md-tooltip md-direction="bottom">Add Image</md-tooltip>
+						<img md-card-image ng-src="image/insert_black.svg" 
+						class="profile-img" ng-click="openHiddenButton(note)"/>
+						
+        				<input id="image" type="file" ng-model="note.noteBackGround" ngf-select="imageUpload(note)" ngf-multiple="false" 
+        				style="display:none" ng-model="picFile" accept="image/*" class="picUpload"/>
+					</div>
+					<div flex="4">
+						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
+						<md-tooltip md-direction="bottom">Archive</md-tooltip>
+						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
+					</div flex="4">
+					<div flex="4">
+					<md-menu>
+						<md-button aria-label="">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
+        					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Delete Note</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button>Make Copy</md-button>
+        					</md-menu-item>
+        
+        					<md-menu-item >
+         					<md-button>Add Labels</md-button>
+        				</md-menu-item>
+        
+      					</md-menu-content>
+    					</md-menu>
+					</div>
+					<div flex="4">
+						<md-button ng-click="updateNote(note)" style="margin-right:20px;" >Done</md-button>
+					</div>
+				
+      					
+    				</md-dialog-actions>
+				</md-dialog>
+			</div>
+		</div>
+		
+		<!--=============================== unpin notes ====================================-->
+		
 		<div layout="row">
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
 			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
-				<md-card ng-style="{'background-color':note.noteColor}"> 
+				<md-card ng-style="{'background-color':note.noteColor}" ng-click="showDialog(note)">
 				
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
@@ -153,10 +227,12 @@
 			</div>
 		</div>
 		
+		<!--=============================== Pin Notes ====================================-->
+		
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
 		<div><h6>Pined Notes</h6></div>
 		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
-				<md-card ng-style="{'background-color':note.noteColor}">
+				<md-card ng-style="{'background-color':note.noteColor} ng-click="showDialog(note)">
 				
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
@@ -236,9 +312,6 @@
       				</md-menu-content>
     				</md-menu>
 					
-					<div flex="4">
-						<md-button ng-click="updateNote(note)">Done</md-button>
-					</div>
 				</div>
 				</md-card>
 			</div>

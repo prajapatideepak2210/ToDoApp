@@ -1,7 +1,7 @@
 var ToDo = angular.module('ToDo');
 
 ToDo.controller('homeController', function($scope, homeService, Upload,
-		$base64, mdcDateTimeDialog, $filter, $interval) {
+		$base64, mdcDateTimeDialog, $filter, $interval, $mdDialog, $rootScope) {
 	
 	/* Creating the Note */
 	
@@ -131,6 +131,10 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			console.log(response.data);
 		})
 	}
+	
+	$scope.updateNoteModel = function(){
+		console.log("hello update");
+	}
 
 	/* Image Uploading */
 	
@@ -209,6 +213,34 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errormessage = response.data.message;
 			console.log(response.data);
 		})
-   }
-
+	}
+	
+	/* Dailog Box */
+	
+	$scope.showDialog=function(note){
+		$scope.note = note;
+		$mdDialog.show({
+			contentElement: '#myStaticDialog',
+			parent: angular.element(document.body),
+		    clickOutsideToClose:true
+		});
+	}
+	
+	$scope.cancelDailog = function(){
+		$mdDialog.cancel();
+	}
+	
+	$scope.updateDailogNote = function(note){
+		$scope.updateDailogNote = homeService.updateNote(note);
+		
+		updateDailogNote.then(function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+			$mdDialog.hide();
+		}, function(response){
+			$scope.errormessage = resposne.data.message;
+			console.log(response.data);
+		})
+	}
+	
 });

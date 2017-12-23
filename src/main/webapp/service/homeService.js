@@ -55,7 +55,16 @@ app.factory('homeService', function($http) {
 	}
 
 	
-
+	notes.uploadImage = function(note) {
+		return $http({
+			method : "put",
+			templateUrl : "updateNote",
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
 	
 	return notes;
 

@@ -1,0 +1,24 @@
+<md-dialog aria-label="">
+    <md-dialog-content style="max-width:600px;max-height:200px; ">
+      
+          <md-content class="md-padding">
+           <div><input class="inputFields" ng-model="noteInfo.title" name="title" type="text"></div>
+			<div><input class="inputFields" type="text" ng-model="noteInfo.description" name="description"/></div>
+          </md-content>
+        
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <md-button target="_blank" md-autofocus>
+        More on Wikipedia {{noteInfo.title}}
+      </md-button>
+      <span flex></span>
+      <md-button ng-click="cancelDailog()" >
+       Cancel
+      </md-button>
+      <md-button ng-click="updateDailogNote(note)" style="margin-right:20px;" >
+        Done
+      </md-button>
+    </md-dialog-actions>
+
+</md-dialog>

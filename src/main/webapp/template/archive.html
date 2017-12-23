@@ -10,7 +10,7 @@
 		<div flex="100" layout-align="start center" class="allNotes" layout="column">
 
 			<div style="width: 75%;" ng-repeat="note in notes | filter:{archive:true}">
-				<md-card ng-style="{'background-color':note.noteColor}"> 
+				<md-card ng-style="{'background-color':note.noteColor}" ng-click="showDialog(note)"> 
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
 					</div>
@@ -63,9 +63,7 @@
 						<md-tooltip md-direction="bottom">Unarchive</md-tooltip>
 						<md-icon md-svg-icon="image/unarchive_black.svg"></md-icon> </md-button>
 					</div>
-					<div>
-						<md-button ng-click="updateNote(note)">Done</md-button>
-					</div>
+					
 				</div>
 				</md-card>
 			</div>
