@@ -1,22 +1,30 @@
 <md-dialog aria-label="">
-    <md-dialog-content style="max-width:600px;max-height:200px; ">
+    <md-dialog-content style="max-width:800px;max-height:300px;">
+      	<div layout="column" flex="100">
+			
+			<div layout-align="start center"  layout="column">
+         		<h4 flex-offset="10">Collabrators</h4>
+         		<hr/>
+         		<div layout="row" flex-offset="10">
+         			<div flex="15">dprajapati591@gmail.com</div>
+         			<div flex></div>
+         		</div>
+         		<md-input-container>
+         			<div layout="row" flex-offset="10">
+         				<div flex="15"></div>
+         				<div flex><input type="email" name="userName" ></div>
+         				<div flex="10">hello</div>
+         			</div>
+         		</md-input-container>
+         	</div> 
+			
+		</div>
+    <md-dialog-actions layout="row" layout-align="end center">
       
-          <md-content class="md-padding">
-           <div><input class="inputFields" ng-model="noteInfo.title" name="title" type="text"></div>
-			<div><input class="inputFields" type="text" ng-model="noteInfo.description" name="description"/></div>
-          </md-content>
-        
-    </md-dialog-content>
-
-    <md-dialog-actions layout="row">
-      <md-button target="_blank" md-autofocus>
-        More on Wikipedia {{noteInfo.title}}
-      </md-button>
-      <span flex></span>
       <md-button ng-click="cancelDailog()" >
        Cancel
       </md-button>
-      <md-button ng-click="updateDailogNote(note)" style="margin-right:20px;" >
+      <md-button ng-click="" style="margin-right:20px;">
         Done
       </md-button>
     </md-dialog-actions>

@@ -22,20 +22,20 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		var getNotes = homeService.getAllNotes();
 		getNotes.then(function(response) {
 			$scope.data = response.data;
-			var notes = response.data;
+			var note = response.data;
 			
 			$interval(function() {
 				for (var i = 0; i < $scope.data.length; i++) {
-					if (notes[i].reminder!=null) {
-						reminderDate = $filter('date')(new Date(notes[i].reminder),
+					if (note[i].reminder != null) {
+						reminderDate = $filter('date')(new Date(note[i].reminder),
 								'MMM dd yyyy HH:mm');
 						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
 						
 						if (currentDate == reminderDate) {
-							alert(notes[i].description);
-							notes[i].reminder = null;
-							homeService.updateNote(notes[i]);
+							alert(note[i].description);
+							note[i].reminder = null;
+							homeService.updateNote(note[i]);
 						}
 					}
 				}
@@ -221,8 +221,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		$scope.note = note;
 		$mdDialog.show({
 			contentElement: '#myStaticDialog',
-			parent: angular.element(document.body),
-		    clickOutsideToClose:true
+		    clickOutsideToClose:true,
+		    parent: angular.element(document.body)
 		});
 	}
 	
@@ -241,6 +241,34 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errormessage = resposne.data.message;
 			console.log(response.data);
 		})
+	}
+	
+	/*=============================================== Add Note ============================================*/
+	
+	/*$scope.IsVisible = false;
+    $scope.ShowHide = function () {
+        //If DIV is visible it will be hidden and vice versa.
+        $scope.IsVisible = $scope.IsVisible ? false : true;
+    }*/
+	
+	/*============================================= Collaborator =============================================*/
+	
+	$scope.collaborators = function(note,event)
+	{
+		console.log("inside collaboarator");
+		$mdDialog.show({
+			locals:{
+				data : note,
+				owner :$scope.owner,
+				listOfUser: $scope.userList
+			},
+			templateUrl : 'template/tabDialog.html',
+			 parent: angular.element(document.body),
+		     targetEvent: event,
+		     clickOutsideToClose: true,
+		     controllerAs: 'controller',
+		     //controller: opencollaboratorsModel
+		});
 	}
 	
 });

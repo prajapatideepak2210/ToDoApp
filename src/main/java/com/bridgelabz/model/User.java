@@ -1,9 +1,16 @@
 package com.bridgelabz.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -23,7 +30,17 @@ public class User {
 	private String contactNumber;
 	private String address;
 	private int isUserActive;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "collaborator", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "note_id"))
+	private List<Note> collaborator = new LinkedList<>();
 	
+	
+	public List<Note> getCollaborator() {
+		return collaborator;
+	}
+	public void setCollaborator(List<Note> collaborator) {
+		this.collaborator = collaborator;
+	}
 	public int getIsUserActive() {
 		return isUserActive;
 	}

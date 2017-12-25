@@ -63,8 +63,27 @@
 						<md-tooltip md-direction="bottom">Unarchive</md-tooltip>
 						<md-icon md-svg-icon="image/unarchive_black.svg"></md-icon> </md-button>
 					</div>
-					
-				</div>
+					<div flex="4">
+					<md-menu>
+						<md-button aria-label="">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
+        					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Delete Note</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button>Make Copy</md-button>
+        					</md-menu-item>
+        
+        					<md-menu-item >
+         					<md-button>Add Labels</md-button>
+        				</md-menu-item>
+        
+      					</md-menu-content>
+    					</md-menu>
+					</div>
 				</md-card>
 			</div>
 		</div>
