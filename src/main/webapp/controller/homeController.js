@@ -21,11 +21,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	var getNotes = function() {
 		var getNotes = homeService.getAllNotes();
 		getNotes.then(function(response) {
-			$scope.data = response.data;
 			var note = response.data;
-			
 			$interval(function() {
-				for (var i = 0; i < $scope.data.length; i++) {
+				for (var i = 0; i < note.length; i++) {
 					if (note[i].reminder != null) {
 						reminderDate = $filter('date')(new Date(note[i].reminder),
 								'MMM dd yyyy HH:mm');
@@ -45,7 +43,20 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errormessage = response.data.message;
 		});
 	}
-
+	
+	var getUser = function(){
+		var getUser=homeService.getUser();
+		getUser.then(function(response){
+			$scope.user = response.data;
+			
+			console.log($scope.user);
+		}, function(response){
+			$scope.data = response.data.message;
+			console.log(response.data);
+		})
+	}
+	
+	getUser();
 	getNotes();
 	
 	/* Trashing and untrashing the Note */
@@ -226,9 +237,6 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 	
-	$scope.cancelDailog = function(){
-		$mdDialog.cancel();
-	}
 	
 	$scope.updateDailogNote = function(note){
 		$scope.updateDailogNote = homeService.updateNote(note);

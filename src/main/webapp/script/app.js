@@ -44,10 +44,12 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		controller : 'homeController'
 	})
 	
-	.state('tabDialog.tmpl',{
-		url : '/tabDialog.tmpl',
-		templateUrl : 'template/tabDialog.tmpl.html',
-		controller : 'homeController'
+	
+	
+	.state('dummy.tmpl',{
+		url : '/dummy.tmpl',
+		templateUrl : 'template/dummy.html',
+		controller : 'dummyController'
 	})
 	
 	$urlRouterProvider.otherwise('/login');

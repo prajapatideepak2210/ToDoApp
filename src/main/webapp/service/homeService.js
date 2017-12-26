@@ -23,7 +23,17 @@ app.factory('homeService', function($http) {
 			}
 		})
 	}
-
+	
+	notes.getUser = function(){
+		return $http({
+			method : "GET",
+			url : "getUser",
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
 	notes.updateNote = function(note) {
 		return $http({
 			method : "PUT",
@@ -67,5 +77,5 @@ app.factory('homeService', function($http) {
 	}
 	
 	return notes;
-
+	
 });

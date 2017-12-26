@@ -161,6 +161,7 @@
 		
 		<div layout="row">
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+		<profile ng-repeat="jmfd"></profile>
 			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 				<md-card ng-style="{'background-color':note.noteColor}" >
 					<div ng-click="showDialog(note)">
@@ -259,7 +260,7 @@
 				<md-card ng-style="{'background-color':note.noteColor}" ng-click="showDialog(note)">
 				
 					<div ng-if="note.noteBackGround">
-					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
+						<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
 					</div>
 					
 					<div flex ><div flex="8">

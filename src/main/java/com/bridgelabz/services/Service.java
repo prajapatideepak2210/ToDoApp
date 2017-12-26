@@ -1,7 +1,5 @@
 package com.bridgelabz.services;
 
-import java.util.List;
-
 import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 
@@ -24,7 +22,7 @@ public interface Service {
 	 * @return List
 	 * @Description This method is used to get the Users list witch is available in database.
 	 */
-	public List<User> getUser();
+	
 	
 	/**
 	 * @param user

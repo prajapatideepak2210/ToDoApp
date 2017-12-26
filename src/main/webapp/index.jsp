@@ -49,7 +49,7 @@
 	<script type="text/javascript" src="service/resetpasswordService.js"></script>
 	<script type="text/javascript" src="service/homeService.js"></script>
 	<script type="text/javascript" src="service/trashService.js"></script>
-	
+	<script type="text/javascript" src="service/dummyService.js"></script>
 	
 	<!-- All Controllers are here -->
 	
@@ -60,6 +60,7 @@
 	<script type="text/javascript" src="controller/homeController.js"></script>
 	<script type="text/javascript" src="controller/trashController.js"></script>
 	<script type="text/javascript" src="controller/dailogController.js"></script>
+	<script type="text/javascript" src="controller/dummyController.js"></script>
 	
 	<!-- All directives are here -->
 	

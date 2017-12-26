@@ -1,7 +1,6 @@
 package com.bridgelabz.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,9 +36,12 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<User> getUser() {
-		List<User> list = serviceImpl.getUser();
-		return list;
+	public User getUser(HttpServletRequest request) {
+		String token = request.getHeader("TokenAccess");
+		int userId = TokenGenerator.verifyToken(token);
+		System.out.println("user id : "+userId);
+		User user = serviceImpl.getUserById(userId);
+		return user;
 	}
 
 	
@@ -105,24 +107,27 @@ public class UserController {
 
 
 	@RequestMapping(value = "/active/{jwt:.+}", method = RequestMethod.GET)
-	public void verifyToken(@PathVariable("jwt") String token, HttpServletResponse response) throws IOException {
+	public ResponseEntity<Response> verifyToken(@PathVariable("jwt") String token, HttpServletResponse response) throws IOException {
+		Response responseMessage=new Response();
 		int id = TokenGenerator.verifyToken(token);
+		System.out.println("id is : "+id);
 		//Response responseMessage = new Response();
 		if (id != 0) {
 			User user = serviceImpl.getUserById(id);
 			if (user != null) {
 				serviceImpl.activeUser(id, user);
-				//responseMessage.setMessage("User has been Activated");
-				response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
-				//return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
+				System.out.println("tum active ho gae ho");
+				responseMessage.setMessage("User has been Activated");
+				//response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}
-			//responseMessage.setMessage("User is not available.");
-			response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
-			//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
+			responseMessage.setMessage("User is not available.");
+			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration.html");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
-		//responseMessage.setMessage("Wrong id.");
-		response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
-		//return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
+		responseMessage.setMessage("Wrong id.");
+		//response.sendRedirect("http://localhost:9090/ToDoApp/#!/registration");
+		return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 	}
 
 	
@@ -184,4 +189,5 @@ public class UserController {
 			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
 	}
+	
 }

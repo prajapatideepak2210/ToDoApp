@@ -3,6 +3,7 @@ package com.bridgelabz.model;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -30,6 +32,9 @@ public class User {
 	private String contactNumber;
 	private String address;
 	private int isUserActive;
+	@Lob
+	@Column(columnDefinition="LONGBLOB")	
+	private String profilePic;
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "collaborator", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "note_id"))
 	private List<Note> collaborator = new LinkedList<>();
@@ -89,4 +94,11 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+	
 }

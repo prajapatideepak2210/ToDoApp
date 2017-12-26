@@ -59,7 +59,8 @@ public class ServiceImpl implements Service{
 			int userId=userDao.add(user);
 			if(userId!=0)
 			{
-				List<User> list=getUser();
+				List<User> list = userDao.getUser();
+				System.out.println("List : "+list);
 				Iterator<User> iterator=list.iterator();
 				while (iterator.hasNext()) {
 					User findUser = (User) iterator.next();
@@ -90,9 +91,9 @@ public class ServiceImpl implements Service{
 	/* (non-Javadoc)
 	 * @see com.bridgelabz.services.Service#getUser()
 	 */
-	public List<User> getUser()
+	public User getUser(int userId)
 	{
-		return userDao.getUser();
+		return userDao.getUserById(userId);
 	}
 	
 	/* (non-Javadoc)
@@ -186,4 +187,6 @@ public class ServiceImpl implements Service{
 	{
 		return userDao.update(user);
 	}
+
+	
 }
