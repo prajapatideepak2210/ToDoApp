@@ -301,17 +301,31 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		 			collaborate.then(function(response){
 		 				$scope.message = response.data.message;
 		 				console.log(response.data);
+		 				$mdDialog.hide();
 		 			}, function(response){
 		 				$scope.errorMessage = response.data.message;
 		 				console.log(response.data);
 		 			})
 		 		}
 		 		
+		 		$scope.cancel = function(){
+		 			$mdDialog.hide();
+		 		}
+		 		
+		 		$scope.deleteUserFromCollaborator = function(collabUser, note){
+		 			var deleteCollabUser = homeService.deleteCollabUser(collabUser, note);
+		 			deleteCollabUser.then(function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 			}, function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 			})
+		 		}
 		 		
 		     }
 		});
 	}
-	
 	
 	
 });

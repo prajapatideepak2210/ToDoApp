@@ -98,6 +98,18 @@ app.factory('homeService', function($http) {
 		})
 	}
 	
+	notes.deleteCollabUser = function(collabUser, note){
+		return $http({
+			method : 'POST',
+			url : 'deleteCollabUser',
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'userToDelete' : collabUser
+			}
+		})
+	}
+	
 	return notes;
 	
 });

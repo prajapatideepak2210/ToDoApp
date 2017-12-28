@@ -1,28 +1,42 @@
 <md-dialog aria-label="" >
-    <md-dialog-content style="width:600px;height:250px;">
-      	<div>
+	<md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Collabrators</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:800px;max-height:810px; min-width:600px;">
 			<div layout-padding>
-         		<span>Collabrators</span>
-         		<md-divider></md-divider>
-         		<div layout="row" layout-align="start center">
-         			<div layout-align="center center" style="background-color: white; width: 50px; border-radius : 100px;">
-						<img alt="{{ownerDetails.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{ownerDetails.profilePic}}"/>
+         		<div layout="column" flex="10" layout-align="start center">
+         			<div layout="row" layout-align="start center" style="width: 100%;">
+         				<div style="background-color: white; width: 50px; border-radius : 100px;">
+							<img alt="{{ownerDetails.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{ownerDetails.profilePic}}"/>
+						</div>
+						<div layout-align="center center" flex-offset="5" style="width: 60%; margin-left: 5px;">
+							<h6 style="height: 5px; margin: 3px;">{{ownerDetails.fName}}(Owner)</h6>
+							<h6 style="height: 5px; margin: 3px;">{{ownerDetails.userName}}</h6>
+						</div>
 					</div>
-					<div layout-align="center center" flex-offset="5" style="">
-						<h6>{{ownerDetails.fName}}(Owner)</h6>
-						<h6>{{ownerDetails.userName}}</h6>
-					</div>
-         		</div>
+					<div layout="column" style="width: 100%;">
+						<div ng-repeat="sharedUser in note.collaborator" layout-align="start center" layout="row" >
+							<div style="background-color: white;  width: 50px; border-radius : 100px;" flex="30">
+								<img alt="{{sharedUser.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{sharedUser.profilePic}}"/>
+							</div>
+							<div style="margin-left: 10px; width: 60%;" layout-align="center center" flex="90">
+								<h6>{{sharedUser.userName}}</h6>
+							</div>
+							<div style="width: 10%;">
+								<img ng-click="deleteUserFromCollaborator(sharedUser.userName, note)" alt="Img" ng-src="image/close_black.svg">
+							</div>
+						</div>
+         			</div>
+         		</div> 
          		<div>
-         			<div flex="15"></div>
-         			<div flex><input type="email" name="userName" placeholder="Enter email" ng-model="userName"></div>
-         			<div flex="10"></div>
+         			<input style="border: none; outline: none;" type="email" name="userName" placeholder="Enter email" ng-model="userName">
          		</div>
-         	</div> 
 		</div>
-      	<div>
-      		<md-button ng-click="cancelDailog()">Cancel</md-button>
-      		<md-button ng-click="collaborateUserWithNote(userName, note)" style="margin-right:20px;">Done</md-button>
-    	</div>
 	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button ng-click="cancel()">Cancel</md-button>
+      	<md-button ng-click="collaborateUserWithNote(userName, note)" style="margin-right:20px;">Done</md-button>
+    </md-dialog-actions>
 </md-dialog>

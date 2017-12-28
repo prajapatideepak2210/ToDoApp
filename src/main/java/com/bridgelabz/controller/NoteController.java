@@ -1,6 +1,9 @@
 package com.bridgelabz.controller;
 
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -101,7 +104,16 @@ public class NoteController {
 	@RequestMapping(value="/collaborateUser", method = RequestMethod.POST)
 	public ResponseEntity<Response> collaborateUser(@RequestBody Note note, HttpServletRequest servletRequest){
 		Response response = new Response();
-		String userNameForCollaborate = servletRequest.getHeader("userNameForCollaborate");
+		User collabUser = userServiceImpl.getUserByEmail(servletRequest.getHeader("userNameForCollaborate"));
+		Note oldNote = noteService.getNoteByNoteId(note.getId());
+		if (collabUser!=null){
+			oldNote.getCollaborator().add(collabUser);
+			noteService.updateNote(oldNote);
+		}else{
+			response.setMessage("User Not found.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
+		}
+		/*String userNameForCollaborate = servletRequest.getHeader("userNameForCollaborate");
 		User userForCollaborate = userServiceImpl.getUserByEmail(userNameForCollaborate);
 		Note oldNote = noteService.getNoteByNoteId(note.getId());
 		oldNote.getCollaborator().add(userForCollaborate);
@@ -112,7 +124,26 @@ public class NoteController {
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 		}
 		response.setMessage("Note is note updated.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);*/
+		response.setMessage("Succefully Added");
+		return new ResponseEntity<Response>(response, HttpStatus.OK);	
 	}
 	
+	@RequestMapping(value="/deleteCollabUser", method = RequestMethod.POST)
+	public ResponseEntity<Response> deleteCollabUser(@RequestBody Note note, HttpServletRequest request, HttpSession session){
+		Response response = new Response();
+		Note oldnote =  noteService.getNoteByNoteId(note.getId());
+		User collabUser = userServiceImpl.getUserByEmail(request.getHeader("userToDelete"));
+		if(collabUser!=null){
+			System.out.println("before remove "+oldnote.getCollaborator());
+			oldnote.getCollaborator().remove(collabUser);
+			noteService.updateNote(oldnote);
+			System.out.println("after remove "+oldnote.getCollaborator());
+		}else{
+			response.setMessage("User Not found.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
+		}
+		response.setMessage("Succefully removed");
+		return new ResponseEntity<Response>(response, HttpStatus.OK);	
+	}			
 }
