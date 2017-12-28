@@ -46,8 +46,8 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 	
 	
 	
-	.state('dummy.tmpl',{
-		url : '/dummy.tmpl',
+	.state('dummy',{
+		url : '/dummy',
 		templateUrl : 'template/dummy.html',
 		controller : 'dummyController'
 	})

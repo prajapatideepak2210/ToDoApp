@@ -48,4 +48,6 @@ public interface NoteService {
 	 * it returns list of notes if user_id is available otherwise returns null.
 	 */
 	List<Note> getNoteById(int user_id);
+	
+	Note getNoteByNoteId(int id);
 }

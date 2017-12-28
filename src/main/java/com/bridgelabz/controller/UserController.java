@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.model.Note;
 import com.bridgelabz.model.PasswordUser;
 import com.bridgelabz.model.Response;
 import com.bridgelabz.model.User;
@@ -188,6 +189,17 @@ public class UserController {
 			//response.sendRedirect("http://localhost:9090/ToDoApp/#!/resetpassword");
 			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
+	}
+	
+	@RequestMapping(value="/getOwner", method = RequestMethod.POST)
+	public ResponseEntity<User> getOwner(@RequestBody Note note){
+		int ownerId = note.getUser_id();
+		User owner = serviceImpl.getUserById(ownerId);
+		if(owner != null)
+		{
+			return new ResponseEntity<User>(owner, HttpStatus.ACCEPTED);
+		}
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 	
 }

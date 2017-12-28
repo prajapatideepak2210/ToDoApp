@@ -1,8 +1,8 @@
 package com.bridgelabz.model;
 
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -45,13 +45,13 @@ public class Note {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="collaborator", joinColumns=@JoinColumn(name="note_id"),inverseJoinColumns=@JoinColumn(name="user_id"))
-	private List<User> collaborator = new LinkedList<>();
+	private Set<User> collaborator = new LinkedHashSet<User>();
 	
 	
-	public List<User> getCollaborator() {
+	public Set<User> getCollaborator() {
 		return collaborator;
 	}
-	public void setCollaborator(List<User> collaborator) {
+	public void setCollaborator(Set<User> collaborator) {
 		this.collaborator = collaborator;
 	}
 	public String getNoteColor() {

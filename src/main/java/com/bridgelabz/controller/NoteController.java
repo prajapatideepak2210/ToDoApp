@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.model.Note;
 import com.bridgelabz.model.Response;
+import com.bridgelabz.model.User;
 import com.bridgelabz.services.NoteService;
+import com.bridgelabz.services.Service;
 import com.bridgelabz.token.TokenGenerator;
 
 @RestController
@@ -25,6 +27,9 @@ public class NoteController {
 
 	@Autowired
 	NoteService noteService;
+	
+	@Autowired
+	Service userServiceImpl;
 
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> addNote(@RequestBody Note note, HttpServletRequest request) {
@@ -83,7 +88,7 @@ public class NoteController {
 
 	
 	@RequestMapping(value = "/getNoteByUserId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getNoteById(HttpSession session, HttpServletRequest request) {
+	public ResponseEntity<List<Note>> getNoteByUserId(HttpSession session, HttpServletRequest request) {
 		String token = request.getHeader("TokenAccess");
 		int user_id=TokenGenerator.verifyToken(token);
 		List<Note> list = noteService.getNoteById(user_id);
@@ -91,6 +96,23 @@ public class NoteController {
 			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
 		else
 			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value="/collaborateUser", method = RequestMethod.POST)
+	public ResponseEntity<Response> collaborateUser(@RequestBody Note note, HttpServletRequest servletRequest){
+		Response response = new Response();
+		String userNameForCollaborate = servletRequest.getHeader("userNameForCollaborate");
+		User userForCollaborate = userServiceImpl.getUserByEmail(userNameForCollaborate);
+		Note oldNote = noteService.getNoteByNoteId(note.getId());
+		oldNote.getCollaborator().add(userForCollaborate);
+		Note noteForCheck = noteService.updateNote(oldNote);
+		if(noteForCheck!=null)
+		{
+			response.setMessage("Note successfully updated.");
+			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+		}
+		response.setMessage("Note is note updated.");
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 	
 }

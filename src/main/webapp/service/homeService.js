@@ -14,7 +14,6 @@ app.factory('homeService', function($http) {
 	}
 
 	notes.getAllNotes = function() {
-		var notes = {};
 		return $http({
 			method : "GET",
 			url : "getNoteByUserId",
@@ -72,6 +71,29 @@ app.factory('homeService', function($http) {
 			data : note,
 			headers : {
 				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
+	notes.getOwner = function(note){
+		return $http({
+			method : 'POST',
+			url : 'getOwner',
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
+	notes.collaborateUserWithNote = function(userName, note){
+		return $http({
+			method : 'POST',
+			url : 'collaborateUser',
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'userNameForCollaborate' : userName
 			}
 		})
 	}

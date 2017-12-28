@@ -82,7 +82,6 @@ public class GoogleController {
 			
 		}
 		else{
-			user = userService.getUserByEmail(user.getUserName());
 			String token = TokenGenerator.generateToken(user.getId(), user);
 			response.setHeader("Authentication", token);
 			user.setProfilePic(profile.get("image").get("url").asText());

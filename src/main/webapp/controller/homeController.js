@@ -16,11 +16,14 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 	
+	$scope.notes = [];
+	
 	/* geting All Notes */
 	
 	var getNotes = function() {
-		var getNotes = homeService.getAllNotes();
-		getNotes.then(function(response) {
+		$scope.notes = [];
+		var getN = homeService.getAllNotes();
+		getN.then(function(response) {
 			var note = response.data;
 			$interval(function() {
 				for (var i = 0; i < note.length; i++) {
@@ -40,7 +43,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			}, 50000);
 			$scope.notes = response.data;
 		}, function(response) {
-			$scope.errormessage = response.data.message;
+			//$scope.errormessage = response.data.message;
 		});
 	}
 	
@@ -48,10 +51,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		var getUser=homeService.getUser();
 		getUser.then(function(response){
 			$scope.user = response.data;
-			
 			console.log($scope.user);
 		}, function(response){
-			$scope.data = response.data.message;
+			$scope.errormessage = response.data.message;
 			console.log(response.data);
 		})
 	}
@@ -261,22 +263,55 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	
 	/*============================================= Collaborator =============================================*/
 	
+	$scope.getOwner=function(note)
+	{
+		var collaborator = homeService.getUser();
+		collaborator.then(function(response){
+			$scope.errormessage = response.data.message;
+			$scope.userDetail = response.data;
+		}, function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		})
+	}
+	
 	$scope.collaborators = function(note,event)
 	{
-		console.log("inside collaboarator");
 		$mdDialog.show({
+			
 			locals:{
 				data : note,
-				owner :$scope.owner,
+				owner :$scope.userDetail,
 				listOfUser: $scope.userList
 			},
-			templateUrl : 'template/tabDialog.html',
+			 templateUrl : 'template/tabDialog.html',
 			 parent: angular.element(document.body),
 		     targetEvent: event,
 		     clickOutsideToClose: true,
-		     controllerAs: 'controller',
-		     //controller: opencollaboratorsModel
+		     
+		     controller: function($scope, owner, data){
+		    	 $scope.ownerDetails=owner;
+		    	 $scope.note = data;
+		 		console.log("owner ",$scope.ownerDetails);
+		 		console.log("Note ",$scope.note);
+		 		
+		 		$scope.collaborateUserWithNote = function(userName, note){
+		 			console.log("note : "+note.title);
+		 			var collaborate = homeService.collaborateUserWithNote(userName, note);
+		 			collaborate.then(function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 			}, function(response){
+		 				$scope.errorMessage = response.data.message;
+		 				console.log(response.data);
+		 			})
+		 		}
+		 		
+		 		
+		     }
 		});
 	}
+	
+	
 	
 });

@@ -1,32 +1,28 @@
-<md-dialog aria-label="">
-    <md-dialog-content style="max-width:800px;max-height:300px;">
-      	<div layout="column" flex="100">
-			
-			<div layout-align="start center"  layout="column">
-         		<h4 flex-offset="10">Collabrators</h4>
-         		<hr/>
-         		<div layout="row" flex-offset="10">
-         			<div flex="15">dprajapati591@gmail.com</div>
-         			<div flex></div>
+<md-dialog aria-label="" >
+    <md-dialog-content style="width:600px;height:250px;">
+      	<div>
+			<div layout-padding>
+         		<span>Collabrators</span>
+         		<md-divider></md-divider>
+         		<div layout="row" layout-align="start center">
+         			<div layout-align="center center" style="background-color: white; width: 50px; border-radius : 100px;">
+						<img alt="{{ownerDetails.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{ownerDetails.profilePic}}"/>
+					</div>
+					<div layout-align="center center" flex-offset="5" style="">
+						<h6>{{ownerDetails.fName}}(Owner)</h6>
+						<h6>{{ownerDetails.userName}}</h6>
+					</div>
          		</div>
-         		<md-input-container>
-         			<div layout="row" flex-offset="10">
-         				<div flex="15"></div>
-         				<div flex><input type="email" name="userName" ></div>
-         				<div flex="10">hello</div>
-         			</div>
-         		</md-input-container>
+         		<div>
+         			<div flex="15"></div>
+         			<div flex><input type="email" name="userName" placeholder="Enter email" ng-model="userName"></div>
+         			<div flex="10"></div>
+         		</div>
          	</div> 
-			
 		</div>
-    <md-dialog-actions layout="row" layout-align="end center">
-      
-      <md-button ng-click="cancelDailog()" >
-       Cancel
-      </md-button>
-      <md-button ng-click="" style="margin-right:20px;">
-        Done
-      </md-button>
-    </md-dialog-actions>
-
+      	<div>
+      		<md-button ng-click="cancelDailog()">Cancel</md-button>
+      		<md-button ng-click="collaborateUserWithNote(userName, note)" style="margin-right:20px;">Done</md-button>
+    	</div>
+	</md-dialog-content>
 </md-dialog>
