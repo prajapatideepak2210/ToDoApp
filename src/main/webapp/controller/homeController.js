@@ -86,12 +86,11 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	$scope.deleteNote = function(note) {
 		var deleteNote = homeService.deleteNote(note);
 		deleteNote.then(function(response) {
-			$scope.errorMessage = response.data.message;
+			$scope.message = response.data.message;
 			console.log(response.data);
 			getNotes();
 		}, function(response) {
 			$scope.errorMessage = response.data.message;
-			console.log(response.data);
 		})
 	}
 	
@@ -240,7 +239,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 	
 	
-	$scope.updateDailogNote = function(note){
+	$scope.updateDailogNote = function(note){ 
 		$scope.updateDailogNote = homeService.updateNote(note);
 		
 		updateDailogNote.then(function(response){
@@ -262,26 +261,26 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
     }*/
 	
 	/*============================================= Collaborator =============================================*/
-	
-	$scope.getOwner=function(note)
+	/*$scope.getOwner=function(note)
 	{
-		var collaborator = homeService.getUser();
+		var collaborator = homeService.getOwner(note);
 		collaborator.then(function(response){
-			$scope.errormessage = response.data.message;
-			$scope.userDetail = response.data;
+			console.log(response.data);
+			$scope.localNoteOwner = response.data;
 		}, function(response){
 			$scope.errormessage = response.data.message;
-			console.log(response.data);
+			
 		})
-	}
+	}*/
 	
 	$scope.collaborators = function(note,event)
 	{
+
 		$mdDialog.show({
 			
 			locals:{
 				data : note,
-				owner :$scope.userDetail,
+				owner :$scope.ownerDetails,
 				listOfUser: $scope.userList
 			},
 			 templateUrl : 'template/tabDialog.html',
@@ -289,11 +288,9 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		     targetEvent: event,
 		     clickOutsideToClose: true,
 		     
-		     controller: function($scope, owner, data){
-		    	 $scope.ownerDetails=owner;
+		     controller: function($scope, data){
+		    	 
 		    	 $scope.note = data;
-		 		console.log("owner ",$scope.ownerDetails);
-		 		console.log("Note ",$scope.note);
 		 		
 		 		$scope.collaborateUserWithNote = function(userName, note){
 		 			console.log("note : "+note.title);
@@ -302,11 +299,25 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		 				$scope.message = response.data.message;
 		 				console.log(response.data);
 		 				$mdDialog.hide();
+		 				getNotes();
 		 			}, function(response){
 		 				$scope.errorMessage = response.data.message;
 		 				console.log(response.data);
 		 			})
 		 		}
+		 		
+		 		var getOwner = function(data){
+		 			var collaborator = homeService.getOwner(note);
+		 			collaborator.then(function(response){
+		 				console.log(response.data);
+		 				$scope.ownerDetails = response.data;
+		 			}, function(response){
+		 				$scope.errormessage = response.data.message;
+		 				
+		 			})
+		 		}
+		 		
+		 		getOwner(data);
 		 		
 		 		$scope.cancel = function(){
 		 			$mdDialog.hide();
@@ -317,12 +328,12 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		 			deleteCollabUser.then(function(response){
 		 				$scope.message = response.data.message;
 		 				console.log(response.data);
+		 				getNotes();
 		 			}, function(response){
 		 				$scope.message = response.data.message;
 		 				console.log(response.data);
 		 			})
 		 		}
-		 		
 		     }
 		});
 	}

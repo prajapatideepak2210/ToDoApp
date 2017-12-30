@@ -102,7 +102,11 @@
 									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
 										readonly="readonly" ng-change="reminder(note)">
         					</md-menu-item>
-        					
+        					<md-menu-item >
+          						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
+										readonly="readonly" ng-change="reminder(note)">
+        					</md-menu-item>
       					</md-menu-content>
       					</md-menu>
 					</div>
@@ -168,7 +172,7 @@
 		<profile ng-repeat="jmfd"></profile>
 			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 				<md-card ng-style="{'background-color':note.noteColor}" >
-					<div ng-click="showDialog(note)" ng-init="getOwner(note)">
+					<div ng-click="showDialog(note)">
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;" >
 					</div>
@@ -198,14 +202,14 @@
         					<md-menu-item >
           						<input mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
 									placeholder="Date" show-todays-date="" min-date="date" ng-model="note.reminder" class=" md-input"
-										readonly="readonly" ng-change="reminder(note)">
+										readonly="readonly" ng-change="addReminder(note)">
         					</md-menu-item>
         					
       					</md-menu-content>
       					</md-menu>
 					</div>
 					<div flex="4">
-						<md-button class="md-icon-button md-primary" aria-label="" ng-click="collaborators(note, $event)">
+						<md-button class="md-icon-button md-primary" aria-label="" ng-click="collaborators(note, $event)" ng-init="getOwner(note)">
 						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
@@ -261,8 +265,8 @@
 		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
 		<div><h6>Pined Notes</h6></div>
 		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
-				<md-card ng-style="{'background-color':note.noteColor}" ng-click="showDialog(note)" ng-init="getOwner(note)">
-				
+				<md-card ng-style="{'background-color':note.noteColor}">
+					<div ng-click="showDialog(note)">
 					<div ng-if="note.noteBackGround">
 						<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
 					</div>
@@ -270,14 +274,17 @@
 					<div flex ><div flex="8">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
-						<span>{{note.title}}</span>
-						<span>{{note.description}}</span>
+						<div layout="column">
+							<span>{{note.title}}</span>
+							<span>{{note.description}}</span>
+						</div>
 					<!-- <input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text"> -->
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
 						ng-click="removeReminder(note)"/>
+					</div>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">
@@ -298,7 +305,7 @@
       					</md-menu>
 					</div>
 					<div flex="4">
-						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-button class="md-icon-button md-primary" aria-label=""  ng-click="collaborators(note, $event)" ng-init="getOwner(note)">
 						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>

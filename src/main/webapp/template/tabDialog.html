@@ -4,7 +4,7 @@
         <h2>Collabrators</h2>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:800px;max-height:810px; min-width:600px;">
+    <md-dialog-content style="max-width:800px;max-height:810px; min-width:600px;" >
 			<div layout-padding>
          		<div layout="column" flex="10" layout-align="start center">
          			<div layout="row" layout-align="start center" style="width: 100%;">
@@ -17,7 +17,7 @@
 						</div>
 					</div>
 					<div layout="column" style="width: 100%;">
-						<div ng-repeat="sharedUser in note.collaborator" layout-align="start center" layout="row" >
+						<div style="width: 100px;" ng-repeat="sharedUser in note.collaborator" layout-align="start center" layout="row" >
 							<div style="background-color: white;  width: 50px; border-radius : 100px;" flex="30">
 								<img alt="{{sharedUser.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{sharedUser.profilePic}}"/>
 							</div>

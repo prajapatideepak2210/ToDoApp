@@ -45,10 +45,15 @@ app.factory('homeService', function($http) {
 	}
 
 	notes.deleteNote = function(note) {
+		console.log(note);
 		return $http({
-			method : "delete",
-			url : "deleteNote" + '/' + note.id,
-			data : note
+			method : "DELETE",
+			url : "deleteNote",
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'note_id' : note.id
+			}
 		})
 	}
 

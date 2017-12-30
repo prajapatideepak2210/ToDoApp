@@ -136,6 +136,7 @@ public class NoteDaoImpl implements NoteDao {
 		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
 		
 		List<Note> list = criteria.list();
+		list.forEach(i->System.out.println(i.getId()));
 		notes.addAll(list);
 		
 		session.close();

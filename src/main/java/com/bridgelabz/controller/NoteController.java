@@ -1,9 +1,6 @@
 package com.bridgelabz.controller;
 
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -53,10 +50,11 @@ public class NoteController {
 		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/deleteNote/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> deleteNote(@PathVariable int id) {
+	@RequestMapping(value = "/deleteNote", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> deleteNote(HttpServletRequest request) {
+		
 		Response response = new Response();
-		int noteId = noteService.deleteNote(id);
+		int noteId = noteService.deleteNote(request.getIntHeader("note_id"));
 		if (noteId != 0) {
 			response.setMessage("Note successfully deleted.");
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
@@ -109,24 +107,12 @@ public class NoteController {
 		if (collabUser!=null){
 			oldNote.getCollaborator().add(collabUser);
 			noteService.updateNote(oldNote);
+			response.setMessage("Succefully successfully Added");
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}else{
-			response.setMessage("User Not found.");
+			response.setMessage("User Not available.");
 			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
 		}
-		/*String userNameForCollaborate = servletRequest.getHeader("userNameForCollaborate");
-		User userForCollaborate = userServiceImpl.getUserByEmail(userNameForCollaborate);
-		Note oldNote = noteService.getNoteByNoteId(note.getId());
-		oldNote.getCollaborator().add(userForCollaborate);
-		Note noteForCheck = noteService.updateNote(oldNote);
-		if(noteForCheck!=null)
-		{
-			response.setMessage("Note successfully updated.");
-			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
-		}
-		response.setMessage("Note is note updated.");
-		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);*/
-		response.setMessage("Succefully Added");
-		return new ResponseEntity<Response>(response, HttpStatus.OK);	
 	}
 	
 	@RequestMapping(value="/deleteCollabUser", method = RequestMethod.POST)

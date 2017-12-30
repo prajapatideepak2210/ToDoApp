@@ -52,5 +52,6 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		controller : 'dummyController'
 	})
 	
+	
 	$urlRouterProvider.otherwise('/login');
 } ]);

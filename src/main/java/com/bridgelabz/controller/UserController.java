@@ -193,10 +193,12 @@ public class UserController {
 	
 	@RequestMapping(value="/getOwner", method = RequestMethod.POST)
 	public ResponseEntity<User> getOwner(@RequestBody Note note){
+		System.out.println("Note id and  Owner Id "+note.getId()+" "+note.getUser_id());
 		int ownerId = note.getUser_id();
 		User owner = serviceImpl.getUserById(ownerId);
 		if(owner != null)
 		{
+			System.out.println(owner.getUserName());
 			return new ResponseEntity<User>(owner, HttpStatus.ACCEPTED);
 		}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
