@@ -7,9 +7,11 @@
 	<link rel="stylesheet" href="css/home.css">
 	<link rel="stylesheet" href="css/navbar.css">
 	<link rel="stylesheet" href="css/sidebar.css">
+	<link rel="stylesheet" href=""/>
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css">
 	<link rel="stylesheet" href="bower_components/colorpicker/colorPickerStyle.css">
+
 </head>
 <body ng-app="ToDo">
 	<div ui-view ></div>
@@ -47,7 +49,7 @@
 	<script type="text/javascript" src="service/resetpasswordService.js"></script>
 	<script type="text/javascript" src="service/homeService.js"></script>
 	<script type="text/javascript" src="service/trashService.js"></script>
-	
+	<script type="text/javascript" src="service/dummyService.js"></script>
 	
 	<!-- All Controllers are here -->
 	
@@ -57,7 +59,8 @@
 	<script type="text/javascript" src="controller/resetpasswordController.js"></script>
 	<script type="text/javascript" src="controller/homeController.js"></script>
 	<script type="text/javascript" src="controller/trashController.js"></script>
-	
+	<script type="text/javascript" src="controller/dailogController.js"></script>
+	<script type="text/javascript" src="controller/dummyController.js"></script>
 	
 	<!-- All directives are here -->
 	

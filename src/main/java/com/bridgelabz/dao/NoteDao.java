@@ -14,4 +14,6 @@ public interface NoteDao {
 	public List<Note> getNotes();
 	
 	public List<Note> getNoteById(int id);
+
+	public Note getNoteByNoteId(int id);
 }

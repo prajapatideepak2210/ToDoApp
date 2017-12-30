@@ -3,11 +3,12 @@ package com.bridgelabz.controller;
 import java.io.IOException;
 import java.util.UUID;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 //import org.springframework.http.HttpStatus;
 //import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +36,7 @@ public class GoogleController {
 	}
 	
 	@RequestMapping(value="/connectgoogle")
-	public void redirectFromGoogle(HttpServletRequest request, HttpServletResponse response)
+	public void redirectFromGoogle(HttpServletRequest request, HttpServletResponse response, HttpSession session)
 			throws IOException {
 		Response responseForMessage=new Response();
 		String sessionState = (String) request.getSession().getAttribute("STATE");
@@ -62,22 +63,43 @@ public class GoogleController {
 			user.setfName(profile.get("displayName").asText());
 			user.setUserName(profile.get("emails").get(0).get("value").asText());
 			user.setIsUserActive(1);
-			/*user.setPicUrl(profile.get("image").get("url"));*/
+			user.setProfilePic(profile.get("image").get("url").asText());
 			user.setPassword("");
-			userService.addSocialUser(user);
-			responseForMessage.setMessage("Hello "+user.getfName()+" you are new user.");
-			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
-			//return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
+			int id = userService.addSocialUser(user);
+			if(id>0) {
+				String token = TokenGenerator.generateToken(id, user);
+    			response.setHeader("Authorization", token);
+    			session.setAttribute("token", token);
+    			System.out.println("id is > 0");
+    			response.sendRedirect("http://localhost:9090/ToDoApp/#!/dummy");
+			}
+			else
+			{
+				System.out.println("id is < 0");
+				response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
+			}
+			
+			
 		}
 		else{
-			user = userService.getUserByEmail(user.getUserName());
 			String token = TokenGenerator.generateToken(user.getId(), user);
 			response.setHeader("Authentication", token);
-			Cookie accCookie = new Cookie("socialaccessToken", token);
-			response.addCookie(accCookie);
+			user.setProfilePic(profile.get("image").get("url").asText());
+			userService.updateUser(user);
+			session.setAttribute("token", token);
 			responseForMessage.setMessage("Hello "+user.getfName()+" you are alredy visited here.");
-			response.sendRedirect("http://localhost:9090/ToDoApp/#!/home");
+			System.out.println("dummy user");
+			response.sendRedirect("http://localhost:9090/ToDoApp/#!/dummy");
 			//return new ResponseEntity<Response>(responseForMessage, HttpStatus.ACCEPTED);
 		}
+		
+	}
+	
+	@RequestMapping(value="/getToken")
+	public ResponseEntity<Response> getToken(HttpSession session){
+		Response responseMessage = new Response();
+		responseMessage.setMessage((String) session.getAttribute("token"));
+		session.removeAttribute("token");
+		return  ResponseEntity.ok(responseMessage);
 	}
 }

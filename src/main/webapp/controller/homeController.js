@@ -1,7 +1,7 @@
 var ToDo = angular.module('ToDo');
  
 ToDo.controller('homeController', function($scope, homeService, Upload,
-		$base64, mdcDateTimeDialog, $filter, $interval) {
+		$base64, mdcDateTimeDialog, $filter, $interval, $mdDialog, $rootScope) {
 	
 	/* Creating the Note */
 	
@@ -16,36 +16,50 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 	
+
+	$scope.notes = [];
+	
 	/* geting All Notes */
 	
 	var getNotes = function() {
-		var getNotes = homeService.getAllNotes();
-		getNotes.then(function(response) {
-			$scope.data = response.data;
-			var notes = response.data;
-			
+		$scope.notes = [];
+		var getN = homeService.getAllNotes();
+		getN.then(function(response) {
+			var note = response.data;
 			$interval(function() {
-				for (var i = 0; i < $scope.data.length; i++) {
-					if (notes[i].reminder!=null) {
-						reminderDate = $filter('date')(new Date(notes[i].reminder),
+				for (var i = 0; i < note.length; i++) {
+					if (note[i].reminder != null) {
+						reminderDate = $filter('date')(new Date(note[i].reminder),
 								'MMM dd yyyy HH:mm');
 						var currentDate = $filter('date')(new Date(),
 								'MMM dd yyyy HH:mm');
 						
 						if (currentDate == reminderDate) {
-							alert(notes[i].description);
-							notes[i].reminder = null;
-							homeService.updateNote(notes[i]);
+							alert(note[i].description);
+							note[i].reminder = null;
+							homeService.updateNote(note[i]);
 						}
 					}
 				}
 			}, 50000);
 			$scope.notes = response.data;
 		}, function(response) {
-			$scope.errormessage = response.data.message;
+			//$scope.errormessage = response.data.message;
 		});
 	}
-
+	
+	var getUser = function(){
+		var getUser=homeService.getUser();
+		getUser.then(function(response){
+			$scope.user = response.data;
+			console.log($scope.user);
+		}, function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+		})
+	}
+	
+	getUser();
 	getNotes();
 	
 	/* Trashing and untrashing the Note */
@@ -73,12 +87,11 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	$scope.deleteNote = function(note) {
 		var deleteNote = homeService.deleteNote(note);
 		deleteNote.then(function(response) {
-			$scope.errorMessage = response.data.message;
+			$scope.message = response.data.message;
 			console.log(response.data);
 			getNotes();
 		}, function(response) {
 			$scope.errorMessage = response.data.message;
-			console.log(response.data);
 		})
 	}
 	
@@ -130,6 +143,10 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errorMessage = response.data.message;
 			console.log(response.data);
 		})
+	}
+	
+	$scope.updateNoteModel = function(){
+		console.log("hello update");
 	}
 
 	/* Image Uploading */
@@ -209,6 +226,119 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			$scope.errormessage = response.data.message;
 			console.log(response.data);
 		})
-   }
 
+	}
+	
+	/* Dailog Box */
+	
+	$scope.showDialog=function(note){
+		$scope.note = note;
+		$mdDialog.show({
+			contentElement: '#myStaticDialog',
+		    clickOutsideToClose:true,
+		    parent: angular.element(document.body)
+		});
+	}
+	
+	
+	$scope.updateDailogNote = function(note){ 
+		$scope.updateDailogNote = homeService.updateNote(note);
+		
+		updateDailogNote.then(function(response){
+			$scope.errormessage = response.data.message;
+			console.log(response.data);
+			$mdDialog.hide();
+		}, function(response){
+			$scope.errormessage = resposne.data.message;
+			console.log(response.data);
+		})
+	}
+	
+	/*=============================================== Add Note ============================================*/
+	
+	/*$scope.IsVisible = false;
+    $scope.ShowHide = function () {
+        //If DIV is visible it will be hidden and vice versa.
+        $scope.IsVisible = $scope.IsVisible ? false : true;
+    }*/
+	
+	/*============================================= Collaborator =============================================*/
+	/*$scope.getOwner=function(note)
+	{
+		var collaborator = homeService.getOwner(note);
+		collaborator.then(function(response){
+			console.log(response.data);
+			$scope.localNoteOwner = response.data;
+		}, function(response){
+			$scope.errormessage = response.data.message;
+			
+		})
+	}*/
+	
+	$scope.collaborators = function(note,event)
+	{
+
+		$mdDialog.show({
+			
+			locals:{
+				data : note,
+				owner :$scope.ownerDetails,
+				listOfUser: $scope.userList
+			},
+			 templateUrl : 'template/tabDialog.html',
+			 parent: angular.element(document.body),
+		     targetEvent: event,
+		     clickOutsideToClose: true,
+		     
+		     controller: function($scope, data){
+		    	 
+		    	 $scope.note = data;
+		 		
+		 		$scope.collaborateUserWithNote = function(userName, note){
+		 			console.log("note : "+note.title);
+		 			var collaborate = homeService.collaborateUserWithNote(userName, note);
+		 			collaborate.then(function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 				$mdDialog.hide();
+		 				getNotes();
+		 			}, function(response){
+		 				$scope.errorMessage = response.data.message;
+		 				console.log(response.data);
+		 			})
+		 		}
+		 		
+		 		var getOwner = function(data){
+		 			var collaborator = homeService.getOwner(note);
+		 			collaborator.then(function(response){
+		 				console.log(response.data);
+		 				$scope.ownerDetails = response.data;
+		 			}, function(response){
+		 				$scope.errormessage = response.data.message;
+		 				
+		 			})
+		 		}
+		 		
+		 		getOwner(data);
+		 		
+		 		$scope.cancel = function(){
+		 			$mdDialog.hide();
+		 		}
+		 		
+		 		$scope.deleteUserFromCollaborator = function(collabUser, note){
+		 			var deleteCollabUser = homeService.deleteCollabUser(collabUser, note);
+		 			deleteCollabUser.then(function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 				getNotes();
+		 			}, function(response){
+		 				$scope.message = response.data.message;
+		 				console.log(response.data);
+		 			})
+		 		}
+		     }
+		});
+	}
+	
+	
 });

@@ -11,13 +11,18 @@
 
 			<div style="width: 75%;" ng-repeat="note in notes | filter:{archive:true}">
 				<md-card ng-style="{'background-color':note.noteColor}"> 
+
+				<div ng-click="showDialog(note)" ng-init="getOwner(note)">
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
 					</div>
-					<span>{{note.title}}</span>
-					<span>{{note.description}}</span>
+					<div layout="column">
+						<span>{{note.title}}</span>
+						<span>{{note.description}}</span>
+					</div>
 					<!-- <input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text"> -->
+					</div>
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
@@ -41,7 +46,7 @@
       					</md-menu>
 					</div>
 					<div flex="8">
-						<md-button class="md-icon-button md-primary" aria-label="">
+						<md-button class="md-icon-button md-primary" aria-label="" ng-click="collaborators(note, $event)">
 						<md-tooltip md-direction="bottom">Collaborator</md-tooltip>
 						<md-icon md-svg-icon="image/collaborator_black.svg"></md-icon> </md-button>
 					</div>
@@ -63,10 +68,27 @@
 						<md-tooltip md-direction="bottom">Unarchive</md-tooltip>
 						<md-icon md-svg-icon="image/unarchive_black.svg"></md-icon> </md-button>
 					</div>
-					<div>
-						<md-button ng-click="updateNote(note)">Done</md-button>
+					<div flex="4">
+					<md-menu>
+						<md-button aria-label="">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
+        					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Delete Note</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button>Make Copy</md-button>
+        					</md-menu-item>
+        
+        					<md-menu-item >
+         					<md-button>Add Labels</md-button>
+        				</md-menu-item>
+        
+      					</md-menu-content>
+    					</md-menu>
 					</div>
-				</div>
 				</md-card>
 			</div>
 		</div>

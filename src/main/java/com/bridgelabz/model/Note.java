@@ -1,13 +1,19 @@
 package com.bridgelabz.model;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -37,7 +43,18 @@ public class Note {
 	private String noteBackGround;
 	private String noteColor;
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name="collaborator", joinColumns=@JoinColumn(name="note_id"),inverseJoinColumns=@JoinColumn(name="user_id"))
+	private Set<User> collaborator = new LinkedHashSet<User>();
 	
+
+	
+	public Set<User> getCollaborator() {
+		return collaborator;
+	}
+	public void setCollaborator(Set<User> collaborator) {
+		this.collaborator = collaborator;
+	}
 	public String getNoteColor() {
 		return noteColor;
 	}

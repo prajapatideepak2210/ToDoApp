@@ -1,12 +1,22 @@
 package com.bridgelabz.model;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity 
 @Table(name="ToDo_User")
@@ -23,7 +33,22 @@ public class User {
 	private String contactNumber;
 	private String address;
 	private int isUserActive;
+	@Lob
+	@Column(columnDefinition="LONGBLOB")	
+	private String profilePic;
 	
+	@ManyToMany
+	@JsonIgnore
+	@JoinTable(name = "collaborator", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "note_id"))
+	private List<Note> collaborator = new LinkedList<>();
+	
+	
+	public List<Note> getCollaborator() {
+		return collaborator;
+	}
+	public void setCollaborator(List<Note> collaborator) {
+		this.collaborator = collaborator;
+	}
 	public int getIsUserActive() {
 		return isUserActive;
 	}
@@ -72,4 +97,28 @@ public class User {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getProfilePic() {
+		return profilePic;
+	}
+	public void setProfilePic(String profilePic) {
+		this.profilePic = profilePic;
+	}
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		User user = (User) obj;
+		if(user.getId()==id){
+			return true;
+		}
+		return false;
+	}
+	
 }

@@ -3,9 +3,11 @@ package com.bridgelabz.dao;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -121,13 +123,40 @@ public class NoteDaoImpl implements NoteDao {
 	 * @Description It will return List of user if given user_id is available in database otherwise
 	 *              return null.
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public List<Note> getNoteById(int user_id) {
 		Session session = sessionFactory.openSession();
 		Query<Note> query = session.createQuery("from Note where user_id = :user_id");
 		query.setParameter("user_id", user_id);
-		List<Note> note =  (List<Note>) query.list();
+		List<Note> notes =  query.list();
+		
+		Criteria criteria = session.createCriteria(Note.class);
+		criteria.createAlias("collaborator", "user");
+		criteria.add(Restrictions.eq("user.id", user_id));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		List<Note> list = criteria.list();
+		list.forEach(i->System.out.println(i.getId()));
+		notes.addAll(list);
+		
 		session.close();
-		return note;
+		return notes;
 	}
+
+	@SuppressWarnings("rawtypes")
+	@Override
+	public Note getNoteByNoteId(int id) {
+		try {
+			Session session = sessionFactory.openSession();
+			Query query = session.createQuery("from Note where id = :id");
+			query.setParameter("id", id);
+			Note note = (Note) query.uniqueResult();
+			session.close();
+			return note;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+	
+	
 }

@@ -46,5 +46,12 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 	
 	
 	
+	.state('dummy',{
+		url : '/dummy',
+		templateUrl : 'template/dummy.html',
+		controller : 'dummyController'
+	})
+	
+	
 	$urlRouterProvider.otherwise('/login');
 } ]);

@@ -17,13 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.bridgelabz.model.Note;
 import com.bridgelabz.model.Response;
+import com.bridgelabz.model.User;
 import com.bridgelabz.services.NoteService;
+import com.bridgelabz.services.Service;
+import com.bridgelabz.token.TokenGenerator;
 
 @RestController
 public class NoteController {
 
 	@Autowired
 	NoteService noteService;
+	
+	@Autowired
+	Service userServiceImpl;
 
 	@RequestMapping(value = "/addNote", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> addNote(@RequestBody Note note, HttpServletRequest request) {
@@ -44,10 +50,11 @@ public class NoteController {
 		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 
-	@RequestMapping(value = "/deleteNote/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> deleteNote(@PathVariable int id) {
+	@RequestMapping(value = "/deleteNote", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Response> deleteNote(HttpServletRequest request) {
+		
 		Response response = new Response();
-		int noteId = noteService.deleteNote(id);
+		int noteId = noteService.deleteNote(request.getIntHeader("note_id"));
 		if (noteId != 0) {
 			response.setMessage("Note successfully deleted.");
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
@@ -82,8 +89,9 @@ public class NoteController {
 
 	
 	@RequestMapping(value = "/getNoteByUserId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getNoteById(HttpSession session) {
-		int user_id=(int) session.getAttribute("user_id");
+	public ResponseEntity<List<Note>> getNoteByUserId(HttpSession session, HttpServletRequest request) {
+		String token = request.getHeader("TokenAccess");
+		int user_id=TokenGenerator.verifyToken(token);
 		List<Note> list = noteService.getNoteById(user_id);
 		if (list != null)
 			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
@@ -91,44 +99,37 @@ public class NoteController {
 			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
 	}
 	
+	@RequestMapping(value="/collaborateUser", method = RequestMethod.POST)
+	public ResponseEntity<Response> collaborateUser(@RequestBody Note note, HttpServletRequest servletRequest){
+		Response response = new Response();
+		User collabUser = userServiceImpl.getUserByEmail(servletRequest.getHeader("userNameForCollaborate"));
+		Note oldNote = noteService.getNoteByNoteId(note.getId());
+		if (collabUser!=null){
+			oldNote.getCollaborator().add(collabUser);
+			noteService.updateNote(oldNote);
+			response.setMessage("Succefully successfully Added");
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
+		}else{
+			response.setMessage("User Not available.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
+		}
+	}
 	
-	/*@RequestMapping(value = "/fileUpload", method = RequestMethod.POST)
-	//@Produces(MediaType.APPLICATION_JSON) 
-	public Response continueFileUpload(@RequestBody Note note,HttpServletRequest request, HttpServletResponse response){
-	System.out.println(note.getNoteBackGround());
-		MultipartHttpServletRequest mRequest = (MultipartHttpServletRequest) request; 
-
-	//String filename = "upload.xlsx";
-	try {
-		System.out.println(request);
-	   mRequest = (MultipartHttpServletRequest) request;
-	   mRequest.getParameterMap();
-	   Iterator<?> itr = mRequest.getFileNames();
-	   
-	   while (itr.hasNext()) {
-	        MultipartFile mFile = mRequest.getFile((String) itr.next());
-	        String fileName = mFile.getOriginalFilename();
-	        System.out.println(fileName);
-	        
-	        InputStream inputStream = mFile.getInputStream();
-	        
-	        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-			byte[] buf = new byte[1024];
-			int n = 0;
-			while (-1 != (n = inputStream.read(buf))) {
-				outputStream.write(buf, 0, n);
-			}
-			outputStream.close();
-			inputStream.close();
-			
-			String image = "data:image/png;base64," + new String(Base64.getEncoder().encode(outputStream.toByteArray()));
-
-			//noteService.
-	 }
-	   } catch (Exception e) {
-	        e.printStackTrace();
-	   }
-	return null;
-	}*/
-
+	@RequestMapping(value="/deleteCollabUser", method = RequestMethod.POST)
+	public ResponseEntity<Response> deleteCollabUser(@RequestBody Note note, HttpServletRequest request, HttpSession session){
+		Response response = new Response();
+		Note oldnote =  noteService.getNoteByNoteId(note.getId());
+		User collabUser = userServiceImpl.getUserByEmail(request.getHeader("userToDelete"));
+		if(collabUser!=null){
+			System.out.println("before remove "+oldnote.getCollaborator());
+			oldnote.getCollaborator().remove(collabUser);
+			noteService.updateNote(oldnote);
+			System.out.println("after remove "+oldnote.getCollaborator());
+		}else{
+			response.setMessage("User Not found.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
+		}
+		response.setMessage("Succefully removed");
+		return new ResponseEntity<Response>(response, HttpStatus.OK);	
+	}			
 }

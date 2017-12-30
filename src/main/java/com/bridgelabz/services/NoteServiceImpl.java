@@ -117,6 +117,12 @@ public class NoteServiceImpl implements NoteService {
 		
 	}
 
+	@Override
+	public Note getNoteByNoteId(int id) {
+		
+		return noteDao.getNoteByNoteId(id);
+	}
+
 	
 
 }
