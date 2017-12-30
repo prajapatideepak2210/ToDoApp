@@ -1,6 +1,7 @@
 package com.bridgelabz.model;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -47,6 +48,9 @@ public class Note {
 	@JoinTable(name="collaborator", joinColumns=@JoinColumn(name="note_id"),inverseJoinColumns=@JoinColumn(name="user_id"))
 	private Set<User> collaborator = new LinkedHashSet<User>();
 	
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "note_label", joinColumns = { @JoinColumn(name = "noteId") })
+	private Set<Label> labels = new HashSet<Label>();
 
 	
 	public Set<User> getCollaborator() {

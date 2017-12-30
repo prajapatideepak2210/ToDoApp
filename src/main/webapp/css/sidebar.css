@@ -41,3 +41,17 @@
 	margin-top: 10px; 
 	height: 30px;
 }
+
+.buttons{
+	background-color: rgb(250,250,250);
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: bold;;
+    margin-left: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+}

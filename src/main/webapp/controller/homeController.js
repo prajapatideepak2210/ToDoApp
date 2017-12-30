@@ -322,7 +322,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		 		getOwner(data);
 		 		
 		 		$scope.cancel = function(){
-		 			$mdDialog.hide();
+		 			$mdDialog.cancel();
 		 		}
 		 		
 		 		$scope.deleteUserFromCollaborator = function(collabUser, note){
@@ -340,5 +340,24 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 	
+	/*============================================== Lable =================================================*/
 	
+	$scope.lables = function(event){
+		console.log("hello dailog ASGFzdjgxvjxfvj");
+		$mdDialog.show({
+			
+			 templateUrl : 'template/lableDailog.html',
+			 parent: angular.element(document.body),
+		     clickOutsideToClose: true,
+		     targetEvent: event,
+		     controller: function($scope){
+		    	 console.log("hello dailog");
+		    	 
+		    	 $scope.cancel = function(){
+			 			$mdDialog.cancel();
+			 		}
+		     }
+		});
+	
+	}
 });

@@ -1,0 +1,19 @@
+<md-dialog aria-label="" >
+	<md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Add Lables</h2>
+      </div>
+    </md-toolbar>
+    <md-dialog-content style="max-width:600px;max-height:400px; min-width:300px;" >
+    	<div style="width: 100px;"  layout-align="start center" layout="row" >
+    		
+    	</div>
+    	<div>
+			<input class="inputFields" type="text" placeholder="create new lable" name="lableName"/>
+		</div>
+	</md-dialog-content>
+	<md-dialog-actions layout="row">
+		<md-button ng-click="cancel()">Cancel</md-button>
+      	<md-button ng-click="createLable(lableName)" style="margin-right:20px;">Done</md-button>
+    </md-dialog-actions>
+</md-dialog>
