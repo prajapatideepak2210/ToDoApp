@@ -3,11 +3,13 @@ package com.bridgelabz.services;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bridgelabz.dao.NoteDao;
+import com.bridgelabz.model.Label;
 import com.bridgelabz.model.Note;
 import com.bridgelabz.model.User;
 import com.bridgelabz.token.TokenGenerator;
@@ -22,7 +24,7 @@ public class NoteServiceImpl implements NoteService {
 
 	@Autowired
 	NoteDao noteDao;
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -123,6 +125,36 @@ public class NoteServiceImpl implements NoteService {
 		return noteDao.getNoteByNoteId(id);
 	}
 
+	/*======================================= Label ========================================*/
 	
+	public int createLabel(String labelName, Note note, User user){
+		int labelId = 0;
+		if(labelName!=null && note!=null && user!=null){
+			try {
+				Label label = new Label();
+				label.setLabelName(labelName);
+				System.out.println("name added.");
+				label.getNote().add(note);
+				System.out.println("Note added.");
+				label.setUser(user);
+				System.out.println("name added.");
+				labelId = noteDao.createLabel(label);
+				return labelId;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return labelId;
+			}
+		}
+		else{
+			return labelId;
+		}
+	}
 
+	@Override
+	public int createLabel(Label label) {
+		
+		return noteDao.createLabel(label);
+
+	}
+	
 }

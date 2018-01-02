@@ -48,7 +48,7 @@ public class Note {
 	@JoinTable(name="collaborator", joinColumns=@JoinColumn(name="note_id"),inverseJoinColumns=@JoinColumn(name="user_id"))
 	private Set<User> collaborator = new LinkedHashSet<User>();
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	@JoinTable(name = "note_label", joinColumns = { @JoinColumn(name = "noteId") })
 	private Set<Label> labels = new HashSet<Label>();
 

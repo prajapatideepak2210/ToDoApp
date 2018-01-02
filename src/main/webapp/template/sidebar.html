@@ -31,22 +31,22 @@
 				<h6 style="margin-left: 10px; margin-top: 30px;">Labels</h6>
 				<button class="buttons" ng-click="lables($event)">EDIT</button>
 			</div>
-			<!--<div>
+			<div style="width: 90%;" ng-repeat="note in notes | filter:{note:'!'}">
 			 <li class="side_li"><a href="" layout="row" class="a">
 					<div style="width: 50px;">
 						<img class="img" alt="" src="image/label_black.svg">
 					</div>
 					<div flex class="nav_h6_div">
-						<h6 class="h6">hello</h6>
+						<h6 class="h6">{{note.title}}</h6>
 					</div>
 			</a></li>
-			</div> -->
+			</div>
 			<li class="side_li"><a ui-sref="" layout="row" class="a">
 					<div style="width: 50px;">
 						<img class="img" alt="" src="image/add_black.svg">
 					</div>
 					<div flex class="nav_h6_div">
-						<h6 class="h6">Create new lable</h6>
+						<button class="buttons" ng-click="lables($event)">Create new lable</button>
 					</div>
 			</a></li>
 		</ul>

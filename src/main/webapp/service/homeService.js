@@ -115,6 +115,29 @@ app.factory('homeService', function($http) {
 		})
 	}
 	
+	notes.addNoteInLabel = function(note, labelName){
+		return $http({
+			method : 'POST',
+			url	:	'createLabel',
+			data : note,
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'labelName' : labelName
+			}
+		})
+	}
+	
+	notes.createLabel = function(labelName){
+		return $http({
+			method : 'POST',
+			data : labelName,
+			url : 'createLabel',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
 	return notes;
 	
 });

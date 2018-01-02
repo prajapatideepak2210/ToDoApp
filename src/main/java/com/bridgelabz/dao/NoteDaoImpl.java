@@ -12,6 +12,7 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.bridgelabz.model.Label;
 import com.bridgelabz.model.Note;
 
 /**
@@ -155,6 +156,26 @@ public class NoteDaoImpl implements NoteDao {
 			return note;
 		} catch (Exception e) {
 			return null;
+		}
+	}
+
+	@Override
+	public int createLabel(Label label) {
+		int labelId=0;
+		if(label!=null){
+			try {
+				Session session = sessionFactory.openSession();
+				Transaction transaction = session.beginTransaction();
+				labelId = (Integer) session.save(label);
+				transaction.commit();
+				session.close();
+				return labelId;
+			} catch (Exception e) {
+				return labelId;
+			}
+		}
+		else{
+			return labelId;
 		}
 	}
 	

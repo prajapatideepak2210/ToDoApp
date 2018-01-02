@@ -43,6 +43,7 @@
 			<list>
 				<value>com.bridgelabz.model.User</value>
 				<value>com.bridgelabz.model.Note</value>
+				<value>com.bridgelabz.model.Label</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.bridgelabz.model.Label;
 import com.bridgelabz.model.Note;
 import com.bridgelabz.model.Response;
 import com.bridgelabz.model.User;
@@ -111,7 +111,7 @@ public class NoteController {
 			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}else{
 			response.setMessage("User Not available.");
-			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 		}
 	}
 	
@@ -121,15 +121,66 @@ public class NoteController {
 		Note oldnote =  noteService.getNoteByNoteId(note.getId());
 		User collabUser = userServiceImpl.getUserByEmail(request.getHeader("userToDelete"));
 		if(collabUser!=null){
-			System.out.println("before remove "+oldnote.getCollaborator());
 			oldnote.getCollaborator().remove(collabUser);
 			noteService.updateNote(oldnote);
-			System.out.println("after remove "+oldnote.getCollaborator());
+			response.setMessage("Succefully removed");
+			return new ResponseEntity<Response>(response, HttpStatus.OK);
 		}else{
 			response.setMessage("User Not found.");
 			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);	
 		}
-		response.setMessage("Succefully removed");
-		return new ResponseEntity<Response>(response, HttpStatus.OK);	
-	}			
+			
+	}
+	
+	/*=====================================Label=======================================*/
+	
+	/*@RequestMapping(value = "/", method = RequestMethod.POST)
+	public ResponseEntity<Response> addNoteInLabel(@RequestBody Note note, HttpServletRequest request){
+		String labelName = request.getHeader("labelName");
+		System.out.println("Label Name : "+labelName);
+		Response responseMessage = new Response();
+		User user = userServiceImpl.getUserById(note.getUser_id());
+		int labelId = noteService.createLabel(labelName, note, user);
+		if(labelId>0)
+		{
+			responseMessage.setMessage("Label successfully created.");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
+		}
+		else{
+			responseMessage.setMessage("creation failed.");
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
+		}
+	}*/
+	
+	@RequestMapping(value = "/createLabel", method = RequestMethod.POST)
+	public ResponseEntity<Response> addLabel(@RequestBody String labelName, HttpServletRequest request){
+		Label label = new Label();
+		System.out.println(labelName);
+		Response response = new Response();
+		String token = request.getHeader("TokenAccess");
+		int userId = TokenGenerator.verifyToken(token);
+		if(userId>0){
+			User user = userServiceImpl.getUserById(userId);
+			if(user!=null){
+				label.setLabelName(labelName);
+				label.setUser(user);
+				int labelId = noteService.createLabel(label);
+				if(labelId>0){
+					response.setMessage("label created successfully");
+					return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				}
+				response.setMessage("label creation failed.");
+				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			}
+			else{
+				response.setMessage("label creation failed.");
+				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			}
+		}
+		else{
+			response.setMessage("label creation failed.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+	}
+	
 }

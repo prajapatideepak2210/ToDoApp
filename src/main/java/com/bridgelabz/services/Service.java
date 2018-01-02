@@ -3,6 +3,7 @@ package com.bridgelabz.services;
 import com.bridgelabz.model.MailUser;
 import com.bridgelabz.model.User;
 
+@org.springframework.stereotype.Service
 public interface Service {
 	/**
 	 * @param user

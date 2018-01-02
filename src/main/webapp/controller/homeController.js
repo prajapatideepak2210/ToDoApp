@@ -346,18 +346,44 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		console.log("hello dailog ASGFzdjgxvjxfvj");
 		$mdDialog.show({
 			
-			 templateUrl : 'template/lableDailog.html',
-			 parent: angular.element(document.body),
-		     clickOutsideToClose: true,
-		     targetEvent: event,
-		     controller: function($scope){
-		    	 console.log("hello dailog");
-		    	 
-		    	 $scope.cancel = function(){
-			 			$mdDialog.cancel();
-			 		}
-		     }
+			templateUrl : 'template/lableDailog.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose: true,
+			targetEvent: event,
+			controller: function($scope){
+				console.log("hello dailog");
+				$scope.cancel = function(){
+					$mdDialog.cancel();
+				}
+
+				$scope.createLabel = function(labelName){
+					$scope.createLabel = homeService.createLabel(labelName);
+					$scope.createLabel.then(function(response){
+						$scope.message = response.data.message;
+						console.log(response.data);
+						$mdDialog.hide();
+					}, function(response){
+						$scope.errorMessage = response.data.message;
+						console.log(response.data);
+					})
+					
+				}
+			}
 		});
 	
 	}
+	
+	
+	$scope.addNoteInLabel = function(note, labelName){
+		$scope.addNoteInLabel = homeService.addNoteInLabel(note, labelName);
+			addNoteInLabel.then(function(response){
+			$scope.message = response.data.message;
+			console.log(response.data);
+			$mdDialog.hide();
+		}, function(response){
+			$scope.errorMessage = response.data.message;
+			console.log($scope.message = response.data);
+		})
+	}
+	
 });

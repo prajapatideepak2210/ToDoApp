@@ -1,5 +1,8 @@
 package com.bridgelabz.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,7 +24,7 @@ public class Label {
 	
 	@ManyToMany(mappedBy="labels")
 	@JsonIgnore
-	private Note note;
+	private Set<Note> note = new HashSet<>();
 
 	@ManyToOne
 	@JsonIgnore
@@ -39,12 +42,12 @@ public class Label {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	public Note getNote() {
+	
+	public Set<Note> getNote() {
 		return note;
 	}
 
-	public void setNote(Note note) {
+	public void setNote(Set<Note> note) {
 		this.note = note;
 	}
 

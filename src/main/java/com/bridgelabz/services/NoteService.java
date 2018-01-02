@@ -2,7 +2,9 @@ package com.bridgelabz.services;
 
 import java.util.List;
 
+import com.bridgelabz.model.Label;
 import com.bridgelabz.model.Note;
+import com.bridgelabz.model.User;
 
 /**
  * @author Deepak Prajapati
@@ -50,4 +52,7 @@ public interface NoteService {
 	List<Note> getNoteById(int user_id);
 	
 	Note getNoteByNoteId(int id);
+	
+	int createLabel(Label label);
+	
 }
