@@ -154,7 +154,18 @@ public class NoteServiceImpl implements NoteService {
 	public int createLabel(Label label) {
 		
 		return noteDao.createLabel(label);
+	}
 
+	@Override
+	public List<Label> getLabelByUserId(int user_id) {
+		return noteDao.getLabelByUserId(user_id);
+	}
+
+	@Override
+	public int deleteLabel(Label label) {
+		int label_id = label.getId();
+		
+		return noteDao.deleteLabel(label_id);
 	}
 	
 }

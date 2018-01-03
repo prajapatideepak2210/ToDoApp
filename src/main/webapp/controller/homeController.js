@@ -342,8 +342,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	
 	/*============================================== Lable =================================================*/
 	
-	$scope.lables = function(event){
-		console.log("hello dailog ASGFzdjgxvjxfvj");
+	$scope.lables = function(){
 		$mdDialog.show({
 			
 			templateUrl : 'template/lableDailog.html',
@@ -368,22 +367,97 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 					})
 					
 				}
+				
+				var getLabels = function(){
+					var getLabels = homeService.getLabels();
+						getLabels.then(function(response){
+							$scope.labels = response.data;
+							console.log(response.data);
+						}, function(response){
+							$scope.errorMessage = response.data.message;
+							console.log(response.data);
+					})
+				}
+				getLabels();
+				
+				$scope.deleteLabel = function(label){
+					console.log("hello label");
+					console.log(label);
+					$scope.deleteLabel = homeService.deleteLabel(label);
+					$scope.deleteLabel.then(function(response){
+						$scope.message = response.data;
+						console.log(response.data);
+						getLabels();
+					}, function(response){
+						$scope.errorMessage = response.data.message;
+						console.log(response.data);
+					})
+				}
 			}
 		});
 	
 	}
 	
-	
-	$scope.addNoteInLabel = function(note, labelName){
-		$scope.addNoteInLabel = homeService.addNoteInLabel(note, labelName);
-			addNoteInLabel.then(function(response){
-			$scope.message = response.data.message;
-			console.log(response.data);
-			$mdDialog.hide();
-		}, function(response){
-			$scope.errorMessage = response.data.message;
-			console.log($scope.message = response.data);
+	$scope.addNoteInLabel = function(note){
+		
+		$mdDialog.show({
+			
+			locals:{
+				data : note,
+			},
+			templateUrl : 'template/noteLabelDailog.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose: true,
+			targetEvent: event,
+			controller: function($scope, data){
+				
+				$scope.note = data;
+				console.log("hello dailog");
+				$scope.cancel = function(){
+					$mdDialog.cancel();
+				}
+		
+				$scope.addNote = function(labelName, note){
+					$scope.addNote = homeService.addNoteInLabel(labelName, note);
+					$scope.addNote.then(function(response){
+						$scope.message = response.data.message;
+						console.log(response.data);
+						$mdDialog.hide();
+					}, function(response){
+						$scope.errorMessage = response.data.message;
+						console.log(response.data.message);
+					})
+					
+				}
+				
+				var getLabels = function(){
+					var getLabels = homeService.getLabels();
+						getLabels.then(function(response){
+							$scope.labels = response.data;
+							console.log(response.data);
+						}, function(response){
+							$scope.errorMessage = response.data.message;
+							console.log(response.data);
+						})
+				}
+				getLabels();
+			}
+		
 		})
 	}
+	
+	var getLabels = function(){
+		var getLabels = homeService.getLabels();
+			getLabels.then(function(response){
+				$scope.labels = response.data;
+				console.log(response.data);
+			}, function(response){
+				$scope.errorMessage = response.data.message;
+				console.log(response.data);
+			})
+	}
+	getLabels();
+	
+	
 	
 });

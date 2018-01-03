@@ -54,5 +54,9 @@ public interface NoteService {
 	Note getNoteByNoteId(int id);
 	
 	int createLabel(Label label);
+
+	List<Label> getLabelByUserId(int user_id);
+
+	int deleteLabel(Label label);
 	
 }

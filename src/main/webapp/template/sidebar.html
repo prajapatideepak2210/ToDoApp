@@ -31,24 +31,26 @@
 				<h6 style="margin-left: 10px; margin-top: 30px;">Labels</h6>
 				<button class="buttons" ng-click="lables($event)">EDIT</button>
 			</div>
-			<div style="width: 90%;" ng-repeat="note in notes | filter:{note:'!'}">
+			<div style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
 			 <li class="side_li"><a href="" layout="row" class="a">
 					<div style="width: 50px;">
 						<img class="img" alt="" src="image/label_black.svg">
 					</div>
 					<div flex class="nav_h6_div">
-						<h6 class="h6">{{note.title}}</h6>
+						<h6 class="h6">{{label.labelName}}</h6>
 					</div>
 			</a></li>
 			</div>
-			<li class="side_li"><a ui-sref="" layout="row" class="a">
+			<li class="side_li">
+				<md-button class="a" layout="row" class="buttons" ng-click="lables()">
 					<div style="width: 50px;">
 						<img class="img" alt="" src="image/add_black.svg">
 					</div>
 					<div flex class="nav_h6_div">
-						<button class="buttons" ng-click="lables($event)">Create new lable</button>
+						<h5 class="h6" style="margin-top: 8px;">create new label</h5>
 					</div>
-			</a></li>
+				</md-button>
+			</li>
 		</ul>
 	<md-divider></md-divider>
 		<ul>

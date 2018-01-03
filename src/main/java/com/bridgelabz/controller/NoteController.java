@@ -183,4 +183,50 @@ public class NoteController {
 		}
 	}
 	
+	
+	@RequestMapping(value="/addNoteInLabel", method = RequestMethod.POST)
+	public ResponseEntity<Response> addNoteInLabel(@RequestBody Note note, HttpServletRequest request){
+		Response response  = new Response();
+		if(note!=null){
+			System.out.println("note details : "+note.getTitle());
+			response.setMessage("Ho gaya call");
+			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+		}
+		else{
+			response.setMessage("nahi hua");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		
+	}
+	
+	@RequestMapping(value="/getLabels", method = RequestMethod.GET)
+	public ResponseEntity<List<Label>> getLabels(HttpServletRequest request){
+		String token = request.getHeader("TokenAccess");
+		List<Label> listOfLabel = null;
+		int user_id = TokenGenerator.verifyToken(token);
+		if(user_id>0){
+			listOfLabel = noteService.getLabelByUserId(user_id);
+			if(listOfLabel!=null)
+			{
+				return new ResponseEntity<List<Label>>(listOfLabel, HttpStatus.ACCEPTED);
+			}
+			else
+				return new ResponseEntity<List<Label>>(listOfLabel, HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<List<Label>>(listOfLabel, HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value = "/deleteLabel", method = RequestMethod.POST)
+	public ResponseEntity<Response> deleteLabel(@RequestBody Label label, HttpServletRequest request){
+		Response response = new Response();
+		String token = request.getHeader("TokenAccess");
+		int user_id = TokenGenerator.verifyToken(token);
+		if(user_id>0)
+		{
+			int id = noteService.deleteLabel(label);
+		}
+		
+		return null;
+	}
+	
 }

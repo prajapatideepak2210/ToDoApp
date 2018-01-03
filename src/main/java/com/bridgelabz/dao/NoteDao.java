@@ -19,4 +19,8 @@ public interface NoteDao {
 	public Note getNoteByNoteId(int id);
 	
 	int createLabel(Label label);
+
+	public List<Label> getLabelByUserId(int user_id);
+
+	public int deleteLabel(int label_id);
 }

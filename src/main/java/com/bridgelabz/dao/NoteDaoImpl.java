@@ -178,6 +178,42 @@ public class NoteDaoImpl implements NoteDao {
 			return labelId;
 		}
 	}
+
+	@Override
+	public List<Label> getLabelByUserId(int user_id) {
+		if(user_id!=0){
+			try {
+				Session session = sessionFactory.openSession();
+				Query<?> query = session.createQuery("from Label where User_id = :user_id");
+				query.setParameter("user_id", user_id);
+				@SuppressWarnings("unchecked")
+				List<Label> list = (List<Label>) query.list();
+				return list;
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		else{
+			return null;
+		}
+		
+	}
+
+	@Override
+	public int deleteLabel(int label_id) {
+		try {
+			Session session = sessionFactory.openSession();
+			Transaction transaction = session.beginTransaction();
+			Note note = (Note) session.load(Note.class, label_id);
+			session.delete(note);
+			transaction.commit();
+			session.close();
+			return label_id;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
 	
 	
 }

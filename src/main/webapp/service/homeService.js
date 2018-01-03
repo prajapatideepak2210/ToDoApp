@@ -115,10 +115,12 @@ app.factory('homeService', function($http) {
 		})
 	}
 	
-	notes.addNoteInLabel = function(note, labelName){
+	notes.addNoteInLabel = function(labelName, note){
+		console.log("hello user you are in service method");
+		console.log(labelName);
 		return $http({
 			method : 'POST',
-			url	:	'createLabel',
+			url : 'addNoteInLabel',
 			data : note,
 			headers : {
 				'TokenAccess' : localStorage.getItem('token'),
@@ -132,6 +134,27 @@ app.factory('homeService', function($http) {
 			method : 'POST',
 			data : labelName,
 			url : 'createLabel',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
+	notes.getLabels = function(){
+		return $http({
+			method : 'GET',
+			url : 'getLabels',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		});
+	}
+	
+	notes.deleteLabel = function(label){
+		return $http({
+			method : 'POST',
+			data : label,
+			url : 'deleteLabel',
 			headers : {
 				'TokenAccess' : localStorage.getItem('token')
 			}
