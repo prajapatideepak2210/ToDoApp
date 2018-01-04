@@ -3,6 +3,7 @@ com/bridgelabz/validator/Validator.class
 com/bridgelabz/services/Service.class
 com/bridgelabz/services/MessageConsumer.class
 com/bridgelabz/controller/GoogleController.class
+com/bridgelabz/model/Label.class
 com/bridgelabz/model/PasswordUser.class
 com/bridgelabz/controller/NoteController.class
 com/bridgelabz/controller/MessageController.class

@@ -16,7 +16,7 @@ app.factory('homeService', function($http) {
 	notes.getAllNotes = function() {
 		return $http({
 			method : "GET",
-			url : "getNoteByUserId",
+			url : "getAllNotes",
 			headers : {
 				'TokenAccess' : localStorage.getItem('token')
 			}
@@ -157,6 +157,30 @@ app.factory('homeService', function($http) {
 			url : 'deleteLabel',
 			headers : {
 				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
+	notes.updateLabel = function(label){
+		return $http({
+			method : 'POST',
+			data : label,
+			url : 'updateLabel',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token')
+			}
+		})
+	}
+	
+	notes.updateNoteInLabel = function(note, label){
+		console.log(label.id)
+		return $http({
+			method : 'POST',
+			data : note,
+			url : 'updateNoteInLabel',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'labelId' : label.id
 			}
 		})
 	}

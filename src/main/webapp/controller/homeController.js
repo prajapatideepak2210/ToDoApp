@@ -25,6 +25,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		$scope.notes = [];
 		var getN = homeService.getAllNotes();
 		getN.then(function(response) {
+			console.log("Get All Notes",response.data);
 			var note = response.data;
 			$interval(function() {
 				for (var i = 0; i < note.length; i++) {
@@ -374,7 +375,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 							$scope.labels = response.data;
 							console.log(response.data);
 						}, function(response){
-							$scope.errorMessage = response.data.message;
+							$scope.errorMessage = response.data;
 							console.log(response.data);
 					})
 				}
@@ -389,7 +390,19 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 						console.log(response.data);
 						getLabels();
 					}, function(response){
-						$scope.errorMessage = response.data.message;
+						$scope.errorMessage = response.data;
+						console.log(response.data);
+					})
+				}
+				
+				$scope.updateLabel = function(label){
+					$scope.updateLabel = homeService.updateLabel(label);
+					$scope.updateLabel.then(function(response){
+						$scope.responseData = response.data;
+						console.log(response.data);
+						$mdDialog.hide();
+					}, function(response){
+						$scope.errorMessage = response.data;
 						console.log(response.data);
 					})
 				}
@@ -440,6 +453,17 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 							console.log(response.data);
 						})
 				}
+				
+				$scope.updateNoteInLabel = function(note, label){
+					$scope.updateNoteInLabel = homeService.updateNoteInLabel(note, label);
+					$scope.updateNoteInLabel.then(function(response){
+						$scope.data = response.data;
+						console.log(response.data);
+					}, function(response){
+						
+					})
+				}
+				
 				getLabels();
 			}
 		
@@ -453,7 +477,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 				console.log(response.data);
 			}, function(response){
 				$scope.errorMessage = response.data.message;
-				console.log(response.data);
+				console.log(response.data.message);
 			})
 	}
 	getLabels();

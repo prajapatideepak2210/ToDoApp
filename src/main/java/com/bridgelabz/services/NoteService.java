@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.bridgelabz.model.Label;
 import com.bridgelabz.model.Note;
-import com.bridgelabz.model.User;
 
 /**
  * @author Deepak Prajapati
@@ -58,5 +57,9 @@ public interface NoteService {
 	List<Label> getLabelByUserId(int user_id);
 
 	int deleteLabel(Label label);
+
+	Label updateLabel(Label label);
+
+	Label getLabelByLabelId(int label_id);
 	
 }

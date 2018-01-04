@@ -3,7 +3,6 @@ package com.bridgelabz.services;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -166,6 +165,17 @@ public class NoteServiceImpl implements NoteService {
 		int label_id = label.getId();
 		
 		return noteDao.deleteLabel(label_id);
+	}
+
+	@Override
+	public Label updateLabel(Label label) {
+		return noteDao.updateLabel(label);
+	}
+
+	@Override
+	public Label getLabelByLabelId(int label_id) {
+		
+		return noteDao.getLabelByLabelId(label_id);
 	}
 	
 }

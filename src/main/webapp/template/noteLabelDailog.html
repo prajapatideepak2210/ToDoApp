@@ -5,19 +5,19 @@
       </div>
     </md-toolbar>
     <md-dialog-content style="max-width:600px;max-height:400px; min-width:300px;" ng-init="getLabels()">
-    	<div style="width: 100px;"  layout-align="start center" layout="row" >
-    		
-    	</div>
-    	<div>
-			<input class="inputFields" type="text" placeholder="create new lable" ng-model="lableName"/>
+    	
+    	<div style="margin: 10px;" layout-align="start center">
+			<input style="margin-left: 20px;" class="inputFields" type="text" placeholder="create new lable" ng-model="lableName"/>
 		</div>
-		<div layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
+		<div  layout="column" layout-align="start center" >
+		<div  layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
 				<div style="width: 50px;">
-						<img class="img" alt="" src="image/label_black.svg">
+					<md-checkbox style="margin:5px;" ng-checked="label.checked"  ng-click="updateNoteInLabel(note, label)"></md-checkbox>
 				</div>
-				<div flex class="nav_h6_div">
-						<h6 class="h6">{{label.labelName}}</h6>
+				<div layout-align="center center" flex class="nav_h6_div">
+						<h6 class="h6" style="margin-top: 5px;">{{label.labelName}}</h6>
 				</div>
+		</div>
 		</div>
 	</md-dialog-content>
 	<md-dialog-actions layout="row">

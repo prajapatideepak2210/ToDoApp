@@ -180,14 +180,24 @@
 					<!-- <input class="inputFields" ng-model="note.title" type="text">
 					<input class="inputFields" ng-model="note.description" type="text"> -->
 
-					<div layout="column">
+					<div layout-margin="center center" layout="column">
 						<span>{{note.title}}</span>
 						<span>{{note.description}}</span>
-						</div>
+					</div>
+					
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
 					</div>
+					
+					</div>
+					<div ng-if="note.labels" layout = "row">
+						<div layout="row" layout-margin="center center" ng-repeat="label in note.labels">
+							<h6>{{label.labelName}}</h6>
+							<md-button ng-click="deleteLabel(label)" class="md-icon-button md-primary" aria-label="" >
+								<md-icon md-svg-icon="image/close_black.svg" ></md-icon>
+							</md-button>
+						</div>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="4">

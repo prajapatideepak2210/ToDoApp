@@ -19,6 +19,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * @author Deepak Prajapati
  *
@@ -39,6 +41,7 @@ public class Note {
 	private boolean archive;
 	private boolean pin;
 	private Date reminder;
+	
 	@Lob
 	@Column(columnDefinition="LONGBLOB")
 	private String noteBackGround;
@@ -48,11 +51,17 @@ public class Note {
 	@JoinTable(name="collaborator", joinColumns=@JoinColumn(name="note_id"),inverseJoinColumns=@JoinColumn(name="user_id"))
 	private Set<User> collaborator = new LinkedHashSet<User>();
 	
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "note_label", joinColumns = { @JoinColumn(name = "noteId") })
 	private Set<Label> labels = new HashSet<Label>();
 
 	
+	public Set<Label> getLabels() {
+		return labels;
+	}
+	public void setLabels(Set<Label> labels) {
+		this.labels = labels;
+	}
 	public Set<User> getCollaborator() {
 		return collaborator;
 	}

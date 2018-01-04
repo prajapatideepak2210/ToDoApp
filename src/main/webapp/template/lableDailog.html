@@ -4,7 +4,7 @@
         <h2>Add Lables</h2>
       </div>
     </md-toolbar>
-    <md-dialog-content style="max-width:600px;max-height:400px; min-width:300px;" ng-init="getLabels()">
+    <md-dialog-content style="max-width:600px;max-height:400px; min-width:300px;">
     	<div style="width: 100px;"  layout-align="start center" layout="row" >
     		
     	</div>
@@ -12,20 +12,24 @@
     	<div>
 			<input class="inputFields" type="text" placeholder="create new lable" ng-model="lableName"/>
 		</div>
-		<div layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
-			<div style="width: 50px;">
+		<div layout-align="center center" layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
+			<div style="width: 50px;" >
 				<md-button ng-click="deleteLabel(label)" class="md-icon-button md-primary" aria-label="" >
 					<md-icon md-svg-icon="image/close_black.svg" ></md-icon>
 				</md-button>
-				<!-- <img class="img" alt="" src="image/close_black.svg"> -->
 			</div>
 			<div flex class="nav_h6_div">
-				<h6 class="h6">{{label.labelName}}</h6>
+				<input class="inputFields" ng-model="label.labelName" type="text">
+			</div>
+			<div style="width: 50px;" >
+				<md-button ng-click="updateLabel(label)"  ng-init="getLabels()" class="md-icon-button md-primary" aria-label="" >
+					<md-icon md-svg-icon="image/done_black.svg" ></md-icon>
+				</md-button>
 			</div>
 		</div>
 	</md-dialog-content>
 	<md-dialog-actions layout="row">
 		<md-button ng-click="cancel()">Cancel</md-button>
-      	<md-button ng-click="createLabel(lableName)" style="margin-right:20px;">Done</md-button>
+      	<md-button ng-click="createLabel(lableName)"  ng-init="getLabels()" style="margin-right:20px;">Done</md-button>
     </md-dialog-actions>
 </md-dialog>

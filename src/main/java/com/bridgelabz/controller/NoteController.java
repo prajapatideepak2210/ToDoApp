@@ -78,7 +78,7 @@ public class NoteController {
 	}
 
 	@RequestMapping(value = "/getTrashedNote", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getAllNotes(HttpSession session) {
+	public ResponseEntity<List<Note>> getTrashedNotes(HttpSession session) {
 		int user_id=(int) session.getAttribute("user_id");
 		List<Note> list = noteService.getTrashedNotes(user_id);
 		if (list != null)
@@ -88,15 +88,19 @@ public class NoteController {
 	}
 
 	
-	@RequestMapping(value = "/getNoteByUserId", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Note>> getNoteByUserId(HttpSession session, HttpServletRequest request) {
+	@RequestMapping(value = "/getAllNotes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Object> getAllNotes(HttpSession session, HttpServletRequest request) {
 		String token = request.getHeader("TokenAccess");
+		
 		int user_id=TokenGenerator.verifyToken(token);
-		List<Note> list = noteService.getNoteById(user_id);
-		if (list != null)
-			return new ResponseEntity<List<Note>>(list, HttpStatus.ACCEPTED);
-		else
-			return new ResponseEntity<List<Note>>(list, HttpStatus.BAD_REQUEST);
+		User user = userServiceImpl.getUserById(user_id);
+		List<Note> notes = null;
+		if (user != null){
+			notes = noteService.getNoteById(user.getId());
+			return ResponseEntity.ok(notes);
+		}else{
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User Not logged In");
+		}
 	}
 	
 	@RequestMapping(value="/collaborateUser", method = RequestMethod.POST)
@@ -218,15 +222,71 @@ public class NoteController {
 	
 	@RequestMapping(value = "/deleteLabel", method = RequestMethod.POST)
 	public ResponseEntity<Response> deleteLabel(@RequestBody Label label, HttpServletRequest request){
+		System.out.println("delete the label");
 		Response response = new Response();
 		String token = request.getHeader("TokenAccess");
 		int user_id = TokenGenerator.verifyToken(token);
-		if(user_id>0)
+		if(user_id>0 && label!=null)
 		{
 			int id = noteService.deleteLabel(label);
+			if(id>0){
+				response.setMessage("label successfully deleted.");
+				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+			}
+			response.setMessage("label is note deleted. backend problem.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		else{
+			response.setMessage("label is note deleted.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 		}
 		
-		return null;
 	}
+	
+	@RequestMapping(value = "/updateLabel", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateLabel(@RequestBody Label label, HttpServletRequest request){
+		
+		Response response = new Response();
+		String token = request.getHeader("TokenAccess");
+		int user_id = TokenGenerator.verifyToken(token);
+		if(user_id>0 && label!=null){
+			User user = userServiceImpl.getUserById(user_id);
+			label.setUser(user);
+			Label labelForCheck = noteService.updateLabel(label);
+			if(labelForCheck!=null){
+				response.setMessage("label successfully updated.");
+				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+			}
+			response.setMessage("label note updated.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		response.setMessage("label note updated.");
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	@RequestMapping(value = "/updateNoteInLabel", method = RequestMethod.POST)
+	public ResponseEntity<Response> updateNoteForLabel(@RequestBody Note note, HttpServletRequest request){
+		
+		Response response = new Response();
+		int label_id = request.getIntHeader("labelId");
+		if(label_id>0 && note!=null){
+			Label label = noteService.getLabelByLabelId(label_id);
+			if(label!=null){
+				note.getLabels().add(label);
+				Note note2 = noteService.updateNote(note);
+				if(note2!=null){
+					response.setMessage("note successfully added.");
+					return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				}
+				response.setMessage("note is not added.");
+				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			}
+			response.setMessage("note is not added.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		response.setMessage("note is not added.");
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+	}
+	
 	
 }

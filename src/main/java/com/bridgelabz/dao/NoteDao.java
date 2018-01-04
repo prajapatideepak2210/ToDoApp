@@ -23,4 +23,8 @@ public interface NoteDao {
 	public List<Label> getLabelByUserId(int user_id);
 
 	public int deleteLabel(int label_id);
+
+	public Label updateLabel(Label label);
+
+	public Label getLabelByLabelId(int label_id);
 }
