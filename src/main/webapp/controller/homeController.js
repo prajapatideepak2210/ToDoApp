@@ -1,7 +1,7 @@
 var ToDo = angular.module('ToDo');
  
 ToDo.controller('homeController', function($scope, homeService, Upload,
-		$base64, mdcDateTimeDialog, $filter, $interval, $mdDialog, $rootScope) {
+		$base64, mdcDateTimeDialog, $filter, $interval,$location, $mdDialog, $rootScope) {
 	
 	/* Creating the Note */
 	
@@ -16,6 +16,16 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 	
+	$scope.copyNote = function(note){
+		$scope.copyNote = homeService.copyNote(note);
+		$scope.copyNote.then(function(response){
+			$scope.data = response.data;
+			console.log(response.data);
+			getNotes();
+		}, function(response){
+			$scope.errorMessage = response.data.message;
+		})
+	}
 
 	$scope.notes = [];
 	
@@ -435,6 +445,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 					$scope.addNote.then(function(response){
 						$scope.message = response.data.message;
 						console.log(response.data);
+						getLabels();
 						$mdDialog.hide();
 					}, function(response){
 						$scope.errorMessage = response.data.message;
@@ -459,6 +470,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 					$scope.updateNoteInLabel.then(function(response){
 						$scope.data = response.data;
 						console.log(response.data);
+						getLabels();
 					}, function(response){
 						
 					})
@@ -482,6 +494,54 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 	getLabels();
 	
+	$scope.deleteLabel = function(label, note){
+		console.log(note);
+		$scope.deleteLabel = homeService.deleteLabel(label, note);
+		$scope.deleteLabel.then(function(response){
+			$scope.data = response.data;
+			console.log(response.data);
+		}, function(response){
+			$scope.errorMessage = response.data.message;
+		})
+	}
 	
+	$scope.logOut = function(){
+		$scope.logout = homeService.logOut();
+		$scope.logout.then(function(response){
+			$scope.data = response.data;
+			console.log(response.data);
+			$state.go("login");
+		}, function(response){
+			$scope.data
+		})
+	}
+	
+	$scope.search = function(){
+		$location.path('search');
+	}
+	
+
+	$scope.searchAll=function(text){
+		var result=[];
+		$scope.searchNotes=result;
+		if(text.length>0){
+			
+		var notes=$scope.notes;
+		var index=0;
+		var result=[];
+		
+		for(var i=0;i<notes.length;i++){
+			if((notes[i].title.toLowerCase()).search(text)>-1){
+			result[index++]=notes[i];
+			}
+			else if((notes[i].description.toLowerCase()).search(text)>-1){
+				result[index++]=notes[i];
+			}
+		}
+		console.log(result);
+		$scope.searchNotes=result;
+		}
+		return result;
+	}
 	
 });

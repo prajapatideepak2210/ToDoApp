@@ -14,9 +14,11 @@
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/search.svg"></md-icon> </md-button>
 			</div>
-			<div flex>
-			<input class="inputType" aria-label="Search" autocomplete="off" placeholder="Search" role="combobox" type="text">
-				
+		
+			<div flex="100" style=" border-radius:4px">
+				<md-autocomplete ng-click="search()" md-no-cache="true" md-selected-item="selectedItem"
+				md-items="item in items" 
+				 placeholder="Search">
 			</div>
 			<div flex="8">
 				<md-button class="md-icon-button md-primary" aria-label="">
@@ -32,16 +34,16 @@
 			<md-icon md-svg-icon="image/grid_view.svg"></md-icon> </md-button>
 		</div>
 		<div layout="row">
-			<div>
+			<div flex="8">	
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
 			</div>
-			<div>
+			<div flex="8">
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
 			</div>
 			<div style="background-color: white; width: 50px; border-radius : 100px;">
-				<img alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
+				<img ng-click="logOut()" alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
 			</div>
 		</div>
 	</div>

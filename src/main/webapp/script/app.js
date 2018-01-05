@@ -1,4 +1,4 @@
-var app = angular.module("ToDo", ['ui.router','mdChips','ngMaterial','ngFileUpload','base64','ngMaterialDatePicker','tb-color-picker']);
+var app = angular.module("ToDo", ['ui.router','ngMaterial','ngFileUpload','base64','ngMaterialDatePicker','tb-color-picker']);
 
 app.config([ '$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
@@ -52,6 +52,11 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		controller : 'dummyController'
 	})
 	
+	.state('search',{
+		url : '/search',
+		templateUrl : 'template/search.html',
+		controller : 'homeController'
+	})
 	
 	$urlRouterProvider.otherwise('/login');
 } ]);

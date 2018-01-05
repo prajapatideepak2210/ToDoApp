@@ -4,6 +4,10 @@
 	width: 100%;
 }
 
+.md-toolbar-tools{
+	background: #fb0;
+}
+
 .md-content{
 	width: 100%;
 	height: 100%;
@@ -76,8 +80,24 @@
 	
 }
 
+md-icon{
+	curser=pointer;
+}
+
 .menuButton{
 	min-width:5px; 
 	max-width:25px; 
 	margin:5px;
+}
+
+.showLabel{
+	background-color: #DCDCDC; 
+	height:25px; 
+	border-radius : 100px;
+}
+
+.noteButtons{
+	min-width: 10%;
+	max-width: 15%;;
+	
 }

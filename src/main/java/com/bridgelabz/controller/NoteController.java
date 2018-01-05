@@ -49,7 +49,34 @@ public class NoteController {
 		response.setMessage("Note is null, please fill the Note.");
 		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@RequestMapping(value="/copyNote", method=RequestMethod.POST)
+	public ResponseEntity<Response> copyNote(@RequestBody Note note , HttpServletRequest request){
+		Response response = new Response();
+		String token =request.getHeader("TokenAccess");
+		
+		if(token!=null && note!=null)
+		{
+			int user_id = TokenGenerator.verifyToken(token);
+			User user = userServiceImpl.getUserById(user_id);
+			if(user!=null)
+			{
+				int id = noteService.createNoteCopy(note);
+				if(id>0){
+					response.setMessage("note copied.");
+					return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				}
+				response.setMessage("coping failed.");
+				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			}
+			response.setMessage("coping failed.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		response.setMessage("coping failed.");
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+	}
+	
+	
 	@RequestMapping(value = "/deleteNote", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Response> deleteNote(HttpServletRequest request) {
 		
@@ -138,23 +165,6 @@ public class NoteController {
 	
 	/*=====================================Label=======================================*/
 	
-	/*@RequestMapping(value = "/", method = RequestMethod.POST)
-	public ResponseEntity<Response> addNoteInLabel(@RequestBody Note note, HttpServletRequest request){
-		String labelName = request.getHeader("labelName");
-		System.out.println("Label Name : "+labelName);
-		Response responseMessage = new Response();
-		User user = userServiceImpl.getUserById(note.getUser_id());
-		int labelId = noteService.createLabel(labelName, note, user);
-		if(labelId>0)
-		{
-			responseMessage.setMessage("Label successfully created.");
-			return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
-		}
-		else{
-			responseMessage.setMessage("creation failed.");
-			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
-		}
-	}*/
 	
 	@RequestMapping(value = "/createLabel", method = RequestMethod.POST)
 	public ResponseEntity<Response> addLabel(@RequestBody String labelName, HttpServletRequest request){
@@ -288,5 +298,25 @@ public class NoteController {
 		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 	}
 	
+	@RequestMapping(value = "/deleteLabelFromNote", method = RequestMethod.POST)
+	public ResponseEntity<Response> deleteLabelFromNote(@RequestBody Label label, HttpServletRequest request){
+		
+		Response response = new Response();
+		int note_id = request.getIntHeader("noteId");
+		if(note_id>0 && label!=null){
+			Note note = noteService.getNoteByNoteId(note_id);
+			Label labelForDelete = noteService.getLabelByLabelId(label.getId());
+			if(note!=null){
+				note.getLabels().remove(labelForDelete);
+				noteService.updateNote(note);
+				response.setMessage("label deleted successfully.");
+				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+			}
+			response.setMessage("label note deleted.");
+			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+		}
+		response.setMessage("label note deleted.");
+		return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+	}
 	
 }

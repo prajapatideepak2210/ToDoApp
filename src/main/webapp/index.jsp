@@ -6,12 +6,13 @@
 	<link rel="stylesheet" href="css/login.css"/>
 	<link rel="stylesheet" href="css/home.css">
 	<link rel="stylesheet" href="css/navbar.css">
+	<link rel="stylesheet" href="css/search.css">
 	<link rel="stylesheet" href="css/sidebar.css">
 	<link rel="stylesheet" href=""/>
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css">
 	<link rel="stylesheet" href="bower_components/colorpicker/colorPickerStyle.css">
-	<link rel="stylesheet" href="bower_components/bower_components/md-chips/mdchips.css">
+	<link rel="stylesheet" href="">
 
 </head>
 <body ng-app="ToDo">
@@ -28,7 +29,7 @@
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="bower_components/bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/colorpicker/colorPicker.js"></script>
-<script src="bower_components/bower_components/md-chips/mdchips.js"></script>
+<script src=""></script>
 
 </script>
     

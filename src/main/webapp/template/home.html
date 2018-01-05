@@ -11,8 +11,10 @@
 		
 		<div class="addNote" layout="row" layout-align="center center">
 			<md-card flex="60" style="margin-top:20px;" layout="column">
-				<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
-				<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
+				<div layout-margin="center center" layout="column">
+					<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
+					<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
+				</div>
 				<!-- <span flex-offset="5" ng-click="ShowHide()">Tag a note</span>
 				<div ng-app="ToDo" ng-controller="homeController">
 				
@@ -79,10 +81,22 @@
 			<div class="md-dialog-container" id="myStaticDialog">
 				<md-dialog aria-label="">
     				<md-dialog-content style="max-width:600px;max-height:200px;">
-          			<md-content class="md-padding">
-           				<div><input class="inputFields" ng-model="note.title" name="title" type="text"></div>
-						<div><input class="inputFields" type="text" ng-model="note.description" name="description"/></div>
-          			</md-content>
+          				<md-content class="md-padding">
+           					<div><input class="inputFields" ng-model="note.title" name="title" type="text"></div>
+							<div><input class="inputFields" type="text" ng-model="note.description" name="description"/></div>
+							<div ng-if="note.reminder" layout="row">
+							<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+							<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
+						</div>
+          				</md-content>
+          				<div ng-if="note.labels" layout = "row">
+						<div class="showLabel" layout="row" layout-margin="center center" ng-repeat="label in note.labels">
+							
+							<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+							<md-icon ng-click="deleteLabel(label, note)" style="margin-top: 0px; margin-left:0px;" md-svg-icon="image/close_black.svg" ></md-icon>
+							
+						</div>
+					</div>
     				</md-dialog-content>
     				
     				<md-dialog-actions layout="row">
@@ -132,7 +146,7 @@
 					</div flex="4">
 					<div flex="4">
 					<md-menu>
-						<md-button aria-label="">
+						<md-button  aria-label="">
 						<md-tooltip md-direction="bottom">More</md-tooltip>
         					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
       					</md-button>
@@ -152,7 +166,7 @@
     					</md-menu>
 					</div>
 					<div flex="4">
-						<md-button ng-click="updateNote(note)" style="margin-right:20px;" >Done</md-button>
+						<md-button class="noteButtons" ng-click="updateNote(note)" >Done</md-button>
 					</div>
 				
       					
@@ -164,39 +178,40 @@
 		<!--=============================== unpin notes ====================================-->
 		
 		<div layout="row">
-		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+		<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
 		
 			<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 
 				<md-card ng-style="{'background-color':note.noteColor}" >
 					<div ng-click="showDialog(note)">
-					<div ng-if="note.noteBackGround">
-					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;" >
-					</div>
+						<div ng-if="note.noteBackGround">
+							<img ng-src={{note.noteBackGround}} style=" max-width: 100%;" >
+						</div>
 					
-					<div flex layout-align="end center"><div flex="5">
-					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
-						<md-icon md-svg-icon="image/pin_black.svg"></md-icon></md-button></div></div>
-					<!-- <input class="inputFields" ng-model="note.title" type="text">
-					<input class="inputFields" ng-model="note.description" type="text"> -->
-
-					<div layout-margin="center center" layout="column">
-						<span>{{note.title}}</span>
-						<span>{{note.description}}</span>
-					</div>
+						<div flex layout-align="end center">
+							<div flex="5">
+								<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
+									<md-icon md-svg-icon="image/pin_black.svg"></md-icon>
+								</md-button>
+							</div>
+						</div>
+						<div layout-margin="center center" layout="column">
+							<span>{{note.title}}</span>
+							<span>{{note.description}}</span>
+						</div>
 					
-					<div ng-if="note.reminder" layout="row">
-						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
-						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
-					</div>
+						<div ng-if="note.reminder" layout="row">
+							<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+							<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" ng-click="removeReminder(note)"/>
+						</div>
 					
 					</div>
 					<div ng-if="note.labels" layout = "row">
-						<div layout="row" layout-margin="center center" ng-repeat="label in note.labels">
-							<h6>{{label.labelName}}</h6>
-							<md-button ng-click="deleteLabel(label)" class="md-icon-button md-primary" aria-label="" >
-								<md-icon md-svg-icon="image/close_black.svg" ></md-icon>
-							</md-button>
+						<div class="showLabel" layout="row" layout-margin="center center" ng-repeat="label in note.labels">
+							
+							<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+							<md-icon ng-click="deleteLabel(label, note)" style="margin-top: 0px; margin-left:0px;" md-svg-icon="image/close_black.svg" ></md-icon>
+							
 						</div>
 					</div>
 					<div layout="row" layout-align="start center">
@@ -239,9 +254,9 @@
 						<md-button ng-click="archiveNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-tooltip md-direction="bottom">Archive</md-tooltip>
 						<md-icon md-svg-icon="image/archive_black.svg"></md-icon> </md-button>
-					</div flex="4">
+					</div>
 					<md-menu>
-						<md-button aria-label="">
+						<md-button class="noteButtons" aria-label="">
 						<md-tooltip md-direction="bottom">More</md-tooltip>
         					<md-icon md-svg-icon="image/more_black.svg" ng-click="$mdMenu.open()"></md-icon>
       					</md-button>
@@ -250,7 +265,7 @@
           						<md-button ng-click="trashNote(note)">Delete Note</md-button>
         					</md-menu-item>
         					<md-menu-item >
-          						<md-button>Make Copy</md-button>
+          						<md-button ng-click="copyNote(note)">Make Copy</md-button>
         					</md-menu-item>
         
         					<md-menu-item >
@@ -260,9 +275,9 @@
       				</md-menu-content>
     				</md-menu>
 					
-					<div flex="4">
-						<md-button ng-click="updateNote(note)">Done</md-button>
-					</div>
+					
+						<md-button class="noteButtons" ng-click="updateNote(note)">Done</md-button>
+					
 				</div>
 				</md-card>
 			</div>
@@ -270,7 +285,7 @@
 		
 		<!--=============================== Pin Notes ====================================-->
 		
-		<div flex="100" layout-align="start center" class="pin allNotes" layout="column">
+		<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
 		<div><h6>Pined Notes</h6></div>
 		<div style="width: 90%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
 				<md-card ng-style="{'background-color':note.noteColor}">
@@ -283,17 +298,20 @@
 					<div flex ><div flex="8">
 					<md-button ng-click="pinNote(note)" class="md-icon-button md-primary" aria-label="">
 						<md-icon md-svg-icon="image/pinBlue.svg"></md-icon></md-button></div></div>
-
-						<div layout="column">
+						<div layout="column" layout-margin="center center">
 							<span>{{note.title}}</span>
 							<span>{{note.description}}</span>
 						</div>
-					<!-- <input class="inputFields" ng-model="note.title" type="text">
-					<input class="inputFields" ng-model="note.description" type="text"> -->
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
 						ng-click="removeReminder(note)"/>
+					</div>
+					<div ng-if="note.labels" layout = "row">
+						<div class="showLabel" layout="row" layout-margin="center center" ng-repeat="label in note.labels">
+							<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+							<md-icon ng-click="deleteLabel(label, note)" style="margin-top: 0px; margin-left:0px;" md-svg-icon="image/close_black.svg" ></md-icon>
+						</div>
 					</div>
 					</div>
 					<div layout="row" layout-align="start center">
@@ -348,16 +366,14 @@
           						<md-button ng-click="trashNote(note)">Delete Note</md-button>
         					</md-menu-item>
         					<md-menu-item >
-          						<md-button>Make Copy</md-button>
+          						<md-button ng-click="copyNote(note)">Make Copy</md-button>
         					</md-menu-item>
         
         					<md-menu-item >
          					<md-button ng-click="lables($event)">Add Labels</md-button>
         				</md-menu-item><div>
-        
       				</md-menu-content>
     				</md-menu>
-					
 				</div>
 				</md-card>
 			</div>

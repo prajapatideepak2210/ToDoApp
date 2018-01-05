@@ -177,5 +177,10 @@ public class NoteServiceImpl implements NoteService {
 		
 		return noteDao.getLabelByLabelId(label_id);
 	}
+
+	@Override
+	public int createNoteCopy(Note note) {
+		return noteDao.addNote(note);
+	}
 	
 }

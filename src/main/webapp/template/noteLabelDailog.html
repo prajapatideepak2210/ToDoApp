@@ -12,7 +12,7 @@
 		<div  layout="column" layout-align="start center" >
 		<div  layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
 				<div style="width: 50px;">
-					<md-checkbox style="margin:5px;" ng-checked="label.checked"  ng-click="updateNoteInLabel(note, label)"></md-checkbox>
+					<md-checkbox style="margin:5px;" ng-checked=""  ng-click="updateNoteInLabel(note, label)"></md-checkbox>
 				</div>
 				<div layout-align="center center" flex class="nav_h6_div">
 						<h6 class="h6" style="margin-top: 5px;">{{label.labelName}}</h6>

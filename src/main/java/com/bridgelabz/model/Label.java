@@ -32,7 +32,6 @@ public class Label {
 	private User user;
 	
 	private String labelName;
-
 	
 	
 	public int getId() {
@@ -66,5 +65,25 @@ public class Label {
 	public void setLabelName(String labelName) {
 		this.labelName = labelName;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + id;
+		return result;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+		Label label = (Label) obj;
+		if (label.getId()==id){
+			return true;
+		}
+		return false;
+	}
+	
+	
 	
 }

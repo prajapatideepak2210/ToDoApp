@@ -1,0 +1,36 @@
+@CHARSET "UTF-8";
+
+.md-navbar{
+	
+}
+
+.search:before{
+	background: 
+}
+.search{
+	margin-left: 300px;
+	margin-left: 10px;
+}
+
+.inputType{
+    
+	border: none;
+    font: normal 16px Roboto,sans-serif;
+    font-variant-ligatures: none;
+    height: 46px;
+    outline: none;
+    padding: 5px 10px 5px 10px;
+    width: 100%;
+    background-color: white;
+    box-sizing: border-box;
+}
+
+.md-toolbar-tools{
+	background: #fb0;
+}
+
+.noteButtons{
+	min-width: 10%;
+	max-width: 15%;;
+	
+}

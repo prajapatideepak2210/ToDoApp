@@ -173,7 +173,6 @@ app.factory('homeService', function($http) {
 	}
 	
 	notes.updateNoteInLabel = function(note, label){
-		console.log(label.id)
 		return $http({
 			method : 'POST',
 			data : note,
@@ -181,6 +180,30 @@ app.factory('homeService', function($http) {
 			headers : {
 				'TokenAccess' : localStorage.getItem('token'),
 				'labelId' : label.id
+			}
+		})
+	}
+	
+	notes.deleteNoteLabel = function(label, note){
+		console.log(note.id);
+		return $http({
+			method : 'POST',
+			data : label,
+			url : 'deleteLabelFromNote',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
+				'NoteId' : note.id
+			}
+		})
+	}
+	
+	notes.copyNote = function(note){
+		return $http({
+			method : 'POST',
+			data : note,
+			url : 'copyNote',
+			headers : {
+				'TokenAccess' : localStorage.getItem('token'),
 			}
 		})
 	}

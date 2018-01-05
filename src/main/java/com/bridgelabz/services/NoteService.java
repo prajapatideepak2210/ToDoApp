@@ -61,5 +61,7 @@ public interface NoteService {
 	Label updateLabel(Label label);
 
 	Label getLabelByLabelId(int label_id);
+
+	int createNoteCopy(Note note);
 	
 }

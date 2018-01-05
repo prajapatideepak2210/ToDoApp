@@ -6,6 +6,9 @@
 
 	<md-content layout="column" flex>
 	<div class="allContent" flex="75"  layout-align="center center">
+		<!-- <div layout-align="center center" ng-if="!note.archive in notes">
+			<h2 style="color: #DCDCDC">Note is not availabel in archive</h2>
+		</div> -->
 		
 		<div flex="100" layout-align="start center" class="allNotes" layout="column">
 
@@ -16,17 +19,23 @@
 					<div ng-if="note.noteBackGround">
 					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
 					</div>
-					<div layout="column">
+					<div layout="column" layout-margin="center center">
 						<span>{{note.title}}</span>
 						<span>{{note.description}}</span>
 					</div>
-					<!-- <input class="inputFields" ng-model="note.title" type="text">
-					<input class="inputFields" ng-model="note.description" type="text"> -->
 					</div>
 					<div ng-if="note.reminder" layout="row">
 						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
 						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
 						ng-click="removeReminder(note)"/>
+					</div>
+					<div ng-if="note.labels" layout = "row">
+						<div class="showLabel" layout="row" layout-margin="center center" ng-repeat="label in note.labels">
+							
+							<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+							<md-icon ng-click="deleteLabel(label, note)" style="margin-top: 0px; margin-left:0px;" md-svg-icon="image/close_black.svg" ></md-icon>
+							
+						</div>
 					</div>
 					<div layout="row" layout-align="start center">
 					<div flex="8">
@@ -79,11 +88,11 @@
           						<md-button ng-click="trashNote(note)">Delete Note</md-button>
         					</md-menu-item>
         					<md-menu-item >
-          						<md-button>Make Copy</md-button>
+          						<md-button ng-click="copyNote(note)">Make Copy</md-button>
         					</md-menu-item>
         
         					<md-menu-item >
-         					<md-button>Add Labels</md-button>
+         					<md-button ng-click="lables($event)">Add Labels</md-button>
         				</md-menu-item>
         
       					</md-menu-content>
