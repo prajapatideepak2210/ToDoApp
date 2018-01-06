@@ -1,0 +1,36 @@
+<md-card ng-style="{'background-color':note.noteColor}" style="word-break: break-all;"> 
+	<div ng-click="showDialog(note)">
+					<div ng-if="note.noteBackGround">
+					<img ng-src={{note.noteBackGround}} style=" max-width: 100%;">
+					</div>
+					<!-- <input class="inputFields" ng-model="note.title" type="text">
+					<input class="inputFields" ng-model="note.description" type="text"> -->
+					<div layout-margin="center center" layout="column">
+						<span>{{note.title}}</span>
+						<span>{{note.description}}</span>
+					</div>
+					<div ng-if="note.reminder" layout="row">
+						<h5>Reminder : {{note.reminder|date:'medium'}}</h5>
+						<img style="margin-left: 5px;" alt="image is note available" src="image/close_black.svg" 
+						ng-click="removeReminder(note)"/>
+					</div>
+					<div layout="row" layout-align="start center">
+					
+					<md-menu>
+						<md-button aria-label="Open menu with custom trigger" ng-click="$mdMenu.open()">
+						<md-tooltip md-direction="bottom">More</md-tooltip>
+        					<md-icon md-svg-icon="image/more_black.svg"></md-icon>
+      					</md-button>
+      					<md-menu-content width="4" ng-mouseleave="$mdMenu.close()">
+        					<md-menu-item >
+          						<md-button ng-click="deleteNote(note)">Delete forever</md-button>
+        					</md-menu-item>
+        					<md-menu-item >
+          						<md-button ng-click="trashNote(note)">Restore</md-button>
+        					</md-menu-item>
+      					</md-menu-content>
+    				</md-menu>
+					
+					</div>
+				</div>
+				</md-card>

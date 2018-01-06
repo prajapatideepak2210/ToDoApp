@@ -1,0 +1,16 @@
+<md-dialog aria-label="" >
+	<md-toolbar>
+      <div layout="row" class="md-toolbar-tools">
+      	<div style="background-color: white; width: 50px; border-radius : 100px;">
+			<img alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
+		</div>
+		<div>
+        	<h5>{{user.fName}}</h5>
+        </div>
+      </div>
+    </md-toolbar>
+    
+	<md-dialog-actions layout="row">
+      	<md-button ng-click="userLogout()" style="margin-right:20px;">logout</md-button>
+    </md-dialog-actions>
+</md-dialog>

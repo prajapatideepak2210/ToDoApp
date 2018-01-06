@@ -2,7 +2,7 @@
 	<div class="md-toolbar-tools">
 		<div layout="row" layout-margin>
 			<div layout-margin flex="8">
-				<md-button class="md-icon-button md-primary" aria-label="">
+				<md-button ng-click="toggleLeft()" class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/menu.svg"></md-icon> </md-button>
 			</div>
 			<div  style="margin-top:0 auto;" layout-align="start center" >
@@ -16,14 +16,11 @@
 			</div>
 		
 			<div flex="100" style=" border-radius:4px">
-				<md-autocomplete ng-click="search()" md-no-cache="true" md-selected-item="selectedItem"
+				<md-autocomplete class="inputType" ng-click="search()" md-no-cache="true" md-selected-item="selectedItem"
 				md-items="item in items" 
 				 placeholder="Search">
 			</div>
-			<div flex="8">
-				<md-button class="md-icon-button md-primary" aria-label="">
-				<md-icon md-svg-icon="image/close_white.svg"></md-icon> </md-button>
-			</div>
+			
 		</div>
 		<div flex="8">
 			<md-button class="md-icon-button md-primary" aria-label="">
@@ -43,7 +40,7 @@
 				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
 			</div>
 			<div style="background-color: white; width: 50px; border-radius : 100px;">
-				<img ng-click="logOut()" alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
+				<img ng-click="logOut(user)" alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
 			</div>
 		</div>
 	</div>

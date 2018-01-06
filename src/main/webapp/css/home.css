@@ -98,6 +98,19 @@ md-icon{
 
 .noteButtons{
 	min-width: 10%;
-	max-width: 15%;;
-	
+	max-width: 15%;
+	margin-left: 1px;
+}
+
+#description{
+	outline:none;
+	padding-top:5px;
+	word-break: break-all;
+}
+
+#title{
+	outline:none;
+	padding-top:5px;
+	height: 28px;
+	word-break: break-all;
 }

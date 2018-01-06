@@ -1,7 +1,7 @@
 var ToDo = angular.module('ToDo');
  
 ToDo.controller('homeController', function($scope, homeService, Upload,
-		$base64, mdcDateTimeDialog, $filter, $interval,$location, $mdDialog, $rootScope) {
+		$base64, mdcDateTimeDialog, $filter, $interval,$location, $mdDialog, $rootScope, $mdSidenav, $timeout) {
 	
 	/* Creating the Note */
 	
@@ -160,7 +160,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		console.log("hello update");
 	}
 
-	/* Image Uploading */
+	/*============================================= Image Uploading ========================================*/
 	
 	$scope.type = {};
 	$scope.openHiddenButton = function(note) {
@@ -192,7 +192,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		});
 	}
 
-	/* reminder */
+	/*====================================== reminder =========================================*/
 
 	$scope.addReminder = function(note) {
 		
@@ -247,7 +247,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		$mdDialog.show({
 			contentElement: '#myStaticDialog',
 		    clickOutsideToClose:true,
-		    parent: angular.element(document.body)
+		   /* parent: angular.element(document.body)*/
 		});
 	}
 	
@@ -296,7 +296,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 				owner :$scope.ownerDetails,
 				listOfUser: $scope.userList
 			},
-			 templateUrl : 'template/tabDialog.html',
+			 templateUrl : 'template/ColaboratorDialog.html',
 			 parent: angular.element(document.body),
 		     targetEvent: event,
 		     clickOutsideToClose: true,
@@ -371,6 +371,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 					$scope.createLabel.then(function(response){
 						$scope.message = response.data.message;
 						console.log(response.data);
+						getLabels();
+						getNotes();
 						$mdDialog.hide();
 					}, function(response){
 						$scope.errorMessage = response.data.message;
@@ -399,6 +401,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 						$scope.message = response.data;
 						console.log(response.data);
 						getLabels();
+						getNotes();
+						$mdDialog.hide();
 					}, function(response){
 						$scope.errorMessage = response.data;
 						console.log(response.data);
@@ -446,6 +450,7 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 						$scope.message = response.data.message;
 						console.log(response.data);
 						getLabels();
+						getNotes();
 						$mdDialog.hide();
 					}, function(response){
 						$scope.errorMessage = response.data.message;
@@ -480,6 +485,8 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 			}
 		
 		})
+		getLabels();
+		getNotes();
 	}
 	
 	var getLabels = function(){
@@ -494,27 +501,43 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 	}
 	getLabels();
 	
-	$scope.deleteLabel = function(label, note){
+	$scope.deleteNoteFromLabel = function(label, note){
 		console.log(note);
-		$scope.deleteLabel = homeService.deleteLabel(label, note);
+		$scope.deleteLabel = homeService.deleteNoteLabel(label, note);
 		$scope.deleteLabel.then(function(response){
 			$scope.data = response.data;
 			console.log(response.data);
+			getLabels();
+			getNotes();
 		}, function(response){
 			$scope.errorMessage = response.data.message;
 		})
 	}
 	
-	$scope.logOut = function(){
-		$scope.logout = homeService.logOut();
-		$scope.logout.then(function(response){
-			$scope.data = response.data;
-			console.log(response.data);
-			$state.go("login");
-		}, function(response){
-			$scope.data
+	/*===========================================LogOut==============================================*/
+	
+	$scope.logOut = function(user){
+		console.log(user);
+		$mdDialog.show({
+			
+			locals:{
+				data : user,
+			},
+			templateUrl : 'template/logoutDailog.html',
+			parent: angular.element(document.body),
+			clickOutsideToClose: true,
+			controller: function($scope, data){
+				$scope.user = data;
+				$scope.userLogout = function(){
+					localStorage.removeItem('token');
+					$location.path('login');
+					$mdDialog.hide();
+				}
+			}
 		})
 	}
+	
+	/*===========================================Search================================================*/
 	
 	$scope.search = function(){
 		$location.path('search');
@@ -543,5 +566,16 @@ ToDo.controller('homeController', function($scope, homeService, Upload,
 		}
 		return result;
 	}
+	
+	/*======================================toggel sidebar=======================================*/
+	
+	
+    $scope.toggleRight = buildToggler('right');
+    $scope.toggleLeft = buildToggler('left');
+    function buildToggler(componentId) {
+      return function() {
+        $mdSidenav(componentId).toggle();
+      };
+    }
 	
 });

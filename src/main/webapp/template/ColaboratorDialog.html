@@ -5,33 +5,33 @@
       </div>
     </md-toolbar>
     <md-dialog-content style="max-width:800px;max-height:810px; min-width:600px;" >
-			<div layout-padding>
-         		<div layout="column" flex="10" layout-align="start center">
+			<div flex="100" layout-padding>
+         		<div layout="column" flex="100" layout-align="start center">
          			<div layout="row" layout-align="start center" style="width: 100%;">
          				<div style="background-color: white; width: 50px; border-radius : 100px;">
 							<img alt="{{ownerDetails.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{ownerDetails.profilePic}}"/>
 						</div>
-						<div layout-align="center center" flex-offset="5" style="width: 60%; margin-left: 5px;">
-							<h6 style="height: 5px; margin: 3px;">{{ownerDetails.fName}}(Owner)</h6>
-							<h6 style="height: 5px; margin: 3px;">{{ownerDetails.userName}}</h6>
+						<div layout-align="center center" flex-offset="5" style="width: 60%; height: 60px; margin-left: 5px;">
+							<h6 style="height: 5px; margin: 3px; margin-top: 10px;">{{ownerDetails.fName}}(Owner)</h6>
+							<h6 style="height: 5px; margin: 3px; margin-top: 15px;">{{ownerDetails.userName}}</h6>
 						</div>
 					</div>
 					<div layout="column" style="width: 100%;">
-						<div style="width: 100px;" ng-repeat="sharedUser in note.collaborator" layout-align="start center" layout="row" >
-							<div style="background-color: white;  width: 50px; border-radius : 100px;" flex="30">
+						<div layout="row" style="width: 100%;" ng-repeat="sharedUser in note.collaborator" layout-align="start center" layout="row" >
+							<div style="background-color: white;  width: 50px; border-radius : 100px;" flex="10">
 								<img alt="{{sharedUser.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{sharedUser.profilePic}}"/>
 							</div>
-							<div style="margin-left: 10px; width: 60%;" layout-align="center center" flex="90">
+							<div style="margin-left: 10px; width: 60%;" layout-align="center center" flex="50">
 								<h6>{{sharedUser.userName}}</h6>
 							</div>
-							<div style="width: 10%;">
+							<div flex="4">
 								<img ng-click="deleteUserFromCollaborator(sharedUser.userName, note)" alt="Img" ng-src="image/close_black.svg">
 							</div>
 						</div>
          			</div>
          		</div> 
-         		<div>
-         			<input style="border: none; outline: none;" type="email" name="userName" placeholder="Enter email" ng-model="userName">
+         		<div flex="100">
+         			<input style="border: none; outline: none; width: 100%" type="email" name="userName" placeholder="Enter email" ng-model="userName">
          		</div>
 		</div>
 	</md-dialog-content>

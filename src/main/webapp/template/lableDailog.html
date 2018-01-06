@@ -9,7 +9,7 @@
     		
     	</div>
     	
-    	<div>
+    	<div layout-margin="center center">
 			<input class="inputFields" type="text" placeholder="create new lable" ng-model="lableName"/>
 		</div>
 		<div layout-align="center center" layout="row" style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
@@ -22,7 +22,7 @@
 				<input class="inputFields" ng-model="label.labelName" type="text">
 			</div>
 			<div style="width: 50px;" >
-				<md-button ng-click="updateLabel(label)"  ng-init="getLabels()" class="md-icon-button md-primary" aria-label="" >
+				<md-button ng-click="updateLabel(label)" ng-init="getLabels()" class="md-icon-button md-primary" aria-label="" >
 					<md-icon md-svg-icon="image/done_black.svg" ></md-icon>
 				</md-button>
 			</div>
@@ -30,6 +30,6 @@
 	</md-dialog-content>
 	<md-dialog-actions layout="row">
 		<md-button ng-click="cancel()">Cancel</md-button>
-      	<md-button ng-click="createLabel(lableName)"  ng-init="getLabels()" style="margin-right:20px;">Done</md-button>
+      	<md-button ng-click="createLabel(lableName)"  ng-init="getLabels()" style="margin-right:20px; background-color: none;">Done</md-button>
     </md-dialog-actions>
 </md-dialog>

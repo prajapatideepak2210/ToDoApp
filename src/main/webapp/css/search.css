@@ -13,6 +13,8 @@
 }
 
 .inputType{
+    opacity: 0.05;
+    filter: alpha(opacity=50);
     
 	border: none;
     font: normal 16px Roboto,sans-serif;
@@ -25,8 +27,8 @@
     box-sizing: border-box;
 }
 
-.md-toolbar-tools{
-	background: #fb0;
+.md-toolbar-color{
+	background: blue;
 }
 
 .noteButtons{
