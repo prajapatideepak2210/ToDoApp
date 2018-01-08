@@ -71,5 +71,6 @@
 	<script type="text/javascript" src="directive/sidebar.js"></script>
 	<script type="text/javascript" src="directive/noteCard.js"></script>
 	<script type="text/javascript" src="directive/noteForTrash.js"></script>
+	<script type="text/javascript" src="directive/customfilter.js"></script>
 	
 </html>

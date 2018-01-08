@@ -201,13 +201,13 @@ public class NoteController {
 	@RequestMapping(value="/addNoteInLabel", method = RequestMethod.POST)
 	public ResponseEntity<Response> addNoteInLabel(@RequestBody Note note, HttpServletRequest request){
 		Response response  = new Response();
+		System.out.println("hello yahi h");
 		if(note!=null){
-			System.out.println("note details : "+note.getTitle());
-			response.setMessage("Ho gaya call");
+			response.setMessage("Label added.");
 			return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
 		}
 		else{
-			response.setMessage("nahi hua");
+			response.setMessage("label id not added.");
 			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 		}
 		
@@ -283,6 +283,7 @@ public class NoteController {
 			Label label = noteService.getLabelByLabelId(label_id);
 			if(label!=null){
 				note.getLabels().add(label);
+				note.setCheckBox(true);
 				Note note2 = noteService.updateNote(note);
 				if(note2!=null){
 					response.setMessage("note successfully added.");

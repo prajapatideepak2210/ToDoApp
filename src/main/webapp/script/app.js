@@ -64,5 +64,11 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		controller : 'homeController'
 	})
 	
+	.state('notesInLabel',{
+		url : '/notesInLabel',
+		templateUrl : 'template/notesInLabel.html'
+		,controller : 'homeController'
+	});
+	
 	$urlRouterProvider.otherwise('/login');
 } ]);

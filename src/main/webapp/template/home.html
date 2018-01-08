@@ -1,7 +1,7 @@
 <div>
 <nav-bar></nav-bar>
 
-	<div flex layout="row"> 
+	<!-- <div flex layout="row">  -->
 	
 
 	<md-content class="allContent" layout-align="center center" layout="row" flex="100" >
@@ -11,7 +11,7 @@
 			<side-bar flex="33"></side-bar>
 		</div>
 		<!--=============================== Add Notes ====================================-->
-		<div layout="column" ng-if="view?'listview':'gridview'">
+		
 		<div flex="66" class="addNote" layout="row" layout-align="center center">
 			<md-card flex="50" style="margin-top:20px;word-break: break-all;" layout="column">
 				<div layout-margin="center center" layout="column">
@@ -180,23 +180,23 @@
 		<!--=============================== other notes ====================================-->
 		
 		
-		<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
+		<div layout-align="start center" class="pin allNotes" layout="column">
 		
-			<div style="width: 50%;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
+			<div layout-align="center center" style="width: 700px;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 				<note-card></note-card>
 			
-		</div>
+			</div>
 		
 		<!--=============================== Pin Notes ====================================-->
 		
-		<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
-		<div><h6>Pined Notes</h6></div>
-		<div style="width: 50%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
-				<note-card></note-card>
+			<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
+				<div><h6>Pined Notes</h6></div>
+				<div style="width: 50%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
+					<note-card></note-card>
+				</div>
 			</div>
 		</div>
-		</div>
-		</div>
+
 	</div>
-	</md-content> </div>
+	</md-content> <!-- </div> -->
 </div>

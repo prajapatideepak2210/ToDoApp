@@ -27,9 +27,12 @@
 			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
 		</div>
 		<div flex="8">
-			<md-button class="md-icon-button md-primary" aria-label="">
-			<md-icon md-svg-icon="image/grid_view.svg"></md-icon> </md-button>
+			<md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-show="view" md-svg-icon="image/view.svg"> </md-icon>
+	
+	       <md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-hide="view" md-svg-icon="image/grid_view.svg"></md-icon>
 		</div>
+		
+		
 		<div layout="row">
 			<div flex="8">	
 				<md-button class="md-icon-button md-primary" aria-label="">

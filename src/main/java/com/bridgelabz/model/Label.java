@@ -24,7 +24,7 @@ public class Label {
 	
 	@ManyToMany(mappedBy="labels")
 	@JsonIgnore
-	private Set<Note> note = new HashSet<>();
+	private Set<Note> note = new HashSet<>();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
 
 	@ManyToOne
 	@JsonIgnore
