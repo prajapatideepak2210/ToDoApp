@@ -1,28 +1,14 @@
 <div layout="column" style="height: 100%;">
 <nav-bar></nav-bar>
-
-	<!-- <div flex layout="column">  -->
-
 	<md-content layout="row" flex>
-	<!-- <div  flex="100"  layout-align="center center"> -->
 		<div flex="25">
-			<side-bar flex="33"></side-bar>
+			<side-bar></side-bar>
 		</div>
-
-		<div flex="75" layout-align="start center" class="allNotes" layout="column" >
-		<!-- <div ng-repeat="note in notes | myLabelFilter:currentlabel " id="note-scope"
-				class="{{viewcol}}"> -->
-		
-
-			<!-- <div layout="row" layout-align="center center" ng-if="!notes.archive">
-				<h2 style="color: #DCDCDC;">Note is not availabel in archive</h2>
-			</div> -->
-			<div style="width: 75%;" ng-repeat="note in notes | myLabelFilter:currentLabel">
-				
+		<div layout-align="start start" class="allNotes" layout="row" layout-wrap layout-padding>
+			<div ng-repeat="note in notes | myLabelFilter:labelName">
 				<note-card></note-card>
 			</div>
 		</div>
 		</div>
-	<!-- </div> -->
-	</md-content> <!-- </div> -->
+	</md-content>
 </div>

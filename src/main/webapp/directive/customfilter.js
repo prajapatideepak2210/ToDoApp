@@ -12,7 +12,8 @@ toDo.filter('myLabelFilter', function() {
 		if(notes)
 		for (var i = 0; i < notes.length; i++) {
 			var note = notes[i];
-			var lbl = note.labels;
+			var lbl =[];
+			lbl = note.labels;
 			for (var j = 0; j < lbl.length; j++) {
 				if (labelName === lbl[j].labelName) {
 					filteredNotes.push(note);

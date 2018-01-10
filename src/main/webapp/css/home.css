@@ -13,7 +13,7 @@
 	height: 100%;
 }
 
-.add_note_div{
+/* .add_note_div{
 	height: 46px;
 	width: 600px;
 	background-color: white;
@@ -34,13 +34,13 @@
     padding: 12px 15px 15px 15px;
     
 }
-
+ */
 .allContent{
-	
+	margin-top: 0;
 }
 
 .addNote{
-	
+	margin-top: 280px;
 }
 
 .allNotes{

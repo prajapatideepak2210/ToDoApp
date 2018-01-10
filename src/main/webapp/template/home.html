@@ -1,31 +1,20 @@
-<div>
-<nav-bar></nav-bar>
+<div style="width: 100%;" layout="column">
 
-	<!-- <div flex layout="row">  -->
+	<nav-bar></nav-bar>
 	
-
 	<md-content class="allContent" layout-align="center center" layout="row" flex="100" >
-	
-	<div class="allContent" flex="100"  layout-align="center center">
-		<div flex="33">
-			<side-bar flex="33"></side-bar>
-		</div>
+	<!-- <div style="width: 100%;" layout="row" layout-align="start center"> -->
+		<side-bar></side-bar>
+		<div layout-align="center center" flex class="container" layout="column" style="height: 100%;">
 		<!--=============================== Add Notes ====================================-->
 		
-		<div flex="66" class="addNote" layout="row" layout-align="center center">
-			<md-card flex="50" style="margin-top:20px;word-break: break-all;" layout="column">
-				<div layout-margin="center center" layout="column">
-					<input id="title" class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
-					<input id="description" class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
+		<div  layout="row" layout-align="center center">
+			<md-card style="word-break: break-all; max-width: 700px; min-width: 500px;">
+				<div style="padding: 10px;" layout-align="start start" layout="column">
+					<input style="width: 100%;" id="title" class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
+					<input style="width: 100%;" id="description" class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
 				</div>
-				<!-- <span flex-offset="5" ng-click="ShowHide()">Tag a note</span>
-				<div ng-app="ToDo" ng-controller="homeController">
 				
-				<div ng-show = "IsVisible"  layout="column">
-					<input class="inputFields" type="text" name="title" ng-model="note.title" placeholder="title"/>
-				<input class="inputFields" type="text" name="description" ng-model="note.description" placeholder="description"/>
-				</div> 
-				</div>-->
 				<div layout="row" layout-align="start center">
 					<div flex="8">
 						<md-menu>
@@ -177,26 +166,33 @@
 			</div>
 		</div>
 		
-		<!--=============================== other notes ====================================-->
+		<!--=============================== other notes layout-align="center center"====================================-->
 		
-		
-		<div layout-align="start center" class="pin allNotes" layout="column">
-		
-			<div layout-align="center center" style="width: 700px;" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
-				<note-card></note-card>
-			
-			</div>
-		
-		<!--=============================== Pin Notes ====================================-->
-		
-			<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
-				<div><h6>Pined Notes</h6></div>
-				<div style="width: 50%;" ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
+		<div flex layout="column" >
+			<div  layout="row" layout-align="center  start" layout-wrap layout-padding>
+				<div class="card" data-drag="true" data-jqyoui-options="{revert: revertCard,
+							helper: 'clone',
+							appendTo: 'body',
+							zIndex: 350}" jqyoui-draggable="{
+						placeholder:true,
+						animate:true,
+						onStart: 'startCallback'}" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 					<note-card></note-card>
 				</div>
 			</div>
+		<!--================================================ Pin Notes =================================================-->
+			
+			<div style="margin-top: 20px;" layout-align="center center" layout="column" layout-padding>
+				<h6>Pined Notes</h6>
+			</div>
+			
+			<div layout="row" layout-align="start start" layout-wrap layout-padding>
+				<div ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true} ">
+					<note-card></note-card>
+				</div>
+			</div>	
 		</div>
-
 	</div>
-	</md-content> <!-- </div> -->
+	<!-- </div> -->
+	</md-content>
 </div>

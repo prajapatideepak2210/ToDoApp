@@ -289,11 +289,35 @@ ToDo
 						})
 					}
 
-					/*
-					 * ============================================= grid and
-					 * list view =====================================
-					 */
+/* ============================================= grid and list view ===================================== */
 
+					
+					
+				/*	$scope.view="true";
+
+					$scope.flex="30";
+					$scope.align1="start";
+					$scope.align2="start";
+					$scope.changeView=function(){
+
+						if($scope.view){
+							$scope.flex="65";
+							$scope.align1="center";
+							$scope.align2="center";
+							$scope.view=!$scope.view;
+						}else
+						{
+							$scope.flex="30";
+							$scope.align1="start";
+							$scope.align2="start";
+							$scope.view=!$scope.view;	
+						}
+						
+						
+					}*/
+					
+					
+					
 					$scope.view = true;
 					$scope.customWidth = 300;
 					$scope.grid = 0;
@@ -307,6 +331,7 @@ ToDo
 							$scope.view = true;
 						}
 					}
+					
 					/*
 					 * =============================================== Add
 					 * Note============================================
@@ -652,16 +677,14 @@ ToDo
 					 */
 
 					$scope.noteInLabel = function(notes, labelName) {
-						console.log(labelName);
-						console.log(notes);
-
-						$scope.notes = notes;
-						$rootScope.currentLabel = labelName;
+						
+						localStorage.setItem('labelName', labelName);
+						$scope.labelName = localStorage.getItem('labelName');
 						$state.go("notesInLabel");
-//						$location.path('/notesInLabel');
-						/* console.log($scope.labelName); */
-
 					}
+					
+	                $scope.labelName = localStorage.getItem('labelName');
+	         
 
 					/*
 					 * =========================================== Search
@@ -700,12 +723,32 @@ ToDo
 					 * sidebar=======================================
 					 */
 
-					$scope.toggleRight = buildToggler('right');
-					$scope.toggleLeft = buildToggler('left');
-					function buildToggler(componentId) {
-						return function() {
-							$mdSidenav(componentId).toggle();
-						};
-					}
+			$scope.toggleRight = buildToggler('right');
+			$scope.toggleLeft = buildToggler('left');
+			function buildToggler(componentId) {
+				return function() {
+					$mdSidenav(componentId).toggle();
+				};
+			}
+			
+			
+			/*================================= Drag N Drop =======================================*/
+			
+			$scope.startCallback = function (event, ui) {
+				var $draggable = $(event.target);
+				ui.helper.width($draggable.width());
+				ui.helper.height($draggable.height());
+				$draggable.css('opacity', '0');
+			};
+			
+			$scope.revertCard = function (valid) {
+				if (!valid) {
+					var that = this;
+					setTimeout(function () {
+						$(that).css('opacity', 'inherit');
+					}, 500);
+				}
+				return !valid;
+			};
 
-				});
+});

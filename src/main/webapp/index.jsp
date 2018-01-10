@@ -28,9 +28,12 @@
 <script src = "bower_components/angular-aria/angular-aria.min.js"></script>
 <script src="bower_components/ng-file-upload/ng-file-upload.min.js"></script>
 <script src="bower_components/bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
 <script src="bower_components/colorpicker/colorPicker.js"></script>
-<script src=""></script>
-
+<script src="bower_components/bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
 </script>
     
     <script src="bower_components/angular-base64/angular-base64.js"></script>
@@ -53,6 +56,7 @@
 	<script type="text/javascript" src="service/homeService.js"></script>
 	<script type="text/javascript" src="service/trashService.js"></script>
 	<script type="text/javascript" src="service/dummyService.js"></script>
+	<script type="text/javascript" src="service/archiveService.js"></script>
 	
 	<!-- All Controllers are here -->
 	
@@ -64,6 +68,7 @@
 	<script type="text/javascript" src="controller/trashController.js"></script>
 	<script type="text/javascript" src="controller/dailogController.js"></script>
 	<script type="text/javascript" src="controller/dummyController.js"></script>
+	<script type="text/javascript" src="controller/archiveController.js"></script>
 	
 	<!-- All directives are here -->
 	

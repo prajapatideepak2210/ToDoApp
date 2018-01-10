@@ -1,10 +1,10 @@
-<md-card  ng-style="{'background-color':note.noteColor}" style="word-break: break-all;display: inline-block; width: {{customWidth}}">
+<md-card  ng-style="{'background-color':note.noteColor}" style="word-break: break-all; width: {{customWidth}}">
 <div ng-click="showDialog(note)">
 	<div ng-if="note.noteBackGround">
-		<img ng-src={{note.noteBackGround}} style="max-width: 100%;">
+		<img ng-src={{note.noteBackGround}} style="max-width: {{customWidth}};">
 	</div>
 
-	<div flex layout-align="end center">
+	<div flex layout-align="center center">
 		<div flex="5">
 			<md-button ng-click="pinNote(note)" class="md-icon-button md-primary"
 				aria-label=""> <md-icon

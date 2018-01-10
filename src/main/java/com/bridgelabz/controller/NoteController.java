@@ -35,7 +35,6 @@ public class NoteController {
 	public ResponseEntity<Response> addNote(@RequestBody Note note, HttpServletRequest request) {
 		Response response = new Response();
 		String token = request.getHeader("TokenAccess");
-		
 		if (note != null) {
 			int noteId = noteService.addNote(note, token);
 			if (noteId != 0) {

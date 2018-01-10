@@ -1,14 +1,11 @@
 <div layout="column" style="height: 100%;">
 	<nav-bar></nav-bar>
 	<md-content layout="row" flex>
-		<div flex="25">
-			<side-bar flex="33"></side-bar>
-		</div>
-		<div flex="75" layout-align="start center" class="allNotes" layout="column">
-			<div style="width: 75%;" ng-repeat="note in notes | filter:{trash:true}">
+			<side-bar flex="25"></side-bar>
+		<div flex layout-align="start start"  layout="row" layout-wrap layout-padding>
+			<div  ng-repeat="note in notes | filter:{trash:true}">
 				<note-for-trash></note-for-trash>
 			</div>
 		</div>
-	
 	</md-content> 
 </div>

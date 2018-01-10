@@ -1,10 +1,10 @@
-<div>
+<div style="height: 100%;" layout="column">
 <md-navbar class="md-navbar">
 	<div class="md-toolbar-tools md-toolbar-color">
 		<div layout="row" layout-margin>
 			<div layout-margin flex="8">
 				<md-button class="md-icon-button md-primary" aria-label="">
-				<md-icon md-svg-icon="image/menu.svg"></md-icon> </md-button>
+				<md-icon ng-click="toggleLeft()" md-svg-icon="image/menu.svg"></md-icon> </md-button>
 			</div>
 			<div  style="margin-top:0 auto;" layout-align="start center" >
 				<h1 style="color: #ffffff;">Google Keep</h1>
@@ -50,18 +50,18 @@
 </md-navbar>
 
 
-	<div flex layout="row"> 
+	<!-- <div flex layout="row">  -->
+	
+	<md-content layout="column" flex >
 	<side-bar></side-bar>
-
-	<md-content layout="column" flex>
-	<div class="allContent" flex="75"  layout-align="center center">
+	<div class="allContent" layout-align="center center">
 
 			<div layout="row">
-		<div flex="50" layout-align="start center" class="pin allNotes" layout="column">
+		<div layout-align="center center" class="pin allNotes" layout="column">
 		
-			<div style="width: 90%;" ng-repeat="note in searchNotes">
+			<div layout-align="center center" style="width: 50%;" ng-repeat="note in searchNotes">
 
-				<md-card ng-style="{'background-color':note.noteColor}" >
+				<md-card ng-style="{'background-color':note.noteColor}" style="word-break: break-all;">
 					<div ng-click="showDialog(note)">
 						<div ng-if="note.noteBackGround">
 							<img ng-src={{note.noteBackGround}} style=" max-width: 100%;" >
@@ -155,7 +155,7 @@
     				</md-menu>
 					
 					<div flex="4">
-						<md-button class="noteButtons" ng-click="updateNote(note)">Done</md-button>
+						<md-button style="min-width: 70px;" class="noteButtons" ng-click="updateNote(note)">Done</md-button>
 					</div>
 				</div>
 				</md-card>
@@ -164,10 +164,5 @@
 
 	</div>
 	</md-content>
-
-
-
-
-
-
-</div></div>
+<!-- </div> -->
+</div>

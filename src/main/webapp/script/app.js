@@ -1,4 +1,4 @@
-var app = angular.module("ToDo", ['ui.router','ngMaterial','ngFileUpload','base64','ngMaterialDatePicker','tb-color-picker']);
+var app = angular.module("ToDo", ['ui.router','ngMaterial','ngFileUpload','base64','ngMaterialDatePicker','tb-color-picker','ngDragDrop']);
 
 app.config([ '$stateProvider', '$urlRouterProvider',
 	function($stateProvider, $urlRouterProvider) {
@@ -35,13 +35,13 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 	.state('trash',{
 		url : '/trash',
 		templateUrl : 'template/trash.html',
-		controller : 'homeController'
+		controller : 'trashController'
 	})
 
 	.state('archive',{
 		url : '/archive',
 		templateUrl : 'template/archive.html',
-		controller : 'homeController'
+		controller : 'archiveController'
 	})
 	
 	
@@ -50,6 +50,7 @@ app.config([ '$stateProvider', '$urlRouterProvider',
 		url : '/dummy',
 		templateUrl : 'template/dummy.html',
 		controller : 'dummyController'
+		
 	})
 	
 	.state('search',{
