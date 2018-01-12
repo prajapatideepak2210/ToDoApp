@@ -1,16 +1,16 @@
 <md-navbar class="md-navbar">
 	<div class="md-toolbar-tools">
 		<div layout="row" layout-margin>
-			<div layout-margin flex="8">
+			<div layout-margin >
 				<md-button ng-click="toggleLeft()" class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/menu.svg"></md-icon> </md-button>
 			</div>
 			<div  style="margin-top:0 auto;" layout-align="start center" >
-				<h1 style="color: #ffffff;">Google Keep</h1>
+				<h1 style="color: #ffffff;">ToDoApp</h1>
 			</div>
 		</div>
 		<div md-search-text="ctrl.searchText" layout="row" flex>
-			<div flex="8">
+			<div>
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/search.svg"></md-icon> </md-button>
 			</div>
@@ -22,26 +22,32 @@
 			</div>
 			
 		</div>
-		<div flex="8">
+		<!-- <div flex="8">
 			<md-button class="md-icon-button md-primary" aria-label="">
 			<md-icon md-svg-icon="image/refresh.svg"></md-icon> </md-button>
-		</div>
-		<div flex="8">
-			<md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-show="view" md-svg-icon="image/view.svg"> </md-icon>
+		</div> -->
+		<div flex="10" layout-align="center center" layout-margin>
+			<div style="margin-left: 50px;" >
+				<md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-show="view" md-svg-icon="image/view.svg"> </md-icon>
 	
-	       <md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-hide="view" md-svg-icon="image/grid_view.svg"></md-icon>
+	       		<md-icon class="md-icon-button md-primary" ng-click="changeView()" ng-hide="view" md-svg-icon="image/grid_view.svg"></md-icon>
+			</div>
 		</div>
-		<div layout="row">
-			<div flex="8">	
+		<div flex="10" layout="row" layout-align="center center">
+			<!-- <div flex="8">	
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/view_comfy_white.svg"></md-icon> </md-button>
-			</div>
-			<div flex="8">
+			</div> -->
+			<!-- <div flex="8">
 				<md-button class="md-icon-button md-primary" aria-label="">
 				<md-icon md-svg-icon="image/notifications_white.svg"></md-icon> </md-button>
+			</div> -->
+			<div ng-click="logOut(user)" layout-align="center center" style="background-color: #DCDCDC;
+				height:50px; width: 50px; border-radius : 100px;" ng-if="!user.profilePic">
+				<h1 style="margin: 12px 17px;">{{user.fName.charAt(0)}}</h1>
 			</div>
-			<div style="background-color: white; width: 50px; border-radius : 100px;">
-				<img ng-click="logOut(user)" alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
+			<div flex="10" ng-click="logOut(user)" style="background-color: white; width: 50px; border-radius : 100px;">
+				<img alt="{{user.fName.charAt(0)}}" style=" border-radius: inherit;"  ng-src="{{user.profilePic}}"/>
 			</div>
 		</div>
 	</div>

@@ -1,4 +1,5 @@
-<md-card  ng-style="{'background-color':note.noteColor}" style="word-break: break-all; width: {{customWidth}}">
+<md-card  ng-style="{'background-color':note.noteColor}" style="word-break: break-all; 
+width: {{customWidth}};">
 <div ng-click="showDialog(note)">
 	<div ng-if="note.noteBackGround">
 		<img ng-src={{note.noteBackGround}} style="max-width: {{customWidth}};">
@@ -26,7 +27,7 @@
 	<div class="showLabel" layout="row" layout-margin="center center"
 		ng-repeat="label in note.labels" style="word-break: break-all;">
 
-		<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+		<h6 style="margin-top: 4px;">{{label.labelName}}</h6>
 		<md-icon ng-click="deleteNoteFromLabel(label, note)"
 			style="margin-top: 0px; margin-left:0px;"
 			md-svg-icon="image/close_black.svg"></md-icon>

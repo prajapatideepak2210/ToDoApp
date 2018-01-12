@@ -39,7 +39,7 @@ public class Note {
 	private boolean archive;
 	private boolean pin;
 	private Date reminder;
-	private boolean checkBox;
+	
 	
 	@Lob
 	@Column(columnDefinition="LONGBLOB")
@@ -139,10 +139,5 @@ public class Note {
 	public void setTitle(String title) {
 		this.title = title;
 	}
-	public boolean isCheckBox() {
-		return checkBox;
-	}
-	public void setCheckBox(boolean checkBox) {
-		this.checkBox = checkBox;
-	}
+	
 }

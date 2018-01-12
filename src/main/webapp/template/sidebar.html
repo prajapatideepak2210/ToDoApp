@@ -33,12 +33,12 @@
 				<button class="buttons" ng-click="lables()">EDIT</button>
 			</div>
 			<div style="width: 90%;" ng-repeat="label in labels | filter:{label:'!'}">
-			 <li class="side_li"><a href="" layout="row" class="a">
+			 <li class="side_li"><a ng-click="noteInLabel(notes, label.labelName)" href="" layout="row" class="a">
 					<div style="width: 50px;">
 						<img class="img" alt="" src="image/label_black.svg">
 					</div>
 					<div flex class="nav_h6_div">
-						<h6 ng-click="noteInLabel(notes, label.labelName)" class="h6">{{label.labelName}}</h6>
+						<h6 class="h6">{{label.labelName}}</h6>
 					</div>
 			</a></li>
 			</div>

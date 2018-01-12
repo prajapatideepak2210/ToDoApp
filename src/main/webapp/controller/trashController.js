@@ -53,6 +53,14 @@ ToDo
 						});
 					}
 
+					var getAuthor = function(){
+						$scope.author = trashService.getAuthor();
+						if($scope.author==null){
+							$location.path('login');
+						}
+					}
+					getAuthor();
+					
 					var getUser = function() {
 						var getUser = trashService.getUser();
 						getUser.then(function(response) {
@@ -202,16 +210,15 @@ ToDo
 							$scope.view = false;
 							$scope.customWidth = 700;
 							$scope.gride = 33;
+							getNotes();
 						} else {
 							$scope.customWidth = 300;
 							$scope.view = true;
+							getNotes();
 						}
 					}
 
-					/*
-					 * ============================================== Lable
-					 * =================================================
-					 */
+/* ============================================== Lable ================================================= */
 
 					$scope.lables = function() {
 						$mdDialog

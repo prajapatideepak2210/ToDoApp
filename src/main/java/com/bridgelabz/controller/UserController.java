@@ -37,12 +37,18 @@ public class UserController {
 	
 	
 	@RequestMapping(value = "/getUser", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public User getUser(HttpServletRequest request) {
+	public ResponseEntity<User> getUser(HttpServletRequest request) {
 		String token = request.getHeader("TokenAccess");
 		int userId = TokenGenerator.verifyToken(token);
 		System.out.println("user id : "+userId);
 		User user = serviceImpl.getUserById(userId);
-		return user;
+		if(user!=null){
+			if(user.getId()==userId){
+				return new ResponseEntity<User>(user, HttpStatus.ACCEPTED);
+			}
+			return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity<User>(user, HttpStatus.BAD_REQUEST);
 	}
 
 	
@@ -85,7 +91,6 @@ public class UserController {
 			} else {
 				Response response = new Response();
 				response.setMessage("UserName and Password Mismatch.");
-				System.out.println(response.getMessage());
 				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
 			}
 		} else {
@@ -118,7 +123,7 @@ public class UserController {
 			if (user != null) {
 				serviceImpl.activeUser(id, user);
 				System.out.println("tum active ho gae ho");
-				responseMessage.setMessage("User has been Activated");
+				responseMessage.setMessage("User has been Activated, now you can login with TODO-APP.");
 				//response.sendRedirect("http://localhost:9090/ToDoApp/#!/login");
 				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			}

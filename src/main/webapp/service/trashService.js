@@ -12,6 +12,10 @@ app.factory('trashService', function($http) {
 		})
 	}
 	
+	notes.getAuthor = function(){
+		return localStorage.getItem('token');
+	}
+	
 	notes.getUser = function(){
 		return $http({
 			method : "GET",

@@ -3,7 +3,6 @@
 	<nav-bar></nav-bar>
 	
 	<md-content class="allContent" layout-align="center center" layout="row" flex="100" >
-	<!-- <div style="width: 100%;" layout="row" layout-align="start center"> -->
 		<side-bar></side-bar>
 		<div layout-align="center center" flex class="container" layout="column" style="height: 100%;">
 		<!--=============================== Add Notes ====================================-->
@@ -84,7 +83,7 @@
           				<div ng-if="note.labels" layout = "row">
 						<div class="showLabel" layout="row" layout-margin="center center" ng-repeat="label in note.labels">
 							
-							<h5 style="margin-top: 3px;">{{label.labelName}}</h5>
+							<h6 style="margin-top: 4px;">{{label.labelName}}</h6>
 							<md-icon ng-click="deleteLabel(label, note)" style="margin-top: 0px; margin-left:0px;" md-svg-icon="image/close_black.svg" ></md-icon>
 							
 						</div>
@@ -158,7 +157,7 @@
     					</md-menu>
 					</div>
 					<div flex="4">
-						<md-button class="noteButtons" ng-click="updateNote(note)" >Done</md-button>
+						<md-button style="min-width: 50px;" class="noteButtons" ng-click="updateNote(note)" >Done</md-button>
 					</div>
 				
     				</md-dialog-actions>
@@ -168,27 +167,21 @@
 		
 		<!--=============================== other notes layout-align="center center"====================================-->
 		
-		<div flex layout="column" >
-			<div  layout="row" layout-align="center  start" layout-wrap layout-padding>
-				<div class="card" data-drag="true" data-jqyoui-options="{revert: revertCard,
-							helper: 'clone',
-							appendTo: 'body',
-							zIndex: 350}" jqyoui-draggable="{
-						placeholder:true,
-						animate:true,
-						onStart: 'startCallback'}" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
+		<div flex>
+			<div style="max-height: fit-content;" layout="row" layout-align="center start" layout-wrap layout-padding>
+				<div ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 					<note-card></note-card>
 				</div>
 			</div>
 		<!--================================================ Pin Notes =================================================-->
-			
-			<div style="margin-top: 20px;" layout-align="center center" layout="column" layout-padding>
-				<h6>Pined Notes</h6>
-			</div>
-			
-			<div layout="row" layout-align="start start" layout-wrap layout-padding>
-				<div ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true} ">
+			<div style="max-height: fit-content;" layout-align="center center" layout="column" >
+				<div layout-align="center center" layout="column" layout-padding>
+					<h6>Pined Notes</h6>
+				</div>
+				<div layout="row" layout-align="center start" layout-wrap layout-padding>
+      				<div ng-repeat="note in notes | filter:{trash:false , archive:false ,pin:true}">
 					<note-card></note-card>
+					</div>
 				</div>
 			</div>	
 		</div>

@@ -8,8 +8,8 @@ app.controller('registrationController',function($scope,registrationService,$loc
 			a.then(function(response){
 				console.log(response.data.message);
 				localStorage.setItem('token',response.data.message);
-				$scope.errorMessage=response.data.message;
-				$location.path('login');
+				$scope.message=response.data.message;
+				$location.path('registration');
 			},function(response){
 				$scope.errorMessage=response.data.message;
 				$location.path('registration');

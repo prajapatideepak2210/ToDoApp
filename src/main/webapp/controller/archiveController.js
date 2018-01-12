@@ -65,6 +65,14 @@ ToDo
 						});
 					}
 
+					var getAuthor = function(){
+						$scope.author = archiveService.getAuthor();
+						if($scope.author==null){
+							$location.path('login');
+						}
+					}
+					getAuthor();
+					
 					var getUser = function() {
 						var getUser = archiveService.getUser();
 						getUser.then(function(response) {
@@ -72,7 +80,7 @@ ToDo
 							console.log($scope.user);
 						}, function(response) {
 							$scope.errormessage = response.data.message;
-							console.log(response.data);
+							$location.path('login');
 						})
 					}
 					var getLabels = function() {
@@ -324,9 +332,11 @@ ToDo
 							$scope.view = false;
 							$scope.customWidth = 700;
 							$scope.gride = 33;
+							getNotes();
 						} else {
 							$scope.customWidth = 300;
 							$scope.view = true;
+							getNotes();
 						}
 					}
 					

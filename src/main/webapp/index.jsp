@@ -12,6 +12,8 @@
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/css/material-datetimepicker.css"/>
 	<link rel="stylesheet" href="bower_components/bower_components/angular-material-datetimepicker/dist/material-datetimepicker.min.css">
 	<link rel="stylesheet" href="bower_components/colorpicker/colorPickerStyle.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  	<!-- <link rel="stylesheet" href="http://resources/demos/style.css"> -->
 	<link rel="stylesheet" href="">
 
 </head>
@@ -30,10 +32,14 @@
 <script src="bower_components/bower_components/moment/min/moment.min.js"></script>
 <script src="bower_components/bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
 <script src="bower_components/colorpicker/colorPicker.js"></script>
-<script src="bower_components/bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
+
+<!-- <script src="bower_components/bower_components/angular-dragdrop/src/angular-dragdrop.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script> -->
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </script>
     
     <script src="bower_components/angular-base64/angular-base64.js"></script>
@@ -45,7 +51,6 @@
     <!-- All script folders file is here -->
       
 	<script type="text/javascript" src="script/app.js"></script>
-	
 	
 	<!-- All Services are here -->
 	

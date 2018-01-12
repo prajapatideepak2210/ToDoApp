@@ -1,22 +1,23 @@
 var ToDo = angular.module('ToDo');
 
-ToDo
-		.controller(
+ToDo.controller(
 				'homeController',
 				function($scope, homeService, Upload, $base64,
 						mdcDateTimeDialog, $filter, $interval, $location,
 						$mdDialog, $rootScope, $mdSidenav, $timeout,$state) {
 
-					/* Creating the Note */
+/* ========================================= Creating the Note ======================================= */
 
 					$scope.noteCreate = function() {
 						var create = homeService.noteCreation($scope.note);
+						console.log("zksdgfksdfsdhfksdfhsdfgwslkhfew");
 						create.then(function(response) {
 							console.log(response.data.message);
 							$scope.errorMessage = response.data.message;
 							getNotes();
 						}, function(response) {
 							$scope.errorMessage = response.data.message;
+							console.log("zksdgfksdfsdhfksdfhsdfgwslkhfew");
 						});
 					}
 
@@ -33,7 +34,7 @@ ToDo
 
 					$scope.notes = [];
 
-					/* geting All Notes */
+/* ======================================== geting All Notes ====================================== */
 
 					var getNotes = function() {
 						$scope.notes = [];
@@ -64,15 +65,22 @@ ToDo
 							// $scope.errormessage = response.data.message;
 						});
 					}
-
+					
+					var getAuthor = function(){
+						$scope.author = homeService.getAuthor();
+						if($scope.author==null){
+							$location.path('login');
+						}
+					}
+					getAuthor();
+					
 					var getUser = function() {
 						var getUser = homeService.getUser();
 						getUser.then(function(response) {
 							$scope.user = response.data;
-							console.log($scope.user);
 						}, function(response) {
-							$scope.errormessage = response.data.message;
-							console.log(response.data);
+							console.log(response.data.message);
+							$location.path('login');
 						})
 					}
 					var getLabels = function() {
@@ -89,7 +97,7 @@ ToDo
 					getUser();
 					getNotes();
 
-					/* Trashing and untrashing the Note */
+/* ======================================== Trashing and untrashing the Note ============================= */
 
 					$scope.trashNote = function(note) {
 						if (note.trash)
@@ -109,7 +117,7 @@ ToDo
 						});
 					}
 
-					/* deleting the Note */
+/* ======================================== deleting the Note ============================================= */
 
 					$scope.deleteNote = function(note) {
 						var deleteNote = homeService.deleteNote(note);
@@ -122,7 +130,7 @@ ToDo
 						})
 					}
 
-					/* Archive and unarchive the Note */
+/* ====================================== Archive and unarchive the Note =================================== */
 
 					$scope.archiveNote = function(note) {
 						if (note.archive)
@@ -140,7 +148,7 @@ ToDo
 						})
 					}
 
-					/* Pin and unpin the Note */
+/* =========================================== Pin and unpin the Note =========================================== */
 
 					$scope.pinNote = function(note) {
 						if (note.pin)
@@ -158,7 +166,7 @@ ToDo
 						})
 					}
 
-					/* Updating the Note */
+/* ========================================= Updating the Note ========================================== */
 
 					$scope.updateNote = function(note) {
 						var updateNote = homeService.updateNote(note);
@@ -176,10 +184,7 @@ ToDo
 						console.log("hello update");
 					}
 
-					/*
-					 * ============================================= Image
-					 * Uploading ========================================
-					 */
+/* ============================================= Image Uploading ======================================== */
 
 					$scope.type = {};
 					$scope.openHiddenButton = function(note) {
@@ -212,11 +217,10 @@ ToDo
 						});
 					}
 
-					/*
-					 * ====================================== reminder
-					 * =========================================
-					 */
+/* ====================================== reminder ========================================= */
 
+					/* Adding the reminder */
+					
 					$scope.addReminder = function(note) {
 
 						console.log("hello reminder : " + note.reminder);
@@ -231,7 +235,7 @@ ToDo
 
 					}
 
-					/* Removing the Note */
+					/* Removing the reminder */
 
 					$scope.removeReminder = function(note) {
 						note.reminder = null;
@@ -245,7 +249,7 @@ ToDo
 						});
 					}
 
-					/* change color */
+/* ================================================= change color ============================================ */
 
 					$scope.options = [ 'transparent', '#FF8A80', '#FFD180',
 							'#FFFF8D', '#CFD8DC', '#80D8FF', '#A7FFEB',
@@ -265,7 +269,7 @@ ToDo
 
 					}
 
-					/* Dailog Box */
+/* ========================================== Dailog Box ============================================= */
 
 					$scope.showDialog = function(note) {
 						$scope.note = note;
@@ -291,33 +295,6 @@ ToDo
 
 /* ============================================= grid and list view ===================================== */
 
-					
-					
-				/*	$scope.view="true";
-
-					$scope.flex="30";
-					$scope.align1="start";
-					$scope.align2="start";
-					$scope.changeView=function(){
-
-						if($scope.view){
-							$scope.flex="65";
-							$scope.align1="center";
-							$scope.align2="center";
-							$scope.view=!$scope.view;
-						}else
-						{
-							$scope.flex="30";
-							$scope.align1="start";
-							$scope.align2="start";
-							$scope.view=!$scope.view;	
-						}
-						
-						
-					}*/
-					
-					
-					
 					$scope.view = true;
 					$scope.customWidth = 300;
 					$scope.grid = 0;
@@ -326,27 +303,15 @@ ToDo
 							$scope.view = false;
 							$scope.customWidth = 700;
 							$scope.gride = 33;
+							getNotes();
 						} else {
 							$scope.customWidth = 300;
 							$scope.view = true;
+							getNotes();
 						}
 					}
 					
-					/*
-					 * =============================================== Add
-					 * Note============================================
-					 */
-
-					/*
-					 * $scope.IsVisible = false; $scope.ShowHide = function () {
-					 * //If DIV is visible it will be hidden and vice versa.
-					 * $scope.IsVisible = $scope.IsVisible ? false : true; }
-					 */
-
-					/*
-					 * =============================================Collaborator
-					 * =============================================
-					 */
+/* =============================================Collaborator ============================================= */
 					/*
 					 * $scope.getOwner=function(note) { var collaborator =
 					 * homeService.getOwner(note);
@@ -443,10 +408,7 @@ ToDo
 								});
 					}
 
-					/*
-					 * ============================================== Lable
-					 * =================================================
-					 */
+/* ============================================== Lable ================================================= */
 
 					$scope.lables = function() {
 						$mdDialog
@@ -608,47 +570,39 @@ ToDo
 															})
 										}
 
-										$scope.updateNoteInLabel = function(
-												note, label) {
-											$scope.updateNoteInLabel = homeService
-													.updateNoteInLabel(note,
-															label);
-											$scope.updateNoteInLabel
-													.then(
-															function(response) {
-																$scope.data = response.data;
-																console
-																		.log(response.data);
-																getLabels();
-															}, function(
-																	response) {
+							$scope.updateNoteInLabel = function(note, label) {
+								$scope.updateNoteInLabel = homeService.updateNoteInLabel(note,label);
+								$scope.updateNoteInLabel.then(function(response) {
+									$scope.data = response.data;
+									console.log(response.data);
+									getLabels();
+							}, function(response) {
 
-															})
-										}
-
-										getLabels();
-									}
-
-								})
-						getLabels();
-						getNotes();
-					}
-
-					$scope.deleteNoteFromLabel = function(label, note) {
-						console.log(note);
-						$scope.deleteLabel = homeService.deleteNoteLabel(label,
-								note);
-						$scope.deleteLabel.then(function(response) {
-							$scope.data = response.data;
-							console.log(response.data);
-							getLabels();
-							getNotes();
-						}, function(response) {
-							$scope.errorMessage = response.data.message;
 						})
 					}
 
-					/* ===========================================LogOut============================================== */
+					getLabels();
+				}
+
+				})
+				getLabels();
+				getNotes();
+			}
+
+			$scope.deleteNoteFromLabel = function(label, note) {
+				console.log(note);
+				$scope.deleteLabel = homeService.deleteNoteLabel(label,note);
+				$scope.deleteLabel.then(function(response) {
+					$scope.data = response.data;
+					console.log(response.data);
+					getLabels();
+					getNotes();
+				}, function(response) {
+							$scope.errorMessage = response.data.message;
+			})
+		}
+
+/* ===========================================LogOut============================================== */
 
 					$scope.logOut = function(user) {
 						console.log(user);
@@ -671,10 +625,7 @@ ToDo
 						})
 					}
 
-					/*
-					 * =========================================== Note in label
-					 * ========================================
-					 */
+/* =========================================== Note in label ======================================== */
 
 					$scope.noteInLabel = function(notes, labelName) {
 						
@@ -686,10 +637,7 @@ ToDo
 	                $scope.labelName = localStorage.getItem('labelName');
 	         
 
-					/*
-					 * =========================================== Search
-					 * ================================================
-					 */
+/* =========================================== Search ================================================ */
 
 					$scope.search = function() {
 						$location.path('search');
@@ -718,10 +666,7 @@ ToDo
 						return result;
 					}
 
-					/*
-					 * ====================================== toggel
-					 * sidebar=======================================
-					 */
+/* ====================================== toggel sidebar ======================================= */
 
 			$scope.toggleRight = buildToggler('right');
 			$scope.toggleLeft = buildToggler('left');
@@ -732,23 +677,7 @@ ToDo
 			}
 			
 			
-			/*================================= Drag N Drop =======================================*/
+/*======================================= Drag N Drop =======================================*/
 			
-			$scope.startCallback = function (event, ui) {
-				var $draggable = $(event.target);
-				ui.helper.width($draggable.width());
-				ui.helper.height($draggable.height());
-				$draggable.css('opacity', '0');
-			};
 			
-			$scope.revertCard = function (valid) {
-				if (!valid) {
-					var that = this;
-					setTimeout(function () {
-						$(that).css('opacity', 'inherit');
-					}, 500);
-				}
-				return !valid;
-			};
-
 });

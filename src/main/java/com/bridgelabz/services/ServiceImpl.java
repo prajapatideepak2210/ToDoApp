@@ -34,14 +34,16 @@ public class ServiceImpl implements Service{
 		while(iterator.hasNext())
 		{
 			user=iterator.next();
-			if(user.getUserName().equals(loginUser.getUserName()) &&
-					BCrypt.checkpw(loginUser.getPassword(), user.getPassword()))
-			{
-				if(user.getIsUserActive()==1)
+			if(user.getPassword()!=null){
+				if(user.getUserName().equals(loginUser.getUserName()) &&
+						BCrypt.checkpw(loginUser.getPassword(), user.getPassword()))
 				{
-					return user.getUserName();
+					if(user.getIsUserActive()==1)
+					{
+						return user.getUserName();
+					}
+					return null;
 				}
-				return null;
 			}
 		}
 		return null;

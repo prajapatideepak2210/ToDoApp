@@ -37,6 +37,7 @@ public class NoteController {
 		String token = request.getHeader("TokenAccess");
 		if (note != null) {
 			int noteId = noteService.addNote(note, token);
+			System.out.println("note : "+note.getDescription()+"    "+noteId);
 			if (noteId != 0) {
 				response.setMessage("Note Successfully added.");
 				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
@@ -282,7 +283,6 @@ public class NoteController {
 			Label label = noteService.getLabelByLabelId(label_id);
 			if(label!=null){
 				note.getLabels().add(label);
-				note.setCheckBox(true);
 				Note note2 = noteService.updateNote(note);
 				if(note2!=null){
 					response.setMessage("note successfully added.");

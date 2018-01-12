@@ -9,5 +9,6 @@ app.factory('forgotpasswordService', function($http, $location){
 			data : user
 		})
 	}
+	
 	return forgot;
 })

@@ -4,7 +4,7 @@
 		<div flex="25">
 			<side-bar></side-bar>
 		</div>
-		<div layout-align="start start" class="allNotes" layout="row" layout-wrap layout-padding>
+		<div flex layout-align="center start" class="allNotes" layout="row" layout-wrap layout-padding>
 			<div ng-repeat="note in notes | myLabelFilter:labelName">
 				<note-card></note-card>
 			</div>

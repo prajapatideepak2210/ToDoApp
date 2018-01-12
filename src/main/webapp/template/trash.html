@@ -2,8 +2,8 @@
 	<nav-bar></nav-bar>
 	<md-content layout="row" flex>
 			<side-bar flex="25"></side-bar>
-		<div flex layout-align="start start"  layout="row" layout-wrap layout-padding>
-			<div  ng-repeat="note in notes | filter:{trash:true}">
+		<div flex layout-align="center start"  layout="row" layout-wrap layout-padding>
+			<div ng-repeat="note in notes | filter:{trash:true}">
 				<note-for-trash></note-for-trash>
 			</div>
 		</div>

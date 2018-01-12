@@ -15,5 +15,6 @@ ToDo.controller('forgotpasswordController',function($scope,forgotpasswordService
 			$scope.errorMessage=response.data.message;
 
 		});
+		
 	}
 });
