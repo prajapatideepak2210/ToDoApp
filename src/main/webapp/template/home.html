@@ -170,13 +170,7 @@
 		
 		<div flex layout="column" >
 			<div  layout="row" layout-align="center  start" layout-wrap layout-padding>
-				<div class="card" data-drag="true" data-jqyoui-options="{revert: revertCard,
-							helper: 'clone',
-							appendTo: 'body',
-							zIndex: 350}" jqyoui-draggable="{
-						placeholder:true,
-						animate:true,
-						onStart: 'startCallback'}" ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
+				<div ng-repeat="note in notes | filter:{trash:false , archive:false , pin:false}">
 					<note-card></note-card>
 				</div>
 			</div>
