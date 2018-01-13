@@ -37,7 +37,6 @@ public class NoteController {
 		String token = request.getHeader("TokenAccess");
 		if (note != null) {
 			int noteId = noteService.addNote(note, token);
-			System.out.println("note : "+note.getDescription()+"    "+noteId);
 			if (noteId != 0) {
 				response.setMessage("Note Successfully added.");
 				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);

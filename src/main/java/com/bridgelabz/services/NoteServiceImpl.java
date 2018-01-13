@@ -32,7 +32,6 @@ public class NoteServiceImpl implements NoteService {
 	 */
 	public int addNote(Note note, String token) {
 		int id = TokenGenerator.verifyToken(token);
-		System.out.println("id : "+id);
 		if (id > 0) {
 			User user = new User();
 			Date date = new Date();

@@ -43,6 +43,7 @@ public class NoteDaoImpl implements NoteDao {
 				session.close();
 				return noteId;
 			} catch (Exception e) {
+				e.printStackTrace();
 				return noteId;
 			}
 		}
