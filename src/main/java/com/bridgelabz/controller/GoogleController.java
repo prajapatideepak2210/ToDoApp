@@ -70,7 +70,6 @@ public class GoogleController {
 				String token = TokenGenerator.generateToken(id, user);
     			response.setHeader("Authorization", token);
     			session.setAttribute("token", token);
-    			System.out.println("id is > 0");
     			response.sendRedirect("http://localhost:9090/ToDoApp/#!/dummy");
 			}
 			else

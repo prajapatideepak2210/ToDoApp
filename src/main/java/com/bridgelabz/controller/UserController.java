@@ -76,28 +76,29 @@ public class UserController {
 
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Response> login(@RequestBody User user, HttpSession session) {
+	public ResponseEntity<Response> login(@RequestBody User user, HttpSession session, HttpServletResponse response) {
 		if (serviceImpl.isUserAvailable(user)) {
 			String userName = serviceImpl.login(user);
 			if (userName != null) {
-				Response response = new Response();
+				Response responseMessage = new Response();
 				session.setAttribute("user", userName);
 				User userForId=serviceImpl.getUserByEmail(userName);
 				session.setAttribute("user_id", userForId.getId());
 				User userForToken=serviceImpl.getUserByEmail(user.getUserName());
 				String token = TokenGenerator.generateToken(userForToken.getId(), userForToken);
-				response.setMessage(token);
-				return new ResponseEntity<Response>(response, HttpStatus.ACCEPTED);
+				response.setHeader("token", token);
+				responseMessage.setMessage("User logedin Successfully.");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.ACCEPTED);
 			} else {
-				Response response = new Response();
-				response.setMessage("UserName and Password Mismatch.");
-				return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+				Response responseMessage = new Response();
+				responseMessage.setMessage("UserName and Password Mismatch.");
+				return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 			}
 		} else {
-			Response response = new Response();
-			response.setMessage("User is not available, please register first.");
-			System.out.println(response.getMessage());
-			return new ResponseEntity<Response>(response, HttpStatus.BAD_REQUEST);
+			Response responseMessage = new Response();
+			responseMessage.setMessage("User is not available, please register first.");
+			System.out.println(responseMessage.getMessage());
+			return new ResponseEntity<Response>(responseMessage, HttpStatus.BAD_REQUEST);
 		}
 	}
 

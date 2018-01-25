@@ -10,7 +10,6 @@ ToDo.controller(
 
 					$scope.noteCreate = function() {
 						var create = homeService.noteCreation($scope.note);
-						console.log("zksdgfksdfsdhfksdfhsdfgwslkhfew");
 						create.then(function(response) {
 							console.log(response.data.message);
 							$scope.errorMessage = response.data.message;
